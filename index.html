@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,6 +76,65 @@
       transition: transform .65s cubic-bezier(.2,.8,.2,1);
       transform: translateX(120%);
     }
+
+    /* Cooler typographic system */
+    .nav-link{
+      position:relative; text-transform:uppercase; letter-spacing:.12em;
+      font-weight:700; padding-bottom:2px;
+    }
+    .nav-link::after{
+      content:""; position:absolute; left:0; bottom:-2px; height:2px; width:0%;
+      background: linear-gradient(90deg, rgba(196,143,255,1), rgba(120,104,255,1));
+      transition: width .35s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 0 12px rgba(170,140,255,.8);
+    }
+    .nav-link:hover::after{ width:100%; }
+    .nav-link:hover{ text-shadow: 0 0 8px rgba(196,143,255,.6); }
+
+    .pill{
+      display:inline-block; font-size:.72rem; letter-spacing:.06em;
+      text-transform:uppercase; padding:.25rem .5rem;
+      border-radius:.65rem;
+      background: linear-gradient(90deg, rgba(196,143,255,.25), rgba(120,104,255,.25));
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .year{
+      font-variant-numeric: tabular-nums; letter-spacing:.06em;
+      font-size:1.05rem;
+    }
+    .card-title{
+      font-weight:800; letter-spacing:.01em;
+      background: linear-gradient(90deg, #fff, #cdb8ff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .callout{
+      border-left:3px solid rgba(196,143,255,.6);
+      padding-left:.75rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius:.75rem;
+    }
+    mark, .hl{
+      background: linear-gradient(90deg, rgba(255,225,0,.35), rgba(255,140,0,.25));
+      color: #fff; padding:0 .2rem; border-radius:.25rem;
+    }
+  
+/* Flip card styles */
+.flip{ perspective: 1200px; }
+.flip-inner{
+  position: relative; transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  min-height: 220px;
+}
+.flip.flipped .flip-inner{ transform: rotateY(180deg); }
+.flip-face{
+  position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  display:flex; flex-direction:column;
+}
+.flip-back{ transform: rotateY(180deg); }
+.flip button.flipBtn{
+  margin-top: .5rem; align-self:flex-start;
+}
+
   </style>
 </head>
 <body class="selection:bg-fuchsia-300/30 selection:text-white">
@@ -91,12 +149,12 @@
       </div>
       <button id="mobileBtn" class="md:hidden px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15">Menu</button>
       <ul id="links" class="hidden md:flex items-center gap-6 text-sm text-white/85">
-        <li><a href="#about" class="hover:text-white">About</a></li>
-        <li><a href="#calendar" class="hover:text-white">Calendar</a></li>
-        <li><a href="#assign" class="hover:text-white">Assignments</a></li>
-        <li><a href="#timeline" class="hover:text-white">Timeline</a></li>
-        <li><a href="#resources" class="hover:text-white">Resources</a></li>
-        <li><button id="themeToggle" class="px-3 py-1 rounded-md bg-white/10">Theme</button></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#calendar" class="nav-link">Calendar</a></li>
+        <li><a href="#assign" class="nav-link">Assignments</a></li>
+        <li><a href="#timeline" class="nav-link">Timeline</a></li>
+        <li><a href="#resources" class="nav-link">Resources</a></li>
+        <li><a href="#regents" class="nav-link">NY Regents Prep</a></li>
       </ul>
     </nav>
     <ul id="mobileMenu" class="md:hidden hidden glass px-4 py-3 space-y-2">
@@ -105,6 +163,7 @@
       <li><a href="#assign" class="block py-1.5">Assignments</a></li>
       <li><a href="#timeline" class="block py-1.5">Timeline</a></li>
       <li><a href="#resources" class="block py-1.5">Resources</a></li>
+      <li><a href="#regents" class="block py-1.5">NY Regents Prep</a></li>
     </ul>
   </header>
 
@@ -235,21 +294,43 @@
     <h2 class="text-2xl md:text-3xl font-extrabold">Resources</h2>
     <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.archives.gov/">
-        <p class="font-semibold">National Archives</p>
+        <p class="card-title">National Archives</p>
         <p class="text-sm text-white/75">Primary docs and images.</p>
       </a>
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.loc.gov/">
-        <p class="font-semibold">Library of Congress</p>
+        <p class="card-title">Library of Congress</p>
         <p class="text-sm text-white/75">Maps, photos, newspapers.</p>
       </a>
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.gilderlehrman.org/">
-        <p class="font-semibold">Gilder Lehrman</p>
+        <p class="card-title">Gilder Lehrman</p>
         <p class="text-sm text-white/75">Lesson supports and timelines.</p>
       </a>
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://worldhistorycommons.org/">
-        <p class="font-semibold">World History Commons</p>
+        <p class="card-title">World History Commons</p>
         <p class="text-sm text-white/75">Curated sources and guides.</p>
       </a>
+    </div>
+  </section>
+
+  <!-- NY REGENTS Prep -->
+  <section id="regents" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <div class="glass rounded-2xl p-6 lift">
+      <h2 class="text-2xl md:text-3xl font-extrabold">NY Regents Prep</h2>
+      <p class="mt-2 text-white/80">Quick practice built into our vibe. Short bursts that target skills: thesis, sourcing, reliability, context, and cause then effect.</p>
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a class="glass rounded-2xl p-5 lift" href="#">
+          <p class="card-title">Set 1 - Sequence</p>
+          <p class="text-sm text-white/80 mt-1">Put events in order and connect why each one matters.</p>
+        </a>
+        <a class="glass rounded-2xl p-5 lift" href="#">
+          <p class="card-title">Set 2 - Reliability</p>
+          <p class="text-sm text-white/80 mt-1">Audience, purpose, bias. Make the call and back it up.</p>
+        </a>
+        <a class="glass rounded-2xl p-5 lift" href="#">
+          <p class="card-title">Set 3 - Enduring Issues</p>
+          <p class="text-sm text-white/80 mt-1">Find the issue. Use evidence. Write clean and strong.</p>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -260,17 +341,6 @@
     const mobileBtn = document.getElementById('mobileBtn');
     const mm = document.getElementById('mobileMenu');
     mobileBtn?.addEventListener('click', ()=> mm.classList.toggle('hidden'));
-
-    // Theme toggle
-    const toggle = document.getElementById('themeToggle');
-    let dark = true;
-    toggle?.addEventListener('click', () => {
-      dark = !dark;
-      document.body.style.background = dark
-        ? 'radial-gradient(1200px 600px at 10% -10%, rgba(196,143,255,.20), transparent 60%), radial-gradient(800px 400px at 110% 10%, rgba(120,104,255,.20), transparent 60%), #0e0e14'
-        : 'linear-gradient(180deg, #faf7ff, #eef0ff)';
-      document.body.style.color = dark ? '#f6f6fb' : '#101114';
-    });
 
     // Scroll progress
     const bar = document.getElementById('progress');
@@ -384,9 +454,9 @@
       cards.innerHTML = demoEvents.map(ev => `
         <article class="glass rounded-2xl p-4 lift">
           <p class="text-xs text-white/70">${ev.when}</p>
-          <p class="font-semibold mt-1">${ev.title}</p>
+          <p class="card-title mt-1">${ev.title}</p>
           <div class="mt-3 flex gap-2">
-            <span class="px-2 py-0.5 rounded bg-white/10 text-xs">${ev.tag}</span>
+            <span class="pill text-xs">${ev.tag}</span>
             <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">Add reminder</button>
           </div>
         </article>
@@ -411,12 +481,12 @@
         .map(a => `
           <article class="glass rounded-2xl p-5 lift">
             <div class="flex items-center justify-between">
-              <p class="font-semibold">${a.title}</p>
-              <span class="text-xs text-white/70">Due ${a.due}</span>
+              <p class="card-title">${a.title}</p>
+              <span class="text-xs pill">Due ${a.due}</span>
             </div>
             <p class="mt-2 text-white/80 text-sm">${a.blurb}</p>
             <div class="mt-3 flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-white/10 text-xs">${a.tag}</span>
+              <span class="pill text-xs">${a.tag}</span>
               <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">Open</button>
             </div>
           </article>
@@ -425,68 +495,105 @@
     drawAssignments();
     tagSel.addEventListener('change', drawAssignments);
 
-    // ===== Unit Timelines (Units 1–3) with cause and effect, no priority toggle =====
-    const TL_DATA = {
-      US01: [
-        {year: '1607', title: 'Jamestown', cause: 'Joint-stock and imperial goals', effect: 'Tobacco economy and indentured labor grow'},
-        {year: '1620', title: 'Mayflower Compact', cause: 'Need for order in a new colony', effect: 'Self-government idea takes root'},
-        {year: '1754', title: 'French and Indian War', cause: 'Imperial rivalry in North America', effect: 'Debt and new taxes set stage for conflict'}
-      ],
-      US02: [
-        {year: '1765', title: 'Stamp Act Crisis', cause: 'Parliament taxes without colonial say', effect: 'Boycotts and unity grow'},
-        {year: '1776', title: 'Declaration of Independence', cause: 'Escalating conflict and rights talk', effect: 'Formal break and new nation project'},
-        {year: '1783', title: 'Treaty of Paris', cause: 'War weariness and battlefield losses', effect: 'US recognition and territory to Mississippi'}
-      ],
-      US03: [
-        {year: '1787', title: 'Northwest Ordinance', cause: 'Need to organize the Old Northwest', effect: 'Rules for statehood and banned slavery in the territory'},
-        {year: '1800', title: 'North America Map Shift', cause: 'Competing empires in 1800', effect: 'US poised for western push'},
-        {year: '1803', title: 'Louisiana Purchase', cause: 'Access to New Orleans and Mississippi River', effect: 'Doubles US land and pressures Native homelands'},
-        {year: '1803', title: "Jefferson's Motives", cause: 'Farming vision and river trade security', effect: 'Policy backs expansion and survey missions'},
-        {year: '1804–06', title: 'Lewis and Clark', cause: 'Need to map and claim the new land', effect: 'Contact with Native nations and pathfinding'},
-        {year: '1830', title: 'Indian Removal Act', cause: 'Land hunger and state pressure', effect: 'Forced migrations and massive loss for Native peoples'},
-        {year: '1812–15', title: 'War of 1812', cause: 'Trade fights and frontier conflict', effect: 'Surge in nationalism and industry talk'},
-        {year: '1823', title: 'Monroe Doctrine', cause: 'European powers eye the Americas', effect: 'US warns Europe and claims a regional role'},
-        {year: '1825', title: 'Erie Canal', cause: 'Link Great Lakes to Atlantic markets', effect: 'Cheaper shipping and new city growth'},
-        {year: '1848', title: 'Early Women’s Rights', cause: 'Abolition activism highlights inequality', effect: 'Seneca Falls talk of rights and reform'}
-      ]
-    };
+    
+// ===== Unit Timelines (Units 1–3) flippable cards =====
+const TL_DATA = {
+  US01: [
+    {year: '1607', title: 'Jamestown', blurb: 'First permanent English spot pulls up and chases profit.',
+     cause: 'Joint-stock and imperial goals', effect: 'Tobacco economy and indentured labor grow'},
+    {year: '1620', title: 'Mayflower Compact', blurb: 'Pilgrims write a quick squad agreement to keep order.',
+     cause: 'Need for order in a new colony', effect: 'Self-government idea takes root'},
+    {year: '1754', title: 'French and Indian War', blurb: 'Britain vs France beef goes full send in North America.',
+     cause: 'Imperial rivalry in North America', effect: 'Debt and new taxes set stage for conflict'}
+  ],
+  US02: [
+    {year: '1765', title: 'Stamp Act Crisis', blurb: 'Parliament taxes paper and the colonies say nah.',
+     cause: 'Parliament taxes without colonial say', effect: 'Boycotts and unity grow'},
+    {year: '1776', title: 'Declaration of Independence', blurb: 'Colonies make it official: we out.',
+     cause: 'Escalating conflict and rights talk', effect: 'Formal break and new nation project'},
+    {year: '1783', title: 'Treaty of Paris', blurb: 'Peace signed, US on the map for real.',
+     cause: 'War weariness and battlefield losses', effect: 'US recognition and territory to Mississippi'}
+  ],
+  US03: [
+    {year: '1787', title: 'Northwest Ordinance', blurb: 'New states get a legit roadmap, slavery banned in the zone.',
+     cause: 'Need to organize the Old Northwest', effect: 'Rules for statehood and banned slavery in the territory'},
+    {year: '1800', title: 'North America Map Shift', blurb: 'Big powers crowd the map, US eyeing the West.',
+     cause: 'Competing empires in 1800', effect: 'US poised for western push'},
+    {year: '1803', title: 'Louisiana Purchase', blurb: 'Jefferson cops a massive land pack, double the country.',
+     cause: 'Access to New Orleans and Mississippi River', effect: 'Doubles US land and pressures Native homelands'},
+    {year: '1803', title: "Jefferson's Motives", blurb: 'He wants farmer power and control of the river bag.',
+     cause: 'Farming vision and river trade security', effect: 'Policy backs expansion and survey missions'},
+    {year: '1804–06', title: 'Lewis and Clark', blurb: 'Explorers run recon, meet nations, map the way.',
+     cause: 'Need to map and claim the new land', effect: 'Contact with Native nations and pathfinding'},
+    {year: '1830', title: 'Indian Removal Act', blurb: 'Government forces Native nations off land for settler growth.',
+     cause: 'Land hunger and state pressure', effect: 'Forced migrations and massive loss for Native peoples'},
+    {year: '1812–15', title: 'War of 1812', blurb: 'Messy war, but pride goes up and industry wakes up.',
+     cause: 'Trade fights and frontier conflict', effect: 'Surge in nationalism and industry talk'},
+    {year: '1823', title: 'Monroe Doctrine', blurb: 'US tells Europe hands off the neighborhood.',
+     cause: 'European powers eye the Americas', effect: 'US warns Europe and claims a regional role'},
+    {year: '1825', title: 'Erie Canal', blurb: 'Water highway turns NYC into the plug.',
+     cause: 'Link Great Lakes to Atlantic markets', effect: 'Cheaper shipping and new city growth'},
+    {year: '1848', title: 'Early Women’s Rights', blurb: 'Reformers connect abolition to women’s rights and push.',
+     cause: 'Abolition activism highlights inequality', effect: 'Seneca Falls talk of rights and reform'}
+  ]
+};
 
-    const tlRow = document.getElementById('tlRow');
-    const unitPick = document.getElementById('unitPick');
+const tlRow = document.getElementById('tlRow');
+const unitPick = document.getElementById('unitPick');
 
-    function colorByIndex(i){
-      const palettes = [
-        'from-fuchsia-500/40 to-indigo-500/40',
-        'from-indigo-500/40 to-violet-500/40',
-        'from-violet-500/40 to-fuchsia-500/40',
-        'from-sky-400/30 to-emerald-400/30',
-        'from-white/10 to-white/5'
-      ];
-      return palettes[i % palettes.length];
-    }
+function colorByIndex(i){
+  const palettes = [
+    'from-fuchsia-500/40 to-indigo-500/40',
+    'from-indigo-500/40 to-violet-500/40',
+    'from-violet-500/40 to-fuchsia-500/40',
+    'from-sky-400/30 to-emerald-400/30',
+    'from-white/10 to-white/5'
+  ];
+  return palettes[i % palettes.length];
+}
 
-    function renderTimeline(){
-      const unit = unitPick.value;
-      const data = TL_DATA[unit] || [];
-      tlRow.innerHTML = data.map((d,i) => `
-        <article class="snap glass rounded-2xl min-w-[280px] max-w-[320px] p-4 lift group">
+function renderTimeline(){
+  const unit = unitPick.value;
+  const data = TL_DATA[unit] || [];
+  tlRow.innerHTML = data.map((d,i) => `
+    <article class="snap glass rounded-2xl min-w-[300px] max-w-[340px] p-0 lift group flip" tabindex="0" aria-label="${d.title} card. Press enter to flip.">
+      <div class="flip-inner rounded-2xl overflow-hidden">
+        <!-- FRONT -->
+        <div class="flip-face flip-front p-4">
           <div class="relative h-40 rounded-xl bg-gradient-to-br ${colorByIndex(i)}"></div>
-          <div class="mt-3">
-            <p class="font-bold">${d.year}</p>
+          <div class="mt-3"><p class="year font-bold">${d.year}</p></div>
+          <p class="mt-1 card-title">${d.title}</p>
+          <p class="mt-2 text-sm text-white/85">${d.blurb}</p>
+          <button class="flipBtn px-3 py-1.5 rounded-lg bg-white/10">Flip for cause and effect</button>
+        </div>
+        <!-- BACK -->
+        <div class="flip-face flip-back p-4 glass">
+          <p class="card-title">${d.title}</p>
+          <div class="mt-3 text-sm text-white/90">
+            <p><span class="pill">Cause</span> ${d.cause}</p>
+            <p class="mt-2"><span class="pill">Effect</span> ${d.effect}</p>
           </div>
-          <p class="mt-1">${d.title}</p>
-          <div class="mt-3 text-sm text-white/80 glass rounded-xl p-3">
-            <p><span class="text-white/70">Cause:</span> ${d.cause}</p>
-            <p class="mt-1"><span class="text-white/70">Effect:</span> ${d.effect}</p>
-          </div>
-        </article>
-      `).join('');
-    }
+          <button class="flipBtn mt-auto px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500">Back</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
 
-    unitPick.addEventListener('change', renderTimeline);
-    renderTimeline();
+  // wire up flip interactions
+  tlRow.querySelectorAll('.flip').forEach(card =>{
+    const btns = card.querySelectorAll('.flipBtn');
+    btns.forEach(b => b.addEventListener('click', ()=> card.classList.toggle('flipped')));
+    card.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault(); card.classList.toggle('flipped');
+      }
+    });
+  });
+}
 
-    // Konami fun
+unitPick.addEventListener('change', renderTimeline);
+renderTimeline();
+// Konami fun
     let seq = []; const keycode = [38,38,40,40,37,39,37,39,66,65];
     window.addEventListener('keydown', e=>{
       seq.push(e.keyCode); if(seq.toString().indexOf(keycode)==0){
