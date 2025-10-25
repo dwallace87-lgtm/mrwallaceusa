@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>US History - Brooklyn Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink: #0b0b12;
+      --card: 28,28,40;
+      --accent: 196, 143, 255;
+      --accent2: 120, 104, 255;
+      --muted: 180, 180, 200;
+    }
+    html, body { height: 100%; }
+    body{
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(var(--accent), .20), transparent 60%),
+                  radial-gradient(800px 400px at 110% 10%, rgba(var(--accent2), .20), transparent 60%),
+                  #0e0e14;
+      color: #f6f6fb;
+      overflow-x: hidden;
+    }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 10px 50px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.08);
+      backdrop-filter: blur(12px) saturate(120%);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
+    }
+    #progress {
+      position: fixed; inset: 0 0 auto 0; height: 4px; z-index: 80;
+      background: linear-gradient(90deg, rgba(var(--accent),1), rgba(var(--accent2),1));
+      transform-origin: 0 50%; transform: scaleX(0);
+      box-shadow: 0 0 18px rgba(180,140,255,.9);
+    }
+    .gridlines::before {
+      content:""; position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.06) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.04) 1px, transparent 1px, transparent 40px);
+      mask-image: radial-gradient(1000px 400px at 50% 10%, black 30%, transparent 75%);
+      pointer-events:none;
+    }
+    .lift { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+    .lift:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    .snap-x { scroll-snap-type: x mandatory; }
+    .snap { scroll-snap-align: start; }
+    .neon { text-shadow: 0 0 12px rgba(var(--accent), .8), 0 0 32px rgba(var(--accent2), .6); }
+    @media (prefers-reduced-motion: reduce) { .lift, .motion { transition: none !important; animation: none !important; } }
+
+    /* Brand icon with hover glint */
+    .brand-icon{
+      background-image:url('https://pbs.twimg.com/profile_images/780439272352546816/maiPMlAT_400x400.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      isolation: isolate;
+    }
+    .brand-icon::after{
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(120deg,
+        transparent 0%,
+        rgba(255,255,255,0.00) 35%,
+        rgba(255,255,255,0.55) 50%,
+        rgba(255,255,255,0.00) 65%,
+        transparent 100%);
+      transform: translateX(-120%);
+      pointer-events: none;
+    }
+    .brand-icon:hover::after{
+      transition: transform .65s cubic-bezier(.2,.8,.2,1);
+      transform: translateX(120%);
+    }
+  </style>
+</head>
+<body class="selection:bg-fuchsia-300/30 selection:text-white">
+  <div id="progress"></div>
+  <canvas id="dots" class="fixed inset-0 -z-10 opacity-40"></canvas>
+
+  <header class="sticky top-0 z-50">
+    <nav class="glass flex items-center justify-between px-4 md:px-8 py-3">
+      <div class="flex items-center gap-3">
+        <div class="brand-icon h-8 w-8 rounded-xl shadow-lg overflow-hidden"></div>
+        <span class="font-extrabold tracking-tight">US History - Brooklyn</span>
+      </div>
+      <button id="mobileBtn" class="md:hidden px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15">Menu</button>
+      <ul id="links" class="hidden md:flex items-center gap-6 text-sm text-white/85">
+        <li><a href="#about" class="hover:text-white">About</a></li>
+        <li><a href="#calendar" class="hover:text-white">Calendar</a></li>
+        <li><a href="#assign" class="hover:text-white">Assignments</a></li>
+        <li><a href="#timeline" class="hover:text-white">Timeline</a></li>
+        <li><a href="#resources" class="hover:text-white">Resources</a></li>
+        <li><button id="themeToggle" class="px-3 py-1 rounded-md bg-white/10">Theme</button></li>
+      </ul>
+    </nav>
+    <ul id="mobileMenu" class="md:hidden hidden glass px-4 py-3 space-y-2">
+      <li><a href="#about" class="block py-1.5">About</a></li>
+      <li><a href="#calendar" class="block py-1.5">Calendar</a></li>
+      <li><a href="#assign" class="block py-1.5">Assignments</a></li>
+      <li><a href="#timeline" class="block py-1.5">Timeline</a></li>
+      <li><a href="#resources" class="block py-1.5">Resources</a></li>
+    </ul>
+  </header>
+
+  <section class="relative gridlines overflow-hidden">
+    <div class="absolute -top-24 -left-20 h-64 w-64 rounded-full blur-3xl bg-fuchsia-500/40"></div>
+    <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-indigo-500/40"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-24">
+      <p class="text-sm tracking-widest text-white/70 uppercase">Northside Charter - US History</p>
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight neon">Your Gateway to the Past</h1>
+      <p class="mt-3 max-w-2xl text-white/80">Streamlined hub for class life in NYC - quick links, live calendar, and interactive history that feels like now.</p>
+
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="#calendar" class="glass lift p-4 rounded-2xl">
+          <p class="text-white/70 text-xs">Jump to</p>
+          <p class="font-semibold">Calendar</p>
+        </a>
+        <a href="#assign" class="glass lift p-4 rounded-2xl">
+          <p class="text-white/70 text-xs">See</p>
+          <p class="font-semibold">Assignments</p>
+        </a>
+        <a href="#timeline" class="glass lift p-4 rounded-2xl">
+          <p class="text-white/70 text-xs">Explore</p>
+          <p class="font-semibold">Interactive Timeline</p>
+        </a>
+        <a href="#resources" class="glass lift p-4 rounded-2xl">
+          <p class="text-white/70 text-xs">Find</p>
+          <p class="font-semibold">Study Boosters</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <div class="grid md:grid-cols-3 gap-8 items-center">
+      <div class="md:col-span-2">
+        <h2 class="text-2xl md:text-3xl font-extrabold">About the Course</h2>
+        <p class="mt-3 text-white/80">We connect primary sources to the city outside your door. Expect short reads, mini debates, creation days, and a weekly project you can be proud of.</p>
+        <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+          <li class="glass p-3 rounded-xl">Grade-friendly deadlines</li>
+          <li class="glass p-3 rounded-xl">Every Friday - showcase your build</li>
+          <li class="glass p-3 rounded-xl">Office hours after school</li>
+          <li class="glass p-3 rounded-xl">Regents skills from day one</li>
+        </ul>
+      </div>
+      <div class="glass p-6 rounded-2xl lift">
+        <p class="text-sm text-white/70">Contact</p>
+        <p class="text-lg font-semibold">Mr. Wallace</p>
+        <p class="text-white/75">Room 3xx - Brooklyn</p>
+        <a href="mailto:example@school.org" class="mt-3 inline-block px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="calendar" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <div class="flex items-end justify-between gap-4 flex-wrap">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Class Calendar</h2>
+      <div class="glass rounded-xl p-1 flex gap-1">
+        <button data-view="embed" class="tab px-3 py-1.5 rounded-lg bg-white/10">Embed</button>
+        <button data-view="cards" class="tab px-3 py-1.5 rounded-lg">Cards</button>
+        <button data-view="subscribe" class="tab px-3 py-1.5 rounded-lg">Subscribe</button>
+      </div>
+    </div>
+
+    <div id="cal-embed" class="mt-6 glass rounded-2xl overflow-hidden">
+      <iframe title="Google Calendar" style="width:100%; height:540px; border:0"
+        src="https://calendar.google.com/calendar/embed?src=address%40example.com&ctz=America%2FNew_York&mode=MONTH&showTabs=1&showTz=0&showPrint=0&bgcolor=%23ffffff00&color=%23ab47bc">
+      </iframe>
+    </div>
+
+    <div class="flex items-center gap-2 mt-3">
+      <input id="dayPicker" type="date" class="glass rounded-lg px-3 py-1.5 text-sm bg-white/5" />
+      <div class="glass rounded-xl p-1 flex gap-1">
+        <button id="btnMonth" class="px-3 py-1.5 rounded-lg bg-white/10">Month</button>
+        <button id="btnDay" class="px-3 py-1.5 rounded-lg">Day</button>
+      </div>
+    </div>
+
+    <div id="cal-cards" class="mt-6 hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+    <div id="cal-sub" class="mt-6 hidden glass rounded-2xl p-6">
+      <p class="text-white/80">Add to your calendar app:</p>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <a class="px-3 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500" href="#" onclick="alert('Replace with your Google Calendar public link')">Google Calendar</a>
+        <a class="px-3 py-2 rounded-lg bg-white/10" href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Example%20Event%0ADTSTART:20251115T150000Z%0ADTEND:20251115T160000Z%0AEND:VEVENT%0AEND:VCALENDAR">Download ICS</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="assign" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <div class="flex items-end justify-between gap-4 flex-wrap">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Assignments</h2>
+      <div class="flex items-center gap-2">
+        <label class="text-sm text-white/70" for="tag">Filter</label>
+        <select id="tag" class="glass rounded-lg px-3 py-1.5 text-sm">
+          <option value="all">All</option>
+          <option value="essay">Essay</option>
+          <option value="presentation">Presentation</option>
+          <option value="worksheet">Worksheet</option>
+        </select>
+      </div>
+    </div>
+    <div id="assignList" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+  <!-- Unit-based Interactive Timeline (no priority toggle) -->
+  <section id="timeline" class="max-w-[100vw] overflow-x-hidden px-0 py-16">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <div class="flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold">Interactive Timeline</h2>
+          <p class="text-white/75 mt-2">Pick a unit. Slide to browse. Tap a card to see cause and effect.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <label for="unitPick" class="text-sm text-white/70">Unit</label>
+          <select id="unitPick" class="glass rounded-lg px-3 py-1.5 text-sm">
+            <option value="US01">Unit 1 - Colonies and Conflict</option>
+            <option value="US02">Unit 2 - American Revolution</option>
+            <option value="US03" selected>Unit 3 - Building a Nation</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 pl-6 pr-3 flex gap-4 overflow-x-auto snap-x" id="tlRow"></div>
+  </section>
+
+  <section id="resources" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Resources</h2>
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.archives.gov/">
+        <p class="font-semibold">National Archives</p>
+        <p class="text-sm text-white/75">Primary docs and images.</p>
+      </a>
+      <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.loc.gov/">
+        <p class="font-semibold">Library of Congress</p>
+        <p class="text-sm text-white/75">Maps, photos, newspapers.</p>
+      </a>
+      <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.gilderlehrman.org/">
+        <p class="font-semibold">Gilder Lehrman</p>
+        <p class="text-sm text-white/75">Lesson supports and timelines.</p>
+      </a>
+      <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://worldhistorycommons.org/">
+        <p class="font-semibold">World History Commons</p>
+        <p class="text-sm text-white/75">Curated sources and guides.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-white/60 text-sm">Built for Brooklyn - 2025</footer>
+
+  <script>
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileBtn');
+    const mm = document.getElementById('mobileMenu');
+    mobileBtn?.addEventListener('click', ()=> mm.classList.toggle('hidden'));
+
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    let dark = true;
+    toggle?.addEventListener('click', () => {
+      dark = !dark;
+      document.body.style.background = dark
+        ? 'radial-gradient(1200px 600px at 10% -10%, rgba(196,143,255,.20), transparent 60%), radial-gradient(800px 400px at 110% 10%, rgba(120,104,255,.20), transparent 60%), #0e0e14'
+        : 'linear-gradient(180deg, #faf7ff, #eef0ff)';
+      document.body.style.color = dark ? '#f6f6fb' : '#101114';
+    });
+
+    // Scroll progress
+    const bar = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const p = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      bar.style.transform = `scaleX(${p})`;
+    });
+
+    // Particle dots
+    const c = document.getElementById('dots');
+    const ctx = c.getContext('2d');
+    let W, H; let dots = [];
+    function resize(){
+      W = c.width = window.innerWidth; H = c.height = window.innerHeight;
+      dots = Array.from({length: Math.min(80, Math.floor(W/20))}, (_,i)=> ({
+        x: Math.random()*W, y: Math.random()*H,
+        vx: (Math.random()-.5)*.7, vy: (Math.random()-.5)*.7,
+        r: 1.2 + Math.random()*1.8
+      }));
+    }
+    resize(); window.addEventListener('resize', resize);
+
+    function animate(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = 'rgba(255,255,255,.7)';
+      dots.forEach(d=>{
+        d.x += d.vx; d.y += d.vy;
+        if(d.x<0||d.x>W) d.vx*=-1;
+        if(d.y<0||d.y>H) d.vy*=-1;
+        ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill();
+      });
+      ctx.strokeStyle = 'rgba(190,160,255,.15)';
+      for(let i=0;i<dots.length;i++){
+        for(let j=i+1;j<dots.length;j++){
+          const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y;
+          const dist = Math.hypot(dx,dy);
+          if(dist<120){
+            ctx.globalAlpha = 1 - (dist/120);
+            ctx.beginPath(); ctx.moveTo(dots[i].x,dots[i].y); ctx.lineTo(dots[j].x,dots[j].y); ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Calendar tabs
+    const tabs = document.querySelectorAll('.tab');
+    const embed = document.getElementById('cal-embed');
+    const cards = document.getElementById('cal-cards');
+    const sub = document.getElementById('cal-sub');
+    tabs.forEach(b=> b.addEventListener('click', () => {
+      tabs.forEach(t=> t.classList.remove('bg-white/10'));
+      b.classList.add('bg-white/10');
+      const v = b.dataset.view;
+      embed.classList.toggle('hidden', v!=='embed');
+      cards.classList.toggle('hidden', v!=='cards');
+      sub.classList.toggle('hidden', v!=='subscribe');
+    }));
+
+    // Month / Day controls
+    const calFrame = document.querySelector('#cal-embed iframe');
+    const dayPicker = document.getElementById('dayPicker');
+    const btnMonth = document.getElementById('btnMonth');
+    const btnDay = document.getElementById('btnDay');
+    function fmt(d){
+      const y = d.getFullYear(); const m = String(d.getMonth()+1).padStart(2,'0'); const dd = String(d.getDate()).padStart(2,'0');
+      return `${y}${m}${dd}`;
+    }
+    (function initPicker(){
+      const t = new Date();
+      dayPicker.value = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+    })();
+    function setMonthView(){
+      try{
+        const url = new URL(calFrame.src);
+        url.searchParams.set('mode','MONTH');
+        url.searchParams.delete('dates');
+        calFrame.src = url.toString();
+      }catch(e){}
+      btnMonth.classList.add('bg-white/10');
+      btnDay.classList.remove('bg-white/10');
+    }
+    function setDayView(dateStrISO){
+      const d = dateStrISO ? new Date(dateStrISO) : new Date();
+      const ymd = fmt(d);
+      try{
+        const url = new URL(calFrame.src);
+        url.searchParams.set('mode','WEEK');
+        url.searchParams.set('dates', `${ymd}/${ymd}`);
+        calFrame.src = url.toString();
+      }catch(e){}
+      btnDay.classList.add('bg-white/10');
+      btnMonth.classList.remove('bg-white/10');
+    }
+    btnMonth?.addEventListener('click', setMonthView);
+    btnDay?.addEventListener('click', ()=> setDayView(dayPicker.value));
+    dayPicker?.addEventListener('change', ()=> setDayView(dayPicker.value));
+    setMonthView();
+
+    // Calendar cards demo data
+    const demoEvents = [
+      {title:'Quiz - Reconstruction', when:'Fri, Nov 1 - in class', tag:'assessment'},
+      {title:'DBQ Workshop', when:'Tue, Nov 4 - after school', tag:'workshop'},
+      {title:'Field Trip - N-Y Historical', when:'Fri, Nov 8 - permission due', tag:'trip'},
+      {title:'Project - Civic Voices', when:'Mon, Nov 18 - submit link', tag:'project'}
+    ];
+    function renderEvents(){
+      cards.innerHTML = demoEvents.map(ev => `
+        <article class="glass rounded-2xl p-4 lift">
+          <p class="text-xs text-white/70">${ev.when}</p>
+          <p class="font-semibold mt-1">${ev.title}</p>
+          <div class="mt-3 flex gap-2">
+            <span class="px-2 py-0.5 rounded bg-white/10 text-xs">${ev.tag}</span>
+            <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">Add reminder</button>
+          </div>
+        </article>
+      `).join('');
+    }
+    renderEvents();
+
+    // Assignments filter
+    const assignments = [
+      {title:'Revolution Essay', due:'Nov 10', tag:'essay', blurb:'2 pages about causes and turning points.'},
+      {title:'Civil War Mini Deck', due:'Nov 20', tag:'presentation', blurb:'5 slides - one map, one source.'},
+      {title:'Constitution Sheet', due:'Nov 30', tag:'worksheet', blurb:'Key clauses and checks.'},
+      {title:'Industrialization Photo Study', due:'Dec 6', tag:'presentation', blurb:'Photo analysis and claim.'},
+      {title:'Rights and Responsibilities', due:'Dec 13', tag:'essay', blurb:'Short response with evidence.'}
+    ];
+    const assignList = document.getElementById('assignList');
+    const tagSel = document.getElementById('tag');
+    function drawAssignments(){
+      const f = tagSel.value;
+      assignList.innerHTML = assignments
+        .filter(a => f==='all' || a.tag===f)
+        .map(a => `
+          <article class="glass rounded-2xl p-5 lift">
+            <div class="flex items-center justify-between">
+              <p class="font-semibold">${a.title}</p>
+              <span class="text-xs text-white/70">Due ${a.due}</span>
+            </div>
+            <p class="mt-2 text-white/80 text-sm">${a.blurb}</p>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-white/10 text-xs">${a.tag}</span>
+              <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">Open</button>
+            </div>
+          </article>
+        `).join('');
+    }
+    drawAssignments();
+    tagSel.addEventListener('change', drawAssignments);
+
+    // ===== Unit Timelines (Units 1–3) with cause and effect, no priority toggle =====
+    const TL_DATA = {
+      US01: [
+        {year: '1607', title: 'Jamestown', cause: 'Joint-stock and imperial goals', effect: 'Tobacco economy and indentured labor grow'},
+        {year: '1620', title: 'Mayflower Compact', cause: 'Need for order in a new colony', effect: 'Self-government idea takes root'},
+        {year: '1754', title: 'French and Indian War', cause: 'Imperial rivalry in North America', effect: 'Debt and new taxes set stage for conflict'}
+      ],
+      US02: [
+        {year: '1765', title: 'Stamp Act Crisis', cause: 'Parliament taxes without colonial say', effect: 'Boycotts and unity grow'},
+        {year: '1776', title: 'Declaration of Independence', cause: 'Escalating conflict and rights talk', effect: 'Formal break and new nation project'},
+        {year: '1783', title: 'Treaty of Paris', cause: 'War weariness and battlefield losses', effect: 'US recognition and territory to Mississippi'}
+      ],
+      US03: [
+        {year: '1787', title: 'Northwest Ordinance', cause: 'Need to organize the Old Northwest', effect: 'Rules for statehood and banned slavery in the territory'},
+        {year: '1800', title: 'North America Map Shift', cause: 'Competing empires in 1800', effect: 'US poised for western push'},
+        {year: '1803', title: 'Louisiana Purchase', cause: 'Access to New Orleans and Mississippi River', effect: 'Doubles US land and pressures Native homelands'},
+        {year: '1803', title: "Jefferson's Motives", cause: 'Farming vision and river trade security', effect: 'Policy backs expansion and survey missions'},
+        {year: '1804–06', title: 'Lewis and Clark', cause: 'Need to map and claim the new land', effect: 'Contact with Native nations and pathfinding'},
+        {year: '1830', title: 'Indian Removal Act', cause: 'Land hunger and state pressure', effect: 'Forced migrations and massive loss for Native peoples'},
+        {year: '1812–15', title: 'War of 1812', cause: 'Trade fights and frontier conflict', effect: 'Surge in nationalism and industry talk'},
+        {year: '1823', title: 'Monroe Doctrine', cause: 'European powers eye the Americas', effect: 'US warns Europe and claims a regional role'},
+        {year: '1825', title: 'Erie Canal', cause: 'Link Great Lakes to Atlantic markets', effect: 'Cheaper shipping and new city growth'},
+        {year: '1848', title: 'Early Women’s Rights', cause: 'Abolition activism highlights inequality', effect: 'Seneca Falls talk of rights and reform'}
+      ]
+    };
+
+    const tlRow = document.getElementById('tlRow');
+    const unitPick = document.getElementById('unitPick');
+
+    function colorByIndex(i){
+      const palettes = [
+        'from-fuchsia-500/40 to-indigo-500/40',
+        'from-indigo-500/40 to-violet-500/40',
+        'from-violet-500/40 to-fuchsia-500/40',
+        'from-sky-400/30 to-emerald-400/30',
+        'from-white/10 to-white/5'
+      ];
+      return palettes[i % palettes.length];
+    }
+
+    function renderTimeline(){
+      const unit = unitPick.value;
+      const data = TL_DATA[unit] || [];
+      tlRow.innerHTML = data.map((d,i) => `
+        <article class="snap glass rounded-2xl min-w-[280px] max-w-[320px] p-4 lift group">
+          <div class="relative h-40 rounded-xl bg-gradient-to-br ${colorByIndex(i)}"></div>
+          <div class="mt-3">
+            <p class="font-bold">${d.year}</p>
+          </div>
+          <p class="mt-1">${d.title}</p>
+          <div class="mt-3 text-sm text-white/80 glass rounded-xl p-3">
+            <p><span class="text-white/70">Cause:</span> ${d.cause}</p>
+            <p class="mt-1"><span class="text-white/70">Effect:</span> ${d.effect}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    unitPick.addEventListener('change', renderTimeline);
+    renderTimeline();
+
+    // Konami fun
+    let seq = []; const keycode = [38,38,40,40,37,39,37,39,66,65];
+    window.addEventListener('keydown', e=>{
+      seq.push(e.keyCode); if(seq.toString().indexOf(keycode)==0){
+        document.body.classList.toggle('synth');
+        seq=[];
+      }
+      if(seq.length>10) seq.shift();
+    });
+  </script>
+</body>
+</html>
