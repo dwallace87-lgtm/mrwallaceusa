@@ -520,7 +520,8 @@ const TL_DATA = {
     {year: '1800', title: 'North America Map Shift', blurb: 'Big powers crowd the map, US eyeing the West.',
      cause: 'Competing empires in 1800', effect: 'US poised for western push'},
     {year: '1803', title: 'Louisiana Purchase', blurb: 'Jefferson cops a massive land pack, double the country.',
-     cause: 'Access to New Orleans and Mississippi River', effect: 'Doubles US land and pressures Native homelands'},
+     cause: 'Access to New Orleans and Mississippi River', effect: 'Doubles US land and pressures Native homelands',
+     img: 'https://historyclubmagazinedccc.wordpress.com/wp-content/uploads/2015/02/louisiana.jpg'},
     {year: '1803', title: "Jefferson's Motives", blurb: 'He wants farmer power and control of the river bag.',
      cause: 'Farming vision and river trade security', effect: 'Policy backs expansion and survey missions'},
     {year: '1804–06', title: 'Lewis and Clark', blurb: 'Explorers run recon, meet nations, map the way.',
@@ -552,6 +553,18 @@ function colorByIndex(i){
   return palettes[i % palettes.length];
 }
 
+function cardVisual(d, i){
+  if(d.img){
+    return `
+      <div class="relative h-40 rounded-xl overflow-hidden">
+        <img src="${d.img}" alt="${d.title} illustration" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+      </div>
+    `;
+  }
+  return `<div class="relative h-40 rounded-xl bg-gradient-to-br ${colorByIndex(i)}"></div>`;
+}
+
 function renderTimeline(){
   const unit = unitPick.value;
   const data = TL_DATA[unit] || [];
@@ -560,7 +573,7 @@ function renderTimeline(){
       <div class="flip-inner rounded-2xl overflow-hidden">
         <!-- FRONT -->
         <div class="flip-face flip-front p-4">
-          <div class="relative h-40 rounded-xl bg-gradient-to-br ${colorByIndex(i)}"></div>
+          ${cardVisual(d, i)}
           <div class="mt-3"><p class="year font-bold">${d.year}</p></div>
           <p class="mt-1 card-title">${d.title}</p>
           <p class="mt-2 text-sm text-white/85">${d.blurb}</p>
