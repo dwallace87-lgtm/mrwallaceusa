@@ -49,20 +49,6 @@
     .snap-x { scroll-snap-type: x mandatory; }
     .snap { scroll-snap-align: start; }
     .neon { text-shadow: 0 0 12px rgba(var(--accent), .8), 0 0 32px rgba(var(--accent2), .6); }
-    .gateway-lockup{ display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap; }
-    .gateway-badge{
-      width:clamp(64px, 10vw, 100px);
-      aspect-ratio:1/1;
-      border-radius:9999px;
-      overflow:hidden;
-      box-shadow:0 0 14px rgba(255,255,255,.65), 0 0 28px rgba(255,255,255,.35);
-      animation:gatewayPulse 2.8s ease-in-out infinite;
-    }
-    .gateway-badge img{ width:100%; height:100%; object-fit:cover; display:block; }
-    @keyframes gatewayPulse{
-      0%, 100%{ box-shadow:0 0 14px rgba(255,255,255,.65), 0 0 28px rgba(255,255,255,.35); }
-      50%{ box-shadow:0 0 22px rgba(255,255,255,.9), 0 0 40px rgba(255,255,255,.55); }
-    }
     @media (prefers-reduced-motion: reduce) { .lift, .motion { transition: none !important; animation: none !important; } }
 
     /* Brand icon with hover glint */
@@ -187,12 +173,7 @@
 
     <div class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-24">
       <p class="text-sm tracking-widest text-white/70 uppercase">Northside Charter - US History</p>
-      <div class="gateway-lockup">
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight neon">Your Gateway to the Past</h1>
-        <div class="gateway-badge" aria-hidden="true">
-          <img src="https://lh3.googleusercontent.com/d/1Uc6vXBPP8zkAVAzwrgM5rbtVZUEZVlJJ" alt="Historic gateway collage" loading="lazy" />
-        </div>
-      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight neon">Your Gateway to the Past</h1>
       <p class="mt-3 max-w-2xl text-white/80">Streamlined hub for class life in NYC - quick links, live calendar, and interactive history that feels like now.</p>
 
       <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
