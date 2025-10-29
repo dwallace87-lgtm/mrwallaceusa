@@ -177,6 +177,10 @@
 .flip-face{
   position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
   display:flex; flex-direction:column;
+  background: rgba(18,18,28,.96);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 18px 45px rgba(0,0,0,.45);
 }
 .flip-back{ transform: rotateY(180deg); }
 .flip button.flipBtn{
@@ -626,24 +630,35 @@ function renderTimeline(){
   const unit = unitPick.value;
   const data = TL_DATA[unit] || [];
   tlRow.innerHTML = data.map((d,i) => `
-    <article class="snap glass rounded-2xl min-w-[300px] max-w-[340px] p-0 lift group flip" tabindex="0" aria-label="${d.title} card. Press enter to flip.">
+    <article class="snap rounded-2xl min-w-[300px] max-w-[340px] p-0 lift group flip" tabindex="0" aria-label="${d.title} card. Press enter to flip.">
       <div class="flip-inner rounded-2xl overflow-hidden">
         <!-- FRONT -->
-        <div class="flip-face flip-front p-4">
+        <div class="flip-face flip-front p-4 space-y-3">
           ${cardVisual(d, i)}
-          <div class="mt-3"><p class="year font-bold">${d.year}</p></div>
-          <p class="mt-1 card-title">${d.title}</p>
-          <p class="mt-2 text-sm text-white/85">${d.blurb}</p>
-          <button class="flipBtn px-3 py-1.5 rounded-lg bg-white/10">Flip for cause and effect</button>
+          <div class="pt-1">
+            <p class="year font-bold text-white/80">${d.year}</p>
+            <p class="card-title mt-1">${d.title}</p>
+          </div>
+          <p class="text-sm text-white/85">${d.blurb}</p>
+          <button class="flipBtn px-3 py-1.5 rounded-lg bg-white/10">Flip for cause & effect</button>
         </div>
         <!-- BACK -->
-        <div class="flip-face flip-back p-4 glass">
-          <p class="card-title">${d.title}</p>
-          <div class="mt-3 text-sm text-white/90">
-            <p><span class="pill">Cause</span> ${d.cause}</p>
-            <p class="mt-2"><span class="pill">Effect</span> ${d.effect}</p>
+        <div class="flip-face flip-back p-4 space-y-4">
+          <div>
+            <p class="year font-bold text-white/70">${d.year}</p>
+            <p class="card-title mt-1">${d.title}</p>
           </div>
-          <button class="flipBtn mt-auto px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500">Back</button>
+          <div class="space-y-3 text-sm text-white/90">
+            <div>
+              <p class="text-xs uppercase tracking-[.24em] text-white/55">Cause</p>
+              <p class="mt-1 leading-snug">${d.cause}</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[.24em] text-white/55">Effect</p>
+              <p class="mt-1 leading-snug">${d.effect}</p>
+            </div>
+          </div>
+          <button class="flipBtn mt-auto px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500">Flip back</button>
         </div>
       </div>
     </article>
