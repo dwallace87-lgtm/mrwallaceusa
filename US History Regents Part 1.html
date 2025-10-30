@@ -159,14 +159,25 @@
     .legend-item{transition:transform 0.3s ease,box-shadow 0.3s ease;}
     .legend-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(138,43,226,0.15);}
     .legend-value{font-variant-numeric:tabular-nums;}
-    .flicker{
-      animation: screenFlicker 4s linear infinite;
-      text-shadow: 0 0 6px rgba(255,255,255,.4), 0 0 12px rgba(99,102,241,.55);
+    .typewriter-text{
+      display:inline-block;
     }
-    @keyframes screenFlicker{
-      0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
-      20%,24%,55%{opacity:.35;}
-      22%{opacity:.65;}
+    .typewriter-cursor{
+      display:inline-block;
+      margin-left:0.1em;
+      color:#d8b4fe;
+      font-weight:600;
+      animation:cursorBlink .8s steps(1) infinite;
+    }
+    .typewriter-cursor--fade{
+      animation:cursorFade .25s forwards;
+    }
+    @keyframes cursorBlink{
+      0%,50%{opacity:1;}
+      51%,100%{opacity:0;}
+    }
+    @keyframes cursorFade{
+      to{opacity:0;}
     }
     @media (max-width:1023px){
       .main-grid{grid-template-columns:1fr;max-width:95%}
@@ -184,7 +195,7 @@
       iframe{height:220px;}
     }
     @media (prefers-reduced-motion:reduce){
-      .flicker{animation:none!important;text-shadow:none;}
+      .typewriter-cursor{animation:none;}
     }
   </style>
 </head>
@@ -200,7 +211,7 @@
     <div class="title-box card-container rounded-2xl p-6 md:p-8 lg:col-span-2">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 class="text-2xl md:text-3xl font-extrabold info-title tracking-wide flicker">
+          <h1 id="regents-title" class="text-2xl md:text-3xl font-extrabold info-title tracking-wide">
             NY U.S. History Regents Part 1 Multiple Choice
           </h1>
           <p class="mt-2 text-sm md:text-base text-gray-100 max-w-3xl leading-relaxed">
@@ -336,6 +347,38 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function(){
+      const titleHeading=document.getElementById('regents-title');
+      if(titleHeading){
+        const originalText=titleHeading.textContent.trim();
+        const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(prefersReducedMotion||!originalText){
+          titleHeading.textContent=originalText;
+        }else{
+          const textSpan=document.createElement('span');
+          textSpan.className='typewriter-text';
+          const cursorSpan=document.createElement('span');
+          cursorSpan.className='typewriter-cursor';
+          cursorSpan.setAttribute('aria-hidden','true');
+          cursorSpan.textContent='▌';
+          titleHeading.textContent='';
+          titleHeading.append(textSpan,cursorSpan);
+          let index=0;
+          const baseDelay=55;
+          const typeCharacter=()=>{
+            if(index<originalText.length){
+              const char=originalText.charAt(index);
+              textSpan.textContent+=char;
+              index+=1;
+              const delay=char===' '?baseDelay*1.6:baseDelay;
+              window.setTimeout(typeCharacter,delay);
+            }else{
+              cursorSpan.classList.add('typewriter-cursor--fade');
+              window.setTimeout(()=>cursorSpan.remove(),280);
+            }
+          };
+          typeCharacter();
+        }
+      }
       const scoreData=[
         {label:"Part I: Multiple-Choice Questions",value:28,id:"part-i"},
         {label:"Part II: Short-Essay Questions (Set 1)",value:5,id:"part-ii-set-1"},
