@@ -495,16 +495,26 @@ function applyLanguage(lang) {
   const toggleHint = lang === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish';
   if (langToggle) {
     langToggle.textContent = toggleLabel;
-    langToggle.setAttribute('aria-pressed', lang === 'es' ? 'true' : 'false');
-    langToggle.setAttribute('title', toggleHint);
-    langToggle.setAttribute('aria-label', toggleHint);
-  }
-}
+const spanishTranslations = {
 
-if (langToggle) {
-  langToggle.addEventListener('click', () => {
-    applyLanguage(currentLang === 'en' ? 'es' : 'en');
-  });
-}
 
-applyLanguage('en');
+    if (!element) return;
+    const original = type === 'html' ? element.innerHTML : element.textContent;
+    targets.push({ key, element, type, original });
+const originalTitle = document.title;
+const originalLangAttr = document.documentElement.lang || 'en';
+  translationTargets.forEach(({ key, element, type, original }) => {
+    if (!element) return;
+    if (lang === 'es') {
+      const value = spanishTranslations[key];
+      if (value === undefined) return;
+      if (type === 'html') {
+        element.innerHTML = value;
+      } else {
+        element.textContent = value;
+      }
+    } else if (type === 'html') {
+      element.innerHTML = original;
+      element.textContent = original;
+  document.title = lang === 'es' ? spanishTranslations.title : originalTitle;
+  document.documentElement.lang = lang === 'es' ? 'es' : originalLangAttr;
