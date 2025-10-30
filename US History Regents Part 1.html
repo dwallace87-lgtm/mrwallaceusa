@@ -156,6 +156,9 @@
     .dot:nth-child(8){top:70%;left:60%;width:32px;height:32px;animation-delay:1s}
     @keyframes pulse{0%{transform:scale(.8);opacity:.3}50%{transform:scale(1.2);opacity:.6}100%{transform:scale(.8);opacity:.3}}
     @keyframes pulse-glow{0%{stroke-opacity:.2}50%{stroke-opacity:1}100%{stroke-opacity:.2}}
+    .legend-item{transition:transform 0.3s ease,box-shadow 0.3s ease;}
+    .legend-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(138,43,226,0.15);}
+    .legend-value{font-variant-numeric:tabular-nums;}
     @media (max-width:1023px){
       .main-grid{grid-template-columns:1fr;max-width:95%}
       .infographic-panel{height:60vh;max-height:none;margin-bottom:2rem}
@@ -195,7 +198,8 @@
         </div>
         <div class="title-chip px-4 py-2 rounded-xl text-center">
           <div class="text-xs uppercase tracking-widest text-gray-300">Exam Weight</div>
-          <div class="text-3xl font-black text-yellow-300 drop-shadow">57%</div>
+          <div id="exam-weight" data-target="57"
+               class="text-3xl font-black text-yellow-300 drop-shadow">0%</div>
         </div>
       </div>
       <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm md:text-base">
@@ -328,6 +332,53 @@
         {label:"Part IIIB: Extended Civic Literacy Essay",value:5,id:"part-iiib"}
       ];
       const total=d3.sum(scoreData,d=>d.value); scoreData.forEach(d=>d.percentage=(d.value/total)*100);
+
+      const animateCountUp=(element,target,options={})=>{
+        if(!element)return;
+        const{
+          duration=1200,
+          delay=0,
+          prefix="",
+          suffix="",
+          decimals=0,
+          start=0
+        }=options;
+        const startValue=start;
+        const totalChange=target-startValue;
+        const formatOptions=decimals>0?{minimumFractionDigits:decimals,maximumFractionDigits:decimals}:undefined;
+        const easeOut=t=>1-Math.pow(1-t,3);
+        const initialDisplay=decimals>0
+          ? Number(startValue.toFixed(decimals)).toLocaleString(undefined,formatOptions)
+          : Math.round(startValue).toLocaleString();
+        element.textContent=`${prefix}${initialDisplay}${suffix}`;
+        const startTime=performance.now()+delay;
+        function update(now){
+          if(now<startTime){
+            requestAnimationFrame(update);
+            return;
+          }
+          const progress=Math.min((now-startTime)/duration,1);
+          const eased=easeOut(progress);
+          const value=startValue+totalChange*eased;
+          let displayValue;
+          if(decimals>0){
+            displayValue=Number(value.toFixed(decimals)).toLocaleString(undefined,formatOptions);
+          }else{
+            displayValue=Math.round(value).toLocaleString();
+          }
+          element.textContent=`${prefix}${displayValue}${suffix}`;
+          if(progress<1){
+            requestAnimationFrame(update);
+          }else{
+            const finalValue=decimals>0
+              ? Number(target.toFixed(decimals)).toLocaleString(undefined,formatOptions)
+              : Math.round(target).toLocaleString();
+            element.textContent=`${prefix}${finalValue}${suffix}`;
+          }
+        }
+        requestAnimationFrame(update);
+      };
+
       const svgW=450, svgH=450, r=Math.min(svgW,svgH)/2-20;
       const svg=d3.select("#pie-chart")
         .attr("width","100%")
@@ -345,21 +396,27 @@
       const color=d3.scaleOrdinal().domain(Object.keys(colors)).range(Object.values(colors));
       const tooltip=d3.select("#tooltip");
       const pie=d3.pie().value(d=>d.value).sort(null);
+      const pieData=pie(scoreData);
       const arc=d3.arc().innerRadius(r*.4).outerRadius(r);
       const labelArc=d3.arc().innerRadius(r*.7).outerRadius(r*.7);
       const outerArc=d3.arc().innerRadius(r+5).outerRadius(r+5);
       const arcs=svg.selectAll(".arc")
-        .data(pie(scoreData))
+        .data(pieData)
         .enter()
         .append("g")
         .attr("class",d=>`arc ${d.data.id}`);
-      arcs.append("path")
-        .attr("d",arc)
+      const slices=arcs.append("path")
         .attr("fill",d=>color(d.data.label))
         .attr("class","pie-slice")
         .style("--slice-color",d=>color(d.data.label))
         .attr("stroke","#1a1a2e")
         .style("stroke-width","3px")
+        .each(function(d){
+          const startAngle={startAngle:d.startAngle,endAngle:d.startAngle};
+          this._current=startAngle;
+          d3.select(this).attr("d",arc(startAngle));
+        });
+      slices
         .on("mouseover",()=>tooltip.style("opacity",1))
         .on("mousemove",function(event,d){
           tooltip
@@ -368,13 +425,34 @@
             .style("top",(event.pageY-35)+"px");
         })
         .on("mouseout",()=>tooltip.style("opacity",0));
-      arcs.append("text")
+      slices
+        .transition()
+        .delay((_,i)=>i*120)
+        .duration(1200)
+        .ease(d3.easeCubicOut)
+        .attrTween("d",function(d){
+          const interpolate=d3.interpolate(this._current,d);
+          this._current=interpolate(1);
+          return t=>arc(interpolate(t));
+        });
+      const labels=arcs.append("text")
         .attr("transform",d=>`translate(${labelArc.centroid(d)})`)
         .attr("dy",".35em")
         .attr("text-anchor","middle")
         .attr("class","pie-label")
-        .text(d=>d.data.percentage.toFixed(1)>5?`${d.data.percentage.toFixed(1)}%`:"");
-      const partIData=pie(scoreData).find(d=>d.data.id==="part-i");
+        .style("opacity",0);
+      labels
+        .filter(d=>d.data.percentage>5)
+        .each(function(d,i){
+          const delay=300+i*120;
+          d3.select(this)
+            .transition()
+            .delay(delay)
+            .duration(300)
+            .style("opacity",1);
+          animateCountUp(this,d.data.percentage,{suffix:"%",decimals:1,duration:1200,delay});
+        });
+      const partIData=pieData.find(d=>d.data.id==="part-i");
       if(partIData){
         const defs=svg.append("defs");
         const filter=defs.append("filter")
@@ -399,15 +477,25 @@
           .style("animation","pulse-glow 2s ease-in-out infinite");
       }
       const legend=d3.select("#legend");
-      scoreData.forEach(d=>{
-        const item=legend.append("div").attr("class","flex items-center legend-item");
+      scoreData.forEach((d,i)=>{
+        const item=legend.append("div").attr("class","flex items-center legend-item gap-3");
         item.append("div")
           .style("width","20px")
           .style("height","20px")
           .style("background-color",color(d.label))
-          .attr("class","rounded-sm mr-2 flex-shrink-0 legend-color-box");
-        item.append("span").text(`${d.label} (${d.value} pts)`);
+          .attr("class","rounded-sm flex-shrink-0 legend-color-box");
+        const textWrap=item.append("div").attr("class","flex flex-col text-sm text-gray-100 leading-tight");
+        textWrap.append("span").attr("class","font-medium").text(d.label);
+        const valueSpan=textWrap.append("span")
+          .attr("class","legend-value text-xs text-gray-300")
+          .text("0 pts");
+        animateCountUp(valueSpan.node(),d.value,{suffix:" pts",duration:900,delay:250+i*80});
       });
+      const examWeightEl=document.getElementById('exam-weight');
+      if(examWeightEl){
+        const target=parseFloat(examWeightEl.dataset.target||'0');
+        animateCountUp(examWeightEl,target,{suffix:"%",duration:1400});
+      }
       // Slide logic
       let currentSlide=0;
       const slides=document.querySelectorAll('.slide-item');
