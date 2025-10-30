@@ -54,6 +54,26 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(138,43,226,0.15);
         }
+        .typewriter-text {
+            display: inline-block;
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            margin-left: 0.1em;
+            color: #d8b4fe;
+            font-weight: 600;
+            animation: cursorBlink 0.8s steps(1) infinite;
+        }
+        .typewriter-cursor--fade {
+            animation: cursorFade 0.25s forwards;
+        }
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        @keyframes cursorFade {
+            to { opacity: 0; }
+        }
         .dot {
             position: fixed;
             background-color: rgba(138,43,226,0.35);
@@ -118,6 +138,7 @@
         }
         @media (prefers-reduced-motion: reduce) {
             .dot, .flicker, .pulsing-arc, .pulsing-square { animation: none !important; }
+            .typewriter-cursor { animation: none !important; }
         }
     </style>
 </head>
@@ -135,7 +156,7 @@
             <!-- Intro left -->
             <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 md:p-7 flex flex-col justify-center">
                 <p class="text-xs text-gray-400 sub-head mb-3">Part 2, SEQ success</p>
-                <h1 class="text-3xl lg:text-4xl font-extrabold header-gradient mb-3">
+                <h1 id="regents-part2-title" class="text-3xl lg:text-4xl font-extrabold header-gradient mb-3">
                     US History Regents: Part 2
                 </h1>
                 <p class="text-sm md:text-base text-gray-200 mb-2">
@@ -361,6 +382,38 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const titleHeading = document.getElementById('regents-part2-title');
+            if (titleHeading) {
+                const originalText = titleHeading.textContent.trim();
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (prefersReducedMotion || !originalText) {
+                    titleHeading.textContent = originalText;
+                } else {
+                    const textSpan = document.createElement('span');
+                    textSpan.className = 'typewriter-text';
+                    const cursorSpan = document.createElement('span');
+                    cursorSpan.className = 'typewriter-cursor';
+                    cursorSpan.setAttribute('aria-hidden', 'true');
+                    cursorSpan.textContent = '▌';
+                    titleHeading.textContent = '';
+                    titleHeading.append(textSpan, cursorSpan);
+                    let index = 0;
+                    const baseDelay = 55;
+                    const typeCharacter = () => {
+                        if (index < originalText.length) {
+                            const char = originalText.charAt(index);
+                            textSpan.textContent += char;
+                            index += 1;
+                            const delay = char === ' ' ? baseDelay * 1.6 : baseDelay;
+                            window.setTimeout(typeCharacter, delay);
+                        } else {
+                            cursorSpan.classList.add('typewriter-cursor--fade');
+                            window.setTimeout(() => cursorSpan.remove(), 280);
+                        }
+                    };
+                    typeCharacter();
+                }
+            }
             const scoreData = [
                 { label: "Part I: Multiple-Choice Questions", value: 28, id: "part-i" },
                 { label: "Part II: Short-Essay Questions (Set 1)", value: 5, id: "part-ii-set-1" },
