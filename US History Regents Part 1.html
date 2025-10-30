@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>US History Regents Infographic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Inter for page, Orbitron/Share Tech for slide deck -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; }
+    body{
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      background:linear-gradient(135deg,#0a0a0e 0%,#1a1a2e 100%);
+      min-height:100vh;
+      display:block;
+      padding:1.5rem;
+      overflow-y:auto;
+      color:#f3e8ff;
+      line-height:1.6;
+    }
+    .card-container{
+      background:linear-gradient(145deg,#1b2735,#090a0f);
+      border:1px solid rgba(138,43,226,.25);
+      box-shadow:0 0 12px rgba(138,43,226,.25),0 0 24px rgba(138,43,226,.08),inset 0 0 4px rgba(138,43,226,.12);
+      backdrop-filter:blur(5px);
+      border-radius:1.5rem;
+    }
+    .chart-title{
+      font-family:'Orbitron',sans-serif;
+      color:#d8b4fe;
+      text-shadow:0 0 8px rgba(216,180,254,.7)
+    }
+    .info-title{
+      font-family:'Orbitron',sans-serif;
+      color:#a7f3d0;
+      text-shadow:0 0 8px rgba(167,243,208,.7)
+    }
+    .title-box{
+      background:radial-gradient(120% 120% at 10% 0%,rgba(138,43,226,.25),rgba(9,10,15,.9));
+      border:1px solid rgba(138,43,226,.35);
+      box-shadow:0 0 18px rgba(138,43,226,.25),inset 0 0 10px rgba(138,43,226,.12);
+    }
+    .title-chip{background:rgba(167,243,208,.08);border:1px solid rgba(167,243,208,.35);box-shadow:0 0 6px rgba(167,243,208,.25)}
+    /* SLIDE DECK - revert to original cyber style */
+    #slide-deck-container{
+      position:relative;
+      overflow:hidden;
+      background:rgba(0,0,0,0.2);
+      border-radius:0.75rem;
+      border:1px solid rgba(138,43,226,0.2);
+      height:100%;
+    }
+    .slide-wrapper{
+      display:flex;
+      transition:transform 0.5s ease-in-out;
+      height:100%;
+    }
+    .slide-item{
+      flex:0 0 100%;
+      max-width:100%;
+      padding:2rem;
+      box-sizing:border-box;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      overflow-y:auto;
+      scrollbar-color:rgba(138, 43, 226, 0.4) rgba(0, 0, 0, 0.2);
+      scrollbar-width:thin;
+      font-family:'Orbitron',sans-serif; /* restore Orbitron here */
+      letter-spacing:.02em;
+    }
+    .slide-item p,
+    .slide-item li{
+      font-family:'Share Tech Mono',monospace;
+      letter-spacing:.01em;
+      font-size:0.9rem;
+    }
+    .nav-button{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background-color:rgba(138,43,226,0.6);
+      color:white;
+      padding:0.5rem 1rem;
+      border-radius:9999px;
+      cursor:pointer;
+      z-index:10;
+      font-size:1.5rem;
+      line-height:1;
+      transition:background-color 0.3s ease, transform 0.3s ease;
+      box-shadow:0 0 10px rgba(138, 43, 226, 0.4);
+    }
+    .nav-button:hover{
+      background-color:rgba(138,43,226,0.8);
+      transform:translateY(-50%) scale(1.05);
+    }
+    .nav-button.left{ left:1rem; }
+    .nav-button.right{ right:1rem; }
+    .nav-button.disabled{
+      background-color:rgba(138,43,226,0.2);
+      cursor:not-allowed;
+      box-shadow:none;
+      transform:translateY(-50%);
+    }
+    .hi{
+      background:rgba(250,204,21,.85);
+      color:#082f49;
+      padding:0 .35rem;
+      border-radius:.35rem;
+      font-weight:700;
+    }
+    .hi2{
+      background:rgba(129,230,217,.1);
+      border:1px solid rgba(129,230,217,.4);
+      border-radius:.35rem;
+      padding:0 .35rem;
+      font-weight:600;
+      color:#ecfeff;
+    }
+    .glow-box{
+      background:rgba(12,17,25,0.58);
+      border:1px solid rgba(243,232,255,0.15);
+      box-shadow:0 0 18px rgba(168,85,247,0.28);
+      border-radius:1rem;
+    }
+    .glow-btn{
+      box-shadow:0 0 15px rgba(236,252,203,0.38);
+      transition:transform .2s ease, box-shadow .2s ease;
+      font-weight:700;
+    }
+    .glow-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 0 28px rgba(236,252,203,0.6);
+    }
+    .pulse{
+      animation:pulse-btn 1.7s ease-in-out infinite;
+    }
+    @keyframes pulse-btn{
+      0%{box-shadow:0 0 12px rgba(236,252,203,0.15)}
+      50%{box-shadow:0 0 19px rgba(236,252,203,0.45)}
+      100%{box-shadow:0 0 12px rgba(236,252,203,0.15)}
+    }
+    .dot{position:fixed;background-color:rgba(138,43,226,.3);border-radius:50%;animation:pulse 4s infinite ease-in-out;z-index:-1}
+    .dot:nth-child(1){top:10%;left:15%;width:30px;height:30px;animation-delay:0s}
+    .dot:nth-child(2){top:80%;left:20%;width:20px;height:20px;animation-delay:1s}
+    .dot:nth-child(3){top:30%;left:70%;width:40px;height:40px;animation-delay:2s}
+    .dot:nth-child(4){top:60%;left:90%;width:25px;height:25px;animation-delay:.5s}
+    .dot:nth-child(5){top:5%;left:50%;width:35px;height:35px;animation-delay:2.5s}
+    .dot:nth-child(6){top:90%;left:5%;width:15px;height:15px;animation-delay:1.5s}
+    .dot:nth-child(7){top:45%;left:5%;width:28px;height:28px;animation-delay:3s}
+    .dot:nth-child(8){top:70%;left:60%;width:32px;height:32px;animation-delay:1s}
+    @keyframes pulse{0%{transform:scale(.8);opacity:.3}50%{transform:scale(1.2);opacity:.6}100%{transform:scale(.8);opacity:.3}}
+    @keyframes pulse-glow{0%{stroke-opacity:.2}50%{stroke-opacity:1}100%{stroke-opacity:.2}}
+    @media (max-width:1023px){
+      .main-grid{grid-template-columns:1fr;max-width:95%}
+      .infographic-panel{height:60vh;max-height:none;margin-bottom:2rem}
+      .chart-panel{height:auto}
+      .nav-button{padding:.3rem .7rem;font-size:1.2rem}
+      .nav-button.left{left:.5rem}.nav-button.right{right:.5rem}
+      .slide-item{padding:1.5rem}
+      .chart-container{flex-direction:column}
+    }
+    @media (max-width:768px){
+      .chart-title,.info-title{font-size:1.5rem}
+      .slide-item h2{font-size:1.5rem}
+      .slide-item p,.slide-item li{font-size:.85rem}
+      iframe{height:220px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Dots -->
+  <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+
+  <!-- Main Grid -->
+  <div class="main-grid grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-screen-2xl mx-auto">
+
+    <!-- Title over both -->
+    <div class="title-box card-container rounded-2xl p-6 md:p-8 lg:col-span-2">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-extrabold info-title tracking-wide">
+            NY U.S. History Regents Part 1 Multiple Choice
+          </h1>
+          <p class="mt-2 text-sm md:text-base text-gray-100 max-w-3xl leading-relaxed">
+            <span class="hi2">Part 1 is stimulus based multiple choice</span>. You will see a short source like a map, chart, image, or quote and choose the best answer.
+            It comes in <b>sets that use the same source</b>. Because it is <span class="hi">57% of the Regents</span> this is the part to win.
+          </p>
+        </div>
+        <div class="title-chip px-4 py-2 rounded-xl text-center">
+          <div class="text-xs uppercase tracking-widest text-gray-300">Exam Weight</div>
+          <div class="text-3xl font-black text-yellow-300 drop-shadow">57%</div>
+        </div>
+      </div>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm md:text-base">
+        <div class="flex items-start gap-2">
+          <span class="mt-1 h-2 w-2 rounded-full bg-purple-300"></span>
+          <p><b class="text-purple-100">What it means:</b> 28 source based questions that check <b>reading</b>, <b>history</b>, and <b>logic</b>.</p>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="mt-1 h-2 w-2 rounded-full bg-cyan-300"></span>
+          <p><b class="text-cyan-100">How it looks:</b> source at top, 2 to 4 questions, answer A to D.</p>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="mt-1 h-2 w-2 rounded-full bg-amber-300"></span>
+          <p><b class="text-amber-100">Why it matters:</b> more than half. If you do well here you can pass.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left Column (slides, reverted style) -->
+    <div class="infographic-panel card-container w-full rounded-2xl p-6 md:p-8 flex flex-col relative min-h-[480px]">
+      <h1 class="info-title text-2xl md:text-3xl font-bold text-center mb-2 flex-shrink-0">Attack the Multiple Choice</h1>
+      <h2 class="text-xl md:text-2xl font-bold text-center text-purple-400 mb-4 flex-shrink-0" style="text-shadow:0 0 8px rgba(138,43,226,.7);">
+        USE P.A.G.E.!
+      </h2>
+      <div id="slide-deck-container" class="relative flex-grow min-h-0">
+        <div id="slide-wrapper" class="slide-wrapper h-full">
+          <!-- slide 1 -->
+          <div class="slide-item">
+            <h2 class="font-bold text-xl text-green-400 mb-2 md:text-2xl">The Goal: Use P.A.G.E.</h2>
+            <p class="text-gray-200 text-base md:text-lg">Slow down. Spot what you know. Follow the steps and your score goes up.</p>
+            <p class="mt-2 text-base md:text-lg"><u class="decoration-green-400 font-bold">Answer every question.</u> Nothing is taken off for wrong answers.</p>
+          </div>
+          <!-- slide 2 -->
+          <div class="slide-item">
+            <h2 class="font-bold text-xl text-purple-300 mb-3 md:text-2xl">The P.A.G.E. Protocol</h2>
+            <ul class="space-y-2 text-base md:text-lg text-gray-200">
+              <li><strong class="text-cyan-400 text-xl">P = Prior knowledge:</strong> What do I know already?</li>
+              <li><strong class="text-green-400 text-xl">A = Ask:</strong> What is being asked?</li>
+              <li><strong class="text-yellow-400 text-xl">G = Gist:</strong> What does the doc say?</li>
+              <li><strong class="text-orange-400 text-xl">E = Eliminate:</strong> What is not correct?</li>
+            </ul>
+          </div>
+          <!-- slide 3 -->
+          <div class="slide-item">
+            <h2 class="font-bold text-2xl text-cyan-400 mb-2 md:text-3xl">P = Prior Knowledge</h2>
+            <p class="text-lg font-bold mb-2 md:text-xl text-gray-100">"What do I already know?"</p>
+            <p class="text-gray-200 text-base md:text-lg">Before you dive in, think about the time period or topic. That helps you aim your brain.</p>
+          </div>
+          <!-- slide 4 -->
+          <div class="slide-item">
+            <h2 class="font-bold text-2xl text-green-400 mb-2 md:text-3xl">A = Ask</h2>
+            <p class="text-lg font-bold mb-2 md:text-xl text-gray-100">"What is the question asking?"</p>
+            <p class="text-gray-200 text-base md:text-lg">Read the question first. Spot verbs and key words. Are you looking for cause, effect, main idea, or viewpoint?</p>
+          </div>
+          <!-- slide 5 -->
+          <div class="slide-item">
+            <h2 class="font-bold text-2xl text-yellow-400 mb-2 md:text-3xl">G = Gist</h2>
+            <p class="text-lg font-bold mb-2 md:text-xl text-gray-100">"What does the document say?"</p>
+            <p class="text-gray-200 text-base md:text-lg">Now read the source with the question in mind. Pick out the main idea.</p>
+          </div>
+          <!-- slide 6 -->
+          <div class="slide-item">
+            <h2 class="font-bold text-2xl text-orange-400 mb-2 md:text-3xl">E = Eliminate</h2>
+            <p class="text-lg font-bold mb-2 md:text-xl text-gray-100">"What can I cross out?"</p>
+            <p class="text-gray-200 text-base md:text-lg">Cross out what you know is wrong. This gives you better odds.</p>
+          </div>
+        </div>
+        <button id="prevSlide" class="nav-button left">&lt;</button>
+        <button id="nextSlide" class="nav-button right">&gt;</button>
+      </div>
+    </div>
+
+    <!-- Right Column (chart) -->
+    <div class="chart-panel card-container w-full rounded-2xl p-6 md:p-8 flex flex-col min-h-[480px]">
+      <h1 class="chart-title text-2xl md:text-3xl font-bold text-center mb-6 flex-shrink-0">US History Regents Scoring Matrix</h1>
+      <div id="chart-container" class="w-full flex-grow flex flex-col md:flex-row items-center justify-center gap-8">
+        <svg id="pie-chart" class="w-full max-w-md h-auto"></svg>
+        <div id="legend" class="flex flex-col gap-3"></div>
+      </div>
+    </div>
+
+    <!-- Bottom Review Box -->
+    <div class="card-container rounded-2xl p-6 md:p-8 lg:col-span-2 mt-2">
+      <div class="flex flex-col lg:flex-row gap-6 items-start">
+        <div class="flex-1">
+          <h2 class="text-xl md:text-2xl font-bold text-cyan-100 mb-2">Watch a 2025 Regents style review</h2>
+          <p class="text-sm md:text-base text-gray-100 mb-4">
+            Pause on each question. Do it in your notebook. Then play to see how it was solved.
+          </p>
+          <div class="w-full aspect-video bg-black/40 rounded-xl overflow-hidden">
+            <iframe src="https://drive.google.com/file/d/163iQE9SJCZyZ7Qomk-jZX7nmI8spmDuf/preview" class="w-full h-full" allow="autoplay"></iframe>
+          </div>
+        </div>
+        <div class="w-full lg:w-80 flex flex-col gap-4">
+          <!-- Box 1: PDF -->
+          <div class="glow-box p-4">
+            <p class="text-sm mb-2 font-semibold text-gray-100">Have the test in front of you.</p>
+            <a href="https://www.nysedregents.org/us-history-govt/825/ushg-82025-exam.pdf" target="_blank" rel="noopener noreferrer"
+               class="glow-btn pulse inline-block bg-gradient-to-r from-yellow-200 via-yellow-300 to-amber-200 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm text-center">
+              Click here to follow along with a copy of the 2025 test
+            </a>
+            <p class="text-xs text-gray-300 mt-2">PDF opens in a new tab. You can print it.</p>
+          </div>
+          <!-- Box 2: Practice -->
+          <div class="glow-box p-4">
+            <p class="text-sm mb-2 font-semibold text-gray-100">Try it like it is the real one.</p>
+            <a href="https://dwallace87-lgtm.github.io/mrwallaceusa/regents_part1_AUG2025_Q1to28.html" target="_blank" rel="noopener noreferrer"
+               class="glow-btn pulse inline-block bg-gradient-to-r from-emerald-200 via-emerald-300 to-teal-200 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm text-center">
+              Are you ready to practice? Take the Regents Part 1 now
+            </a>
+            <p class="text-xs text-gray-300 mt-2">Opens your live Part 1 practice (Q1 to Q28).</p>
+          </div>
+          <p class="text-xs text-gray-200">
+            Tip: Do the PDF while the video plays. Then do the online one to check speed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tooltip"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const scoreData=[
+        {label:"Part I: Multiple-Choice Questions",value:28,id:"part-i"},
+        {label:"Part II: Short-Essay Questions (Set 1)",value:5,id:"part-ii-set-1"},
+        {label:"Part II: Short-Essay Questions (Set 2)",value:5,id:"part-ii-set-2"},
+        {label:"Part IIIA: Short-Response Questions",value:6,id:"part-iiia"},
+        {label:"Part IIIB: Extended Civic Literacy Essay",value:5,id:"part-iiib"}
+      ];
+      const total=d3.sum(scoreData,d=>d.value); scoreData.forEach(d=>d.percentage=(d.value/total)*100);
+      const svgW=450, svgH=450, r=Math.min(svgW,svgH)/2-20;
+      const svg=d3.select("#pie-chart")
+        .attr("width","100%")
+        .attr("height","100%")
+        .attr("viewBox",`0 0 ${svgW} ${svgH}`)
+        .append("g")
+        .attr("transform",`translate(${svgW/2},${svgH/2})`);
+      const colors={
+        "Part I: Multiple-Choice Questions":"#d8b4fe",
+        "Part II: Short-Essay Questions (Set 1)":"#ff4d4d",
+        "Part II: Short-Essay Questions (Set 2)":"#ff4d4d",
+        "Part IIIA: Short-Response Questions":"#ffa500",
+        "Part IIIB: Extended Civic Literacy Essay":"#ffa500"
+      };
+      const color=d3.scaleOrdinal().domain(Object.keys(colors)).range(Object.values(colors));
+      const tooltip=d3.select("#tooltip");
+      const pie=d3.pie().value(d=>d.value).sort(null);
+      const arc=d3.arc().innerRadius(r*.4).outerRadius(r);
+      const labelArc=d3.arc().innerRadius(r*.7).outerRadius(r*.7);
+      const outerArc=d3.arc().innerRadius(r+5).outerRadius(r+5);
+      const arcs=svg.selectAll(".arc")
+        .data(pie(scoreData))
+        .enter()
+        .append("g")
+        .attr("class",d=>`arc ${d.data.id}`);
+      arcs.append("path")
+        .attr("d",arc)
+        .attr("fill",d=>color(d.data.label))
+        .attr("class","pie-slice")
+        .style("--slice-color",d=>color(d.data.label))
+        .attr("stroke","#1a1a2e")
+        .style("stroke-width","3px")
+        .on("mouseover",()=>tooltip.style("opacity",1))
+        .on("mousemove",function(event,d){
+          tooltip
+            .html(`<span style="color:${color(d.data.label)};">&#9632;</span><strong>${d.data.label}</strong><br>Points: ${d.data.value}<br>Weight: ${d.data.percentage.toFixed(1)}%`)
+            .style("left",(event.pageX+20)+"px")
+            .style("top",(event.pageY-35)+"px");
+        })
+        .on("mouseout",()=>tooltip.style("opacity",0));
+      arcs.append("text")
+        .attr("transform",d=>`translate(${labelArc.centroid(d)})`)
+        .attr("dy",".35em")
+        .attr("text-anchor","middle")
+        .attr("class","pie-label")
+        .text(d=>d.data.percentage.toFixed(1)>5?`${d.data.percentage.toFixed(1)}%`:"");
+      const partIData=pie(scoreData).find(d=>d.data.id==="part-i");
+      if(partIData){
+        const defs=svg.append("defs");
+        const filter=defs.append("filter")
+          .attr("id","glow-filter")
+          .attr("x","-50%")
+          .attr("y","-50%")
+          .attr("width","200%")
+          .attr("height","200%");
+        filter.append("feGaussianBlur")
+          .attr("stdDeviation","10")
+          .attr("result","coloredBlur");
+        const feMerge=filter.append("feMerge");
+        feMerge.append("feMergeNode").attr("in","coloredBlur");
+        feMerge.append("feMergeNode").attr("in","SourceGraphic");
+        svg.append("path")
+          .attr("d",outerArc(partIData))
+          .attr("fill","none")
+          .attr("stroke","#d8b4fe")
+          .attr("stroke-width","3px")
+          .attr("stroke-opacity",1)
+          .style("filter","url(#glow-filter)")
+          .style("animation","pulse-glow 2s ease-in-out infinite");
+      }
+      const legend=d3.select("#legend");
+      scoreData.forEach(d=>{
+        const item=legend.append("div").attr("class","flex items-center legend-item");
+        item.append("div")
+          .style("width","20px")
+          .style("height","20px")
+          .style("background-color",color(d.label))
+          .attr("class","rounded-sm mr-2 flex-shrink-0 legend-color-box");
+        item.append("span").text(`${d.label} (${d.value} pts)`);
+      });
+      // Slide logic
+      let currentSlide=0;
+      const slides=document.querySelectorAll('.slide-item');
+      const wrapper=document.getElementById('slide-wrapper');
+      const prev=document.getElementById('prevSlide');
+      const next=document.getElementById('nextSlide');
+      function update(){
+        const offset=-currentSlide*100;
+        wrapper.style.transform=`translateX(${offset}%)`;
+        prev.classList.toggle('disabled',currentSlide===0);
+        next.classList.toggle('disabled',currentSlide===slides.length-1);
+      }
+      prev.addEventListener('click',()=>{
+        if(currentSlide>0){currentSlide--;update();}
+      });
+      next.addEventListener('click',()=>{
+        if(currentSlide<slides.length-1){currentSlide++;update();}
+      });
+      update();
+    });
+  </script>
+</body>
+</html>
