@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US History Regents: Part 2 Guide</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- D3 for pie chart -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Inter + Orbitron (match your other file) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            min-height: 100vh;
+        }
+        .header-gradient {
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .sub-head {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .video-card {
+            background: rgba(3,7,18,0.6);
+        }
+        /* pulled from your infographic vibe */
+        .score-box {
+            background: radial-gradient(120% 120% at 10% 0%, rgba(138,43,226,0.25), rgba(9,10,15,0.9));
+            border: 1px solid rgba(138,43,226,0.35);
+            box-shadow: 0 0 18px rgba(138,43,226,0.25), inset 0 0 10px rgba(138,43,226,0.12);
+            border-radius: 1.5rem;
+        }
+        .chart-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #d8b4fe;
+        }
+        .legend-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .legend-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(138,43,226,0.15);
+        }
+        /* floating dots animation (bg) */
+        .dot {
+            position: fixed;
+            background-color: rgba(138,43,226,0.35);
+            border-radius: 50%;
+            animation: pulse 4s infinite ease-in-out;
+            z-index: -1;
+        }
+        .dot:nth-child(1){top:10%;left:15%;width:30px;height:30px;animation-delay:0s}
+        .dot:nth-child(2){top:80%;left:20%;width:20px;height:20px;animation-delay:1s}
+        .dot:nth-child(3){top:30%;left:70%;width:40px;height:40px;animation-delay:2s}
+        .dot:nth-child(4){top:60%;left:90%;width:25px;height:25px;animation-delay:.5s}
+        .dot:nth-child(5){top:5%;left:50%;width:35px;height:35px;animation-delay:2.5s}
+        .dot:nth-child(6){top:90%;left:5%;width:15px;height:15px;animation-delay:1.5s}
+        .dot:nth-child(7){top:45%;left:5%;width:28px;height:28px;animation-delay:3s}
+        .dot:nth-child(8){top:70%;left:60%;width:32px;height:32px;animation-delay:1s}
+        @keyframes pulse {
+            0%{transform:scale(.8);opacity:.3}
+            50%{transform:scale(1.2);opacity:.6}
+            100%{transform:scale(.8);opacity:.3}
+        }
+        /* New animation for pie slices */
+        .pulsing-arc {
+            animation: pulse-slice 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse-slice {
+            0% { opacity: 1; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
+            50% { opacity: 0.7; filter: drop-shadow(0 0 8px rgba(255,255,255,0.7)); }
+            100% { opacity: 1; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
+        }
+        /* New animation for legend squares */
+        .pulsing-square {
+            animation: pulse-square 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse-square {
+            0% { 
+                transform: scale(1);
+                box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+            }
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); 
+            }
+            100% { 
+                transform: scale(1);
+                box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+            }
+        }
+        .flicker {
+            animation: screenFlicker 4s linear infinite;
+            text-shadow: 0 0 6px rgba(255,255,255,0.4), 0 0 12px rgba(99,102,241,0.55);
+        }
+        @keyframes screenFlicker {
+            0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+            20%,24%,55%{opacity:.35;}
+            22%{opacity:.65;}
+        }
+        /* score corner label */
+        .score-pill {
+            background: rgba(3,7,18,0.6);
+            border: 1px solid rgba(216,180,254,0.3);
+            box-shadow: 0 0 12px rgba(216,180,254,0.3);
+        }
+        #tooltip {
+            position: absolute;
+            background: rgba(3,7,18,0.85);
+            border: 1px solid rgba(216,180,254,0.3);
+            color: #fff;
+            padding: 0.35rem 0.5rem;
+            border-radius: 0.5rem;
+            pointer-events: none;
+            font-size: 0.65rem;
+            z-index: 50;
+            opacity: 0;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .dot, .flicker, .pulsing-arc, .pulsing-square { animation: none !important; }
+        }
+    </style>
+</head>
+<body class="text-gray-200 min-h-screen flex items-center justify-center p-4 md:p-8">
+    <!-- background pulse dots -->
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <main class="w-full max-w-5xl mx-auto space-y-10 md:space-y-14 relative">
+        <div id="tooltip"></div>
+        <!-- TOP BAR: intro left / score+pie right -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            <!-- Intro left -->
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 md:p-7 flex flex-col justify-center">
+                <p class="text-xs text-gray-400 sub-head mb-3">Part 2, SEQ success</p>
+                <h1 class="text-3xl font-extrabold header-gradient mb-3">
+                    US History Regents: Part 2
+                </h1>
+                <p class="text-sm md:text-base text-gray-200 mb-2">
+                    This section is only two short essays, but together they are the whole Part II. You have to show context and use the documents the way the Regents wants.
+                </p>
+                <p class="text-sm md:text-base text-gray-400">
+                    Read the panels below for what to write. Then use the videos at the bottom to see the paragraph flow.
+                </p>
+            </div>
+            <!-- Score breakdown right -->
+            <div class="score-box p-6 md:p-7 flex flex-col gap-4 relative overflow-hidden">
+                <div class="flex items-start justify-between gap-3">
+                    <div>
+                        <h2 class="chart-title text-xl md:text-2xl font-bold mb-1 flicker">
+                            Regents Score Breakdown
+                        </h2>
+                        <p class="text-xs text-gray-100">
+                            You can’t skip Part II. Together, SEQ 1 and SEQ 2 are the full Part II score.
+                        </p>
+                    </div>
+                    <div class="text-center px-3 py-2 rounded-xl score-pill">
+                        <p class="text-[0.58rem] uppercase tracking-wide text-gray-200">Part II weight</p>
+                        <p id="exam-weight" data-target="20.4" class="text-2xl font-bold text-purple-100 flicker">20.4%</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
+                    <!-- Pie -->
+                    <svg id="pie-chart" class="w-full md:w-1/2 max-w-xs h-auto"></svg>
+                    <!-- Legend -->
+                    <div id="legend" class="flex-1 flex flex-col gap-2 text-sm"></div>
+                </div>
+            </div>
+        </section>
+        <!-- 2 Columns for SEQ cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <!-- Column 1 -->
+            <div class="flex flex-col gap-8">
+                <!-- SEQ 1 -->
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20 transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-black/30">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 header-gradient panel-title">
+                        SEQ 1: Document Relationships
+                    </h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-blue-500/10 p-3 rounded-full border border-blue-500/30">
+                                <svg class="w-6 h-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white">2 Paragraphs</h3>
+                                <p class="text-gray-400"><span class="font-semibold text-blue-300">Structure</span> your response in two clear paragraphs.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-blue-500/10 p-3 rounded-full border border-blue-500/30">
+                                <svg class="w-6 h-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white"><span class="font-medium text-blue-400">Task 1:</span> Historical Context</h3>
+                                <p class="text-gray-400">Explain the "<span class="font-semibold text-blue-300">who, what, when, where</span>" around the documents.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-blue-500/10 p-3 rounded-full border border-blue-500/30">
+                                <svg class="w-6 h-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white"><span class="font-medium text-blue-400">Task 2:</span> Relationship Between Documents</h3>
+                                <p class="text-gray-400">Show how the docs are <span class="font-semibold text-blue-300">connected</span> (cause/effect or compare/contrast).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-blue-500/10 p-3 rounded-full border border-blue-500/30">
+                                <svg class="w-6 h-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 0 1 .375.375v3.375c0 .207.168.375.375.375h3.375a.375.375 0 0 1 .375.375v1.5a.375.375 0 0 1-.375.375h-3.375a1.875 1.875 0 0 1-1.875-1.875v-3.375a.375.375 0 0 1 .375-.375Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25v10.5A2.25 2.25 0 0 1 18.75 18h-13.5A2.25 2.25 0 0 1 3 15.75V5.25ZM5.25 4.5c-.414 0-.75.336-.75.75v10.5c0 .414.336.75.75.75h13.5c.414 0 .75-.336.75-.75V5.25c0-.414-.336-.75-.75-.75H5.25Z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white">Evidence</h3>
+                                <p class="text-gray-400">Use at least <span class="font-semibold text-blue-300">2 citations</span>, 1 from each doc.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- R.A.C.E. for SEQ 1 -->
+                <div class="bg-gray-900 border border-dashed border-gray-700 rounded-2xl p-6 md:p-8 shadow-lg shadow-black/20">
+                    <h3 class="text-xl font-bold mb-4 text-blue-400 sub-head">Strategy for Paragraph 2: R.A.C.E.</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><span class="font-bold text-white">R</span> Restate the question.
+                            <p class="text-sm text-gray-400 pl-7">"The relationship between these two documents is..."</p>
+                        </li>
+                        <li><span class="font-bold text-white">A</span> Answer the question.
+                            <p class="text-sm text-gray-400 pl-7">"...one of cause and effect, where Document 1 shows..."</p>
+                        </li>
+                        <li><span class="font-bold text-white">C</span> Cite evidence from both docs.
+                            <p class="text-sm text-gray-400 pl-7">"Doc 1 states '...', and Doc 2 shows '...'"</p>
+                        </li>
+                        <li><span class="font-bold text-white">E</span> Explain your evidence.
+                            <p class="text-sm text-gray-400 pl-7">"This proves the action in Doc 1 led to the result in Doc 2."</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Column 2 -->
+            <div class="flex flex-col gap-8">
+                <!-- SEQ 2 -->
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20 transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-black/30">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 header-gradient panel-title">
+                        SEQ 2: Document Reliability
+                    </h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-indigo-500/10 p-3 rounded-full border border-indigo-500/30">
+                                <svg class="w-6 h-6 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white">2 Paragraphs</h3>
+                                <p class="text-gray-400"><span class="font-semibold text-indigo-300">Structure</span> your response in two clear paragraphs.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-indigo-500/10 p-3 rounded-full border border-indigo-500/30">
+                                <svg class="w-6 h-6 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white"><span class="font-medium text-indigo-400">Task 1:</span> Historical Context</h3>
+                                <p class="text-gray-400">Explain the "<span class="font-semibold text-indigo-300">who, what, when, where</span>" around the document.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-indigo-500/10 p-3 rounded-full border border-indigo-500/30">
+                                <svg class="w-6 h-6 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white"><span class="font-medium text-indigo-400">Task 2:</span> Reliability</h3>
+                                <p class="text-gray-400">Judge bias, purpose and audience. Say how that affects trust.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <div class="bg-indigo-500/10 p-3 rounded-full border border-indigo-500/30">
+                                <svg class="w-6 h-6 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 0 1 .375.375v3.375c0 .207.168.375.375.375h3.375a.375.375 0 0 1 .375.375v1.5a.375.375 0 0 1-.375.375h-3.375a1.875 1.875 0 0 1-1.875-1.875v-3.375a.375.375 0 0 1 .375-.375Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25v10.5A2.25 2.25 0 0 1 18.75 18h-13.5A2.25 2.25 0 0 1 3 15.75V5.25ZM5.25 4.5c-.414 0-.75.336-.75.75v10.5c0 .414.336.75.75.75h13.5c.414 0 .75-.336.75-.75V5.25c0-.414-.336-.75-.75-.75H5.25Z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-semibold text-white">Evidence</h3>
+                                <p class="text-gray-400">Use at least <span class="font-semibold text-indigo-300">2 citations</span> from Doc 2.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- R.A.C.E. for SEQ 2 -->
+                <div class="bg-gray-900 border border-dashed border-gray-700 rounded-2xl p-6 md:p-8 shadow-lg shadow-black/20">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-400 sub-head">Strategy for Paragraph 2: R.A.C.E.</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><span class="font-bold text-white">R</span> Restate the question.
+                            <p class="text-sm text-gray-400 pl-7">"Document 2 can be judged for reliability by looking at..."</p>
+                        </li>
+                        <li><span class="font-bold text-white">A</span> Answer the question.
+                            <p class="text-sm text-gray-400 pl-7">"...its purpose to persuade, which makes it somewhat biased."</p>
+                        </li>
+                        <li><span class="font-bold text-white">C</span> Cite evidence from the document.
+                            <p class="text-sm text-gray-400 pl-7">"For example, the author uses the phrase..." (Doc 2).</p>
+                        </li>
+                        <li><span class="font-bold text-white">E</span> Explain how evidence proves the answer.
+                            <p class="text-sm text-gray-400 pl-7">"This shows they were speaking to a specific audience, which affects trust."</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Videos at bottom -->
+        <section class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 header-gradient panel-title">
+                Review Videos
+            </h2>
+            <p class="text-gray-400 mb-6 text-sm md:text-base">
+                Watch the one that matches your SEQ. Pause. Copy the sentence frame. Plug in your doc evidence.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- SEQ 1 Video -->
+                <div class="video-card border border-gray-800 rounded-xl p-4 flex flex-col gap-3">
+                    <h3 class="text-lg font-semibold text-blue-300 sub-head">SEQ Set 1: Document Relationships</h3>
+                    <div class="aspect-video bg-black/40 rounded-lg overflow-hidden border border-gray-700">
+                        <!-- replace with real link -->
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_SEQ1" title="SEQ 1 Review" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-xs text-gray-400">
+                        Goal: show context, then show the connection.
+                    </p>
+                </div>
+                <!-- SEQ 2 Video -->
+                <div class="video-card border border-gray-800 rounded-xl p-4 flex flex-col gap-3">
+                    <h3 class="text-lg font-semibold text-indigo-300 sub-head">SEQ Set 2: Reliability and Bias</h3>
+                    <div class="aspect-video bg-black/40 rounded-lg overflow-hidden border border-gray-700">
+                        <!-- replace with real link -->
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_SEQ2" title="SEQ 2 Review" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-xs text-gray-400">
+                        Goal: name the bias, purpose and audience, then tell what that does to trust.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // same data as your uploaded html
+            const scoreData = [
+                { label: "Part I: Multiple-Choice Questions", value: 28, id: "part-i" },
+                { label: "Part II: Short-Essay Questions (Set 1)", value: 5, id: "part-ii-set-1" },
+                { label: "Part II: Short-Essay Questions (Set 2)", value: 5, id: "part-ii-set-2" },
+                { label: "Part IIIA: Short-Response Questions", value: 6, id: "part-iiia" },
+                { label: "Part IIIB: Extended Civic Literacy Essay", value: 5, id: "part-iiib" }
+            ];
+            const total = d3.sum(scoreData, d => d.value);
+            scoreData.forEach(d => d.percentage = (d.value / total) * 100);
+            const svgW = 240, svgH = 240, r = Math.min(svgW, svgH) / 2 - 10;
+            const svg = d3.select("#pie-chart")
+                .attr("width", svgW)
+                .attr("height", svgH)
+                .append("g")
+                .attr("transform", `translate(${svgW / 2},${svgH / 2})`);
+            const colors = {
+                "Part I: Multiple-Choice Questions": "#d8b4fe",
+                "Part II: Short-Essay Questions (Set 1)": "#ff4d4d",
+                "Part II: Short-Essay Questions (Set 2)": "#ff8f4d",
+                "Part IIIA: Short-Response Questions": "#ffa500",
+                "Part IIIB: Extended Civic Literacy Essay": "#38bdf8"
+            };
+            const pie = d3.pie().value(d => d.value).sort(null);
+            const arc = d3.arc().innerRadius(r * 0.45).outerRadius(r);
+            const pieData = pie(scoreData);
+            // glow filter like original
+            const defs = svg.append("defs");
+            const filter = defs.append("filter")
+                .attr("id", "glow-filter")
+                .attr("x", "-50%")
+                .attr("y", "-50%")
+                .attr("width", "200%")
+                .attr("height", "200%");
+            filter.append("feGaussianBlur")
+                .attr("stdDeviation", "10")
+                .attr("result", "coloredBlur");
+            const feMerge = filter.append("feMerge");
+            feMerge.append("feMergeNode").attr("in", "coloredBlur");
+            feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+            const tooltip = d3.select("#tooltip");
+            svg.selectAll(".arc")
+                .data(pieData)
+                .enter()
+                .append("path")
+                .attr("d", arc)
+                .attr("fill", d => colors[d.data.label])
+                .attr("stroke", "#030712")
+                .attr("stroke-width", 2)
+                .attr("class", d => {
+                    if (d.data.id === "part-ii-set-1" || d.data.id === "part-ii-set-2") {
+                        return "pulsing-arc";
+                    }
+                    return null;
+                })
+                .on("mouseover", function () {
+                    tooltip.style("opacity", 1);
+                })
+                .on("mousemove", function (event, d) {
+                    tooltip
+                        .html(`<strong>${d.data.label}</strong><br>${d.data.value} pts (${d.data.percentage.toFixed(1)}%)`)
+                        .style("left", (event.pageX + 15) + "px")
+                        .style("top", (event.pageY - 30) + "px");
+                })
+                .on("mouseout", function () {
+                    tooltip.style("opacity", 0);
+                });
+            // animated outer arc glow
+            const outerArc = d3.arc().innerRadius(r + 4).outerRadius(r + 4);
+            svg.append("path")
+                .attr("d", outerArc({ startAngle: 0, endAngle: 2 * Math.PI }))
+                .attr("fill", "none")
+                .attr("stroke", "#d8b4fe")
+                .attr("stroke-width", "3px")
+                .style("filter", "url(#glow-filter)")
+                .style("animation", "pulse-glow 2s ease-in-out infinite");
+            // legend
+            const legend = d3.select("#legend");
+            scoreData.forEach((d, i) => {
+                const item = legend.append("div").attr("class", "flex items-center gap-3 legend-item");
+                const square = item.append("div")
+                    .style("width", "16px")
+                    .style("height", "16px")
+                    .style("background-color", colors[d.label])
+                    .style("border-radius", "4px");
+                if (d.id === "part-ii-set-1" || d.id === "part-ii-set-2") {
+                    square.attr("class", "pulsing-square");
+                }
+                const text = item.append("div").attr("class", "flex flex-col leading-tight");
+                text.append("span").attr("class", "text-xs md:text-sm").text(d.label);
+                const valSpan = text.append("span")
+                    .attr("class", "text-[0.625rem] text-gray-300")
+                    .text("0 pts");
+                animateCountUp(valSpan.node(), d.value, { suffix: " pts", duration: 900, delay: 200 + i * 80 });
+            });
+            // Part II weight = (5 + 5) / 49 ≈ 20.4%
+            const weightEl = document.getElementById("exam-weight");
+            if (weightEl) {
+                const target = parseFloat(weightEl.dataset.target || "20.4");
+                animateCountUp(weightEl, target, { suffix: "%", duration: 1400, decimals: 1 });
+            }
+            function animateCountUp(element, target, opts = {}) {
+                const { duration = 1000, delay = 0, suffix = "", decimals = 0 } = opts;
+                const start = performance.now() + delay;
+                const from = 0;
+                function frame(now) {
+                    if (now < start) {
+                        requestAnimationFrame(frame);
+                        return;
+                    }
+                    const progress = Math.min((now - start) / duration, 1);
+                    const value = from + (target - from) * progress;
+                    element.textContent = value.toFixed(decimals) + suffix;
+                    if (progress < 1) {
+                        requestAnimationFrame(frame);
+                    }
+                }
+                requestAnimationFrame(frame);
+            }
+        });
+    </script>
+</body>
+</html>
