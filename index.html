@@ -224,26 +224,28 @@
   <header class="sticky top-0 z-50">
     <nav class="glass flex items-center justify-between px-4 md:px-8 py-3">
       <div class="flex items-center gap-3">
-        <div class="brand-icon h-16 w-16 rounded-xl shadow-lg overflow-hidden"></div>
-        <span class="font-extrabold tracking-tight">Mr. Wallace's U.S. History Class</span>
+        <div class="brand-icon h-16 w-16 rounded-xl shadow-lg overflow-hidden" aria-hidden="true"></div>
+        <span class="font-extrabold tracking-tight" data-i18n="brandName">Mr. Wallace's U.S. History Class</span>
       </div>
-      <button id="mobileBtn" class="md:hidden px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15">Menu</button>
+      <button id="mobileBtn" class="md:hidden px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15" data-i18n="nav.menu">Menu</button>
       <ul id="links" class="hidden md:flex items-center gap-6 text-sm text-white/85">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#calendar" class="nav-link">Calendar</a></li>
-        <li><a href="#assign" class="nav-link">Assignments</a></li>
-        <li><a href="#timeline" class="nav-link">Timeline</a></li>
-        <li><a href="#resources" class="nav-link">Resources</a></li>
-        <li><a href="#regents" class="nav-link">NY Regents Prep</a></li>
+        <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+        <li><a href="#calendar" class="nav-link" data-i18n="nav.calendar">Calendar</a></li>
+        <li><a href="#assign" class="nav-link" data-i18n="nav.assignments">Assignments</a></li>
+        <li><a href="#timeline" class="nav-link" data-i18n="nav.timeline">Timeline</a></li>
+        <li><a href="#resources" class="nav-link" data-i18n="nav.resources">Resources</a></li>
+        <li><a href="#regents" class="nav-link" data-i18n="nav.regents">NY Regents Prep</a></li>
       </ul>
+      <button id="langToggle" class="hidden md:inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm" aria-pressed="false" data-label-en="ES" data-label-es="EN">ES</button>
     </nav>
     <ul id="mobileMenu" class="md:hidden hidden glass px-4 py-3 space-y-2">
-      <li><a href="#about" class="block py-1.5">About</a></li>
-      <li><a href="#calendar" class="block py-1.5">Calendar</a></li>
-      <li><a href="#assign" class="block py-1.5">Assignments</a></li>
-      <li><a href="#timeline" class="block py-1.5">Timeline</a></li>
-      <li><a href="#resources" class="block py-1.5">Resources</a></li>
-      <li><a href="#regents" class="block py-1.5">NY Regents Prep</a></li>
+      <li><a href="#about" class="block py-1.5" data-i18n="nav.about">About</a></li>
+      <li><a href="#calendar" class="block py-1.5" data-i18n="nav.calendar">Calendar</a></li>
+      <li><a href="#assign" class="block py-1.5" data-i18n="nav.assignments">Assignments</a></li>
+      <li><a href="#timeline" class="block py-1.5" data-i18n="nav.timeline">Timeline</a></li>
+      <li><a href="#resources" class="block py-1.5" data-i18n="nav.resources">Resources</a></li>
+      <li><a href="#regents" class="block py-1.5" data-i18n="nav.regents">NY Regents Prep</a></li>
+      <li><button id="langToggleMobile" class="w-full px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-left" aria-pressed="false" data-label-en="Cambiar a español" data-label-es="Switch to English">Cambiar a español</button></li>
     </ul>
   </header>
 
@@ -254,26 +256,26 @@
     <div class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-24">
       <div class="flex flex-col lg:flex-row items-center lg:items-start gap-12">
         <div class="flex-1 w-full">
-          <p class="text-sm tracking-widest text-white/70 uppercase">Northside Charter - US History</p>
-          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight neon">Your Gateway to the Past</h1>
-          <p class="mt-3 max-w-2xl text-white/80 text-lg md:text-xl leading-relaxed">Hi, I’m Mr. Wallace. This class is your space to read, question, build, and share. We use primary sources, short tasks, and weekly creations to make history feel real and fair.</p>
+          <p class="text-sm tracking-widest text-white/70 uppercase" data-i18n="hero.tagline">Northside Charter - US History</p>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight neon" data-i18n="hero.title">Your Gateway to the Past</h1>
+          <p class="mt-3 max-w-2xl text-white/80 text-lg md:text-xl leading-relaxed" data-i18n="hero.description">Hi, I’m Mr. Wallace. This class is your space to read, question, build, and share. We use primary sources, short tasks, and weekly creations to make history feel real and fair.</p>
 
           <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <a href="#calendar" class="glass lift p-4 rounded-2xl">
-              <p class="text-white/70 text-sm">Jump to</p>
-              <p class="font-semibold text-lg">Calendar</p>
+              <p class="text-white/70 text-sm" data-i18n="hero.card1.subtitle">Jump to</p>
+              <p class="font-semibold text-lg" data-i18n="hero.card1.title">Calendar</p>
             </a>
             <a href="#assign" class="glass lift p-4 rounded-2xl">
-              <p class="text-white/70 text-sm">See</p>
-              <p class="font-semibold text-lg">Assignments</p>
+              <p class="text-white/70 text-sm" data-i18n="hero.card2.subtitle">See</p>
+              <p class="font-semibold text-lg" data-i18n="hero.card2.title">Assignments</p>
             </a>
             <a href="#timeline" class="glass lift p-4 rounded-2xl">
-              <p class="text-white/70 text-sm">Explore</p>
-              <p class="font-semibold text-lg">Interactive Timeline</p>
+              <p class="text-white/70 text-sm" data-i18n="hero.card3.subtitle">Explore</p>
+              <p class="font-semibold text-lg" data-i18n="hero.card3.title">Interactive Timeline</p>
             </a>
             <a href="#resources" class="glass lift p-4 rounded-2xl">
-              <p class="text-white/70 text-sm">Find</p>
-              <p class="font-semibold text-lg">Study Boosters</p>
+              <p class="text-white/70 text-sm" data-i18n="hero.card4.subtitle">Find</p>
+              <p class="font-semibold text-lg" data-i18n="hero.card4.title">Study Boosters</p>
             </a>
           </div>
         </div>
@@ -289,31 +291,31 @@
   <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
     <div class="grid md:grid-cols-3 gap-8 items-center">
       <div class="md:col-span-2">
-        <h2 class="text-2xl md:text-3xl font-extrabold">About the Course</h2>
-        <p class="mt-3 text-white/80">We connect primary sources to the city outside your door. Expect short reads, mini debates, creation days, and a weekly project you can be proud of.</p>
+        <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="about.title">About the Course</h2>
+        <p class="mt-3 text-white/80" data-i18n="about.description">We connect primary sources to the city outside your door. Expect short reads, mini debates, creation days, and a weekly project you can be proud of.</p>
         <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
-          <li class="glass p-3 rounded-xl">Grade-friendly deadlines</li>
-          <li class="glass p-3 rounded-xl">Every Friday - showcase your build</li>
-          <li class="glass p-3 rounded-xl">Office hours after school</li>
-          <li class="glass p-3 rounded-xl">Regents skills from day one</li>
+          <li class="glass p-3 rounded-xl" data-i18n="about.point1">Grade-friendly deadlines</li>
+          <li class="glass p-3 rounded-xl" data-i18n="about.point2">Every Friday - showcase your build</li>
+          <li class="glass p-3 rounded-xl" data-i18n="about.point3">Office hours after school</li>
+          <li class="glass p-3 rounded-xl" data-i18n="about.point4">Regents skills from day one</li>
         </ul>
       </div>
       <div class="glass p-6 rounded-2xl lift">
-        <p class="text-sm text-white/70">Contact</p>
-        <p class="text-lg font-semibold">Mr. Wallace</p>
-        <p class="text-white/75">Brooklyn</p>
-        <a href="mailto:example@school.org" class="mt-3 inline-block px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500">Email</a>
+        <p class="text-sm text-white/70" data-i18n="about.contact">Contact</p>
+        <p class="text-lg font-semibold" data-i18n="about.teacher">Mr. Wallace</p>
+        <p class="text-white/75" data-i18n="about.location">Brooklyn</p>
+        <a href="mailto:example@school.org" class="mt-3 inline-block px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500" data-i18n="about.email">Email</a>
       </div>
     </div>
   </section>
 
   <section id="calendar" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
     <div class="flex items-end justify-between gap-4 flex-wrap">
-      <h2 class="text-2xl md:text-3xl font-extrabold">Class Calendar</h2>
+      <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="calendar.title">Class Calendar</h2>
       <div class="glass rounded-xl p-1 flex gap-1">
-        <button data-view="embed" class="tab px-3 py-1.5 rounded-lg bg-white/10">Embed</button>
-        <button data-view="cards" class="tab px-3 py-1.5 rounded-lg">Cards</button>
-        <button data-view="subscribe" class="tab px-3 py-1.5 rounded-lg">Subscribe</button>
+        <button data-view="embed" class="tab px-3 py-1.5 rounded-lg bg-white/10" data-i18n="calendar.embed">Embed</button>
+        <button data-view="cards" class="tab px-3 py-1.5 rounded-lg" data-i18n="calendar.cards">Cards</button>
+        <button data-view="subscribe" class="tab px-3 py-1.5 rounded-lg" data-i18n="calendar.subscribe">Subscribe</button>
       </div>
     </div>
 
@@ -326,32 +328,32 @@
     <div class="flex items-center gap-2 mt-3">
       <input id="dayPicker" type="date" class="glass rounded-lg px-3 py-1.5 text-sm bg-white/5" />
       <div class="glass rounded-xl p-1 flex gap-1">
-        <button id="btnMonth" class="px-3 py-1.5 rounded-lg bg-white/10">Month</button>
-        <button id="btnDay" class="px-3 py-1.5 rounded-lg">Day</button>
+        <button id="btnMonth" class="px-3 py-1.5 rounded-lg bg-white/10" data-i18n="calendar.month">Month</button>
+        <button id="btnDay" class="px-3 py-1.5 rounded-lg" data-i18n="calendar.day">Day</button>
       </div>
     </div>
 
     <div id="cal-cards" class="mt-6 hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
     <div id="cal-sub" class="mt-6 hidden glass rounded-2xl p-6">
-      <p class="text-white/80">Add to your calendar app:</p>
+      <p class="text-white/80" data-i18n="calendar.add">Add to your calendar app:</p>
       <div class="mt-3 flex flex-wrap gap-3">
-        <a class="px-3 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500" href="#" onclick="alert('Replace with your Google Calendar public link')">Google Calendar</a>
-        <a class="px-3 py-2 rounded-lg bg-white/10" href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Example%20Event%0ADTSTART:20251115T150000Z%0ADTEND:20251115T160000Z%0AEND:VEVENT%0AEND:VCALENDAR">Download ICS</a>
+        <a class="px-3 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-500" href="#" data-action="calendarAlert" data-i18n="calendar.google">Google Calendar</a>
+        <a class="px-3 py-2 rounded-lg bg-white/10" href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:Example%20Event%0ADTSTART:20251115T150000Z%0ADTEND:20251115T160000Z%0AEND:VEVENT%0AEND:VCALENDAR" data-i18n="calendar.ics">Download ICS</a>
       </div>
     </div>
   </section>
 
   <section id="assign" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
     <div class="flex items-end justify-between gap-4 flex-wrap">
-      <h2 class="text-2xl md:text-3xl font-extrabold">Assignments</h2>
+      <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="assignments.title">Assignments</h2>
       <div class="flex items-center gap-2">
-        <label class="text-sm text-white/70" for="tag">Filter</label>
+        <label class="text-sm text-white/70" for="tag" data-i18n="assignments.filter">Filter</label>
         <select id="tag" class="glass rounded-lg px-3 py-1.5 text-sm">
-          <option value="all">All</option>
-          <option value="essay">Essay</option>
-          <option value="presentation">Presentation</option>
-          <option value="worksheet">Worksheet</option>
+          <option value="all" data-i18n="assignments.optionAll">All</option>
+          <option value="essay" data-i18n="assignments.optionEssay">Essay</option>
+          <option value="presentation" data-i18n="assignments.optionPresentation">Presentation</option>
+          <option value="worksheet" data-i18n="assignments.optionWorksheet">Worksheet</option>
         </select>
       </div>
     </div>
@@ -363,15 +365,15 @@
     <div class="max-w-7xl mx-auto px-6 md:px-10">
       <div class="flex items-end justify-between gap-4 flex-wrap">
         <div>
-          <h2 class="text-2xl md:text-3xl font-extrabold">Interactive Timeline</h2>
-          <p class="text-white/75 mt-2">Pick a unit. Slide to browse. Tap a card to see cause and effect.</p>
+          <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="timeline.title">Interactive Timeline</h2>
+          <p class="text-white/75 mt-2" data-i18n="timeline.description">Pick a unit. Slide to browse. Tap a card to see cause and effect.</p>
         </div>
         <div class="flex items-center gap-3">
-          <label for="unitPick" class="text-sm text-white/70">Unit</label>
+          <label for="unitPick" class="text-sm text-white/70" data-i18n="timeline.unit">Unit</label>
           <select id="unitPick" class="glass rounded-lg px-3 py-1.5 text-sm">
-            <option value="US01">Unit 1 - Colonies and Conflict</option>
-            <option value="US02">Unit 2 - American Revolution</option>
-            <option value="US03" selected>Unit 3 - Building a Nation</option>
+            <option value="US01" data-i18n="timeline.unit1">Unit 1 - Colonies and Conflict</option>
+            <option value="US02" data-i18n="timeline.unit2">Unit 2 - American Revolution</option>
+            <option value="US03" data-i18n="timeline.unit3" selected>Unit 3 - Building a Nation</option>
           </select>
         </div>
       </div>
@@ -380,23 +382,23 @@
   </section>
 
   <section id="resources" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
-    <h2 class="text-2xl md:text-3xl font-extrabold">Resources</h2>
+    <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="resources.title">Resources</h2>
     <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.archives.gov/">
-        <p class="card-title">National Archives</p>
-        <p class="text-sm text-white/75">Primary docs and images.</p>
+        <p class="card-title" data-i18n="resources.item1.title">National Archives</p>
+        <p class="text-sm text-white/75" data-i18n="resources.item1.desc">Primary docs and images.</p>
       </a>
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.loc.gov/">
-        <p class="card-title">Library of Congress</p>
-        <p class="text-sm text-white/75">Maps, photos, newspapers.</p>
+        <p class="card-title" data-i18n="resources.item2.title">Library of Congress</p>
+        <p class="text-sm text-white/75" data-i18n="resources.item2.desc">Maps, photos, newspapers.</p>
       </a>
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://www.gilderlehrman.org/">
-        <p class="card-title">Gilder Lehrman</p>
-        <p class="text-sm text-white/75">Lesson supports and timelines.</p>
+        <p class="card-title" data-i18n="resources.item3.title">Gilder Lehrman</p>
+        <p class="text-sm text-white/75" data-i18n="resources.item3.desc">Lesson supports and timelines.</p>
       </a>
       <a target="_blank" class="glass rounded-2xl p-5 lift" href="https://worldhistorycommons.org/">
-        <p class="card-title">World History Commons</p>
-        <p class="text-sm text-white/75">Curated sources and guides.</p>
+        <p class="card-title" data-i18n="resources.item4.title">World History Commons</p>
+        <p class="text-sm text-white/75" data-i18n="resources.item4.desc">Curated sources and guides.</p>
       </a>
     </div>
   </section>
@@ -404,282 +406,423 @@
   <!-- NY REGENTS Prep -->
   <section id="regents" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
     <div class="glass rounded-2xl p-6 lift">
-      <h2 class="text-2xl md:text-3xl font-extrabold">NY Regents Prep</h2>
-      <p class="mt-2 text-white/80">Quick practice built into our vibe. Short bursts that target skills: thesis, sourcing, reliability, context, and cause then effect.</p>
+      <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="regents.title">NY Regents Prep</h2>
+      <p class="mt-2 text-white/80" data-i18n="regents.description">Quick practice built into our vibe. Short bursts that target skills: thesis, sourcing, reliability, context, and cause then effect.</p>
       <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <a class="glass rounded-2xl p-5 lift" href="#">
-          <p class="card-title">Set 1 - Sequence</p>
-          <p class="text-sm text-white/80 mt-1">Put events in order and connect why each one matters.</p>
+          <p class="card-title" data-i18n="regents.set1.title">Set 1 - Sequence</p>
+          <p class="text-sm text-white/80 mt-1" data-i18n="regents.set1.desc">Put events in order and connect why each one matters.</p>
         </a>
         <a class="glass rounded-2xl p-5 lift" href="#">
-          <p class="card-title">Set 2 - Reliability</p>
-          <p class="text-sm text-white/80 mt-1">Audience, purpose, bias. Make the call and back it up.</p>
+          <p class="card-title" data-i18n="regents.set2.title">Set 2 - Reliability</p>
+          <p class="text-sm text-white/80 mt-1" data-i18n="regents.set2.desc">Audience, purpose, bias. Make the call and back it up.</p>
         </a>
         <a class="glass rounded-2xl p-5 lift" href="#">
-          <p class="card-title">Set 3 - Enduring Issues</p>
-          <p class="text-sm text-white/80 mt-1">Find the issue. Use evidence. Write clean and strong.</p>
+          <p class="card-title" data-i18n="regents.set3.title">Set 3 - Enduring Issues</p>
+          <p class="text-sm text-white/80 mt-1" data-i18n="regents.set3.desc">Find the issue. Use evidence. Write clean and strong.</p>
         </a>
       </div>
     </div>
   </section>
 
-  <footer class="py-10 text-center text-white/60 text-sm">Mr. Wallace. Built for students first. All rights reserved.</footer>
+  <footer class="py-10 text-center text-white/60 text-sm" data-i18n="footer">Mr. Wallace. Built for students first. All rights reserved.</footer>
 
-  <script>
-    // Mobile menu
-    const mobileBtn = document.getElementById('mobileBtn');
-    const mm = document.getElementById('mobileMenu');
-    mobileBtn?.addEventListener('click', ()=> mm.classList.toggle('hidden'));
-
-    // Scroll progress
-    const bar = document.getElementById('progress');
-    window.addEventListener('scroll', () => {
-      const h = document.documentElement;
-      const p = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
-      bar.style.transform = `scaleX(${p})`;
-    });
-
-    // Particle dots
-    const c = document.getElementById('dots');
-    const ctx = c.getContext('2d');
-    let W, H; let dots = [];
-    function resize(){
-      W = c.width = window.innerWidth; H = c.height = window.innerHeight;
-      dots = Array.from({length: Math.min(80, Math.floor(W/20))}, (_,i)=> ({
-        x: Math.random()*W, y: Math.random()*H,
-        vx: (Math.random()-.5)*.7, vy: (Math.random()-.5)*.7,
-        r: 1.2 + Math.random()*1.8
-      }));
-    }
-    resize(); window.addEventListener('resize', resize);
-
-    function animate(){
-      ctx.clearRect(0,0,W,H);
-      ctx.fillStyle = 'rgba(255,255,255,.7)';
-      dots.forEach(d=>{
-        d.x += d.vx; d.y += d.vy;
-        if(d.x<0||d.x>W) d.vx*=-1;
-        if(d.y<0||d.y>H) d.vy*=-1;
-        ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill();
-      });
-      ctx.strokeStyle = 'rgba(190,160,255,.15)';
-      for(let i=0;i<dots.length;i++){
-        for(let j=i+1;j<dots.length;j++){
-          const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y;
-          const dist = Math.hypot(dx,dy);
-          if(dist<120){
-            ctx.globalAlpha = 1 - (dist/120);
-            ctx.beginPath(); ctx.moveTo(dots[i].x,dots[i].y); ctx.lineTo(dots[j].x,dots[j].y); ctx.stroke();
-            ctx.globalAlpha = 1;
-          }
-        }
+    <script>
+    const I18N = {
+      en: {
+        "meta.title": "US History - Brooklyn Edition",
+        "brandName": "Mr. Wallace's U.S. History Class",
+        "nav.menu": "Menu",
+        "nav.about": "About",
+        "nav.calendar": "Calendar",
+        "nav.assignments": "Assignments",
+        "nav.timeline": "Timeline",
+        "nav.resources": "Resources",
+        "nav.regents": "NY Regents Prep",
+        "hero.tagline": "Northside Charter - US History",
+        "hero.title": "Your Gateway to the Past",
+        "hero.description": "Hi, I’m Mr. Wallace. This class is your space to read, question, build, and share. We use primary sources, short tasks, and weekly creations to make history feel real and fair.",
+        "hero.card1.subtitle": "Jump to",
+        "hero.card1.title": "Calendar",
+        "hero.card2.subtitle": "See",
+        "hero.card2.title": "Assignments",
+        "hero.card3.subtitle": "Explore",
+        "hero.card3.title": "Interactive Timeline",
+        "hero.card4.subtitle": "Find",
+        "hero.card4.title": "Study Boosters",
+        "about.title": "About the Course",
+        "about.description": "We connect primary sources to the city outside your door. Expect short reads, mini debates, creation days, and a weekly project you can be proud of.",
+        "about.point1": "Grade-friendly deadlines",
+        "about.point2": "Every Friday - showcase your build",
+        "about.point3": "Office hours after school",
+        "about.point4": "Regents skills from day one",
+        "about.contact": "Contact",
+        "about.teacher": "Mr. Wallace",
+        "about.location": "Brooklyn",
+        "about.email": "Email",
+        "calendar.title": "Class Calendar",
+        "calendar.embed": "Embed",
+        "calendar.cards": "Cards",
+        "calendar.subscribe": "Subscribe",
+        "calendar.month": "Month",
+        "calendar.day": "Day",
+        "calendar.add": "Add to your calendar app:",
+        "calendar.google": "Google Calendar",
+        "calendar.ics": "Download ICS",
+        "calendar.addReminder": "Add reminder",
+        "calendar.alert": "Replace with your Google Calendar public link",
+        "assignments.title": "Assignments",
+        "assignments.filter": "Filter",
+        "assignments.optionAll": "All",
+        "assignments.optionEssay": "Essay",
+        "assignments.optionPresentation": "Presentation",
+        "assignments.optionWorksheet": "Worksheet",
+        "assignments.duePrefix": "Due",
+        "assignments.open": "Open",
+        "timeline.title": "Interactive Timeline",
+        "timeline.description": "Pick a unit. Slide to browse. Tap a card to see cause and effect.",
+        "timeline.unit": "Unit",
+        "timeline.unit1": "Unit 1 - Colonies and Conflict",
+        "timeline.unit2": "Unit 2 - American Revolution",
+        "timeline.unit3": "Unit 3 - Building a Nation",
+        "timeline.flipFront": "Flip for cause & effect",
+        "timeline.flipBack": "Flip back",
+        "timeline.cause": "Cause",
+        "timeline.effect": "Effect",
+        "timeline.cardAriaSuffix": "card. Press enter to flip.",
+        "timeline.altSuffix": "illustration",
+        "resources.title": "Resources",
+        "resources.item1.title": "National Archives",
+        "resources.item1.desc": "Primary docs and images.",
+        "resources.item2.title": "Library of Congress",
+        "resources.item2.desc": "Maps, photos, newspapers.",
+        "resources.item3.title": "Gilder Lehrman",
+        "resources.item3.desc": "Lesson supports and timelines.",
+        "resources.item4.title": "World History Commons",
+        "resources.item4.desc": "Curated sources and guides.",
+        "regents.title": "NY Regents Prep",
+        "regents.description": "Quick practice built into our vibe. Short bursts that target skills: thesis, sourcing, reliability, context, and cause then effect.",
+        "regents.set1.title": "Set 1 - Sequence",
+        "regents.set1.desc": "Put events in order and connect why each one matters.",
+        "regents.set2.title": "Set 2 - Reliability",
+        "regents.set2.desc": "Audience, purpose, bias. Make the call and back it up.",
+        "regents.set3.title": "Set 3 - Enduring Issues",
+        "regents.set3.desc": "Find the issue. Use evidence. Write clean and strong.",
+        "footer": "Mr. Wallace. Built for students first. All rights reserved."
+      },
+      es: {
+        "meta.title": "Historia de EE. UU. - Edición Brooklyn",
+        "brandName": "Clase de Historia de EE. UU. del Sr. Wallace",
+        "nav.menu": "Menú",
+        "nav.about": "Sobre el curso",
+        "nav.calendar": "Calendario",
+        "nav.assignments": "Tareas",
+        "nav.timeline": "Línea de tiempo",
+        "nav.resources": "Recursos",
+        "nav.regents": "Preparación para los Regents",
+        "hero.tagline": "Northside Charter - Historia de EE. UU.",
+        "hero.title": "Tu puerta al pasado",
+        "hero.description": "Hola, soy el Sr. Wallace. Esta clase es tu espacio para leer, cuestionar, construir y compartir. Usamos fuentes primarias, tareas cortas y creaciones semanales para que la historia se sienta real y justa.",
+        "hero.card1.subtitle": "Ir a",
+        "hero.card1.title": "Calendario",
+        "hero.card2.subtitle": "Ver",
+        "hero.card2.title": "Tareas",
+        "hero.card3.subtitle": "Explorar",
+        "hero.card3.title": "Línea de tiempo interactiva",
+        "hero.card4.subtitle": "Encontrar",
+        "hero.card4.title": "Refuerzos de estudio",
+        "about.title": "Sobre el curso",
+        "about.description": "Conectamos fuentes primarias con la ciudad afuera de tu puerta. Prepárate para lecturas breves, mini debates, días de creación y un proyecto semanal del que puedas sentirte orgulloso.",
+        "about.point1": "Fechas límite adaptadas al grupo",
+        "about.point2": "Cada viernes: muestra lo que creaste",
+        "about.point3": "Tutorías después de clases",
+        "about.point4": "Habilidades para los Regents desde el día uno",
+        "about.contact": "Contacto",
+        "about.teacher": "Sr. Wallace",
+        "about.location": "Brooklyn",
+        "about.email": "Correo",
+        "calendar.title": "Calendario de la clase",
+        "calendar.embed": "Incrustado",
+        "calendar.cards": "Tarjetas",
+        "calendar.subscribe": "Suscribirse",
+        "calendar.month": "Mes",
+        "calendar.day": "Día",
+        "calendar.add": "Agrega a tu app de calendario:",
+        "calendar.google": "Google Calendar",
+        "calendar.ics": "Descargar ICS",
+        "calendar.addReminder": "Agregar recordatorio",
+        "calendar.alert": "Reemplaza con tu enlace público de Google Calendar",
+        "assignments.title": "Tareas",
+        "assignments.filter": "Filtrar",
+        "assignments.optionAll": "Todas",
+        "assignments.optionEssay": "Ensayo",
+        "assignments.optionPresentation": "Presentación",
+        "assignments.optionWorksheet": "Hoja de trabajo",
+        "assignments.duePrefix": "Entrega",
+        "assignments.open": "Abrir",
+        "timeline.title": "Línea de tiempo interactiva",
+        "timeline.description": "Elige una unidad. Desliza para explorar. Toca una tarjeta para ver causa y efecto.",
+        "timeline.unit": "Unidad",
+        "timeline.unit1": "Unidad 1 - Colonias y conflicto",
+        "timeline.unit2": "Unidad 2 - Revolución Americana",
+        "timeline.unit3": "Unidad 3 - Construyendo una nación",
+        "timeline.flipFront": "Voltea para ver causa y efecto",
+        "timeline.flipBack": "Volver al frente",
+        "timeline.cause": "Causa",
+        "timeline.effect": "Efecto",
+        "timeline.cardAriaSuffix": "tarjeta. Presiona Enter para voltearla.",
+        "timeline.altSuffix": "ilustración",
+        "resources.title": "Recursos",
+        "resources.item1.title": "Archivos Nacionales",
+        "resources.item1.desc": "Documentos e imágenes primarias.",
+        "resources.item2.title": "Biblioteca del Congreso",
+        "resources.item2.desc": "Mapas, fotos y periódicos.",
+        "resources.item3.title": "Gilder Lehrman",
+        "resources.item3.desc": "Apoyos didácticos y cronologías.",
+        "resources.item4.title": "World History Commons",
+        "resources.item4.desc": "Fuentes y guías seleccionadas.",
+        "regents.title": "Preparación para los Regents",
+        "regents.description": "Práctica rápida con nuestro estilo. Golpes cortos que trabajan tesis, fuentes, confiabilidad, contexto y causa con efecto.",
+        "regents.set1.title": "Conjunto 1 - Secuencia",
+        "regents.set1.desc": "Ordena eventos y conecta por qué cada uno importa.",
+        "regents.set2.title": "Conjunto 2 - Confiabilidad",
+        "regents.set2.desc": "Audiencia, propósito, sesgo. Toma la decisión y defiéndela.",
+        "regents.set3.title": "Conjunto 3 - Problemas permanentes",
+        "regents.set3.desc": "Identifica el problema. Usa evidencia. Escribe claro y con fuerza.",
+        "footer": "Sr. Wallace. Construido pensando primero en los estudiantes. Todos los derechos reservados."
       }
-      requestAnimationFrame(animate);
-    }
-    animate();
+    };
 
-    // Calendar tabs
-    const tabs = document.querySelectorAll('.tab');
-    const embed = document.getElementById('cal-embed');
-    const cards = document.getElementById('cal-cards');
-    const sub = document.getElementById('cal-sub');
-    tabs.forEach(b=> b.addEventListener('click', () => {
-      tabs.forEach(t=> t.classList.remove('bg-white/10'));
-      b.classList.add('bg-white/10');
-      const v = b.dataset.view;
-      embed.classList.toggle('hidden', v!=='embed');
-      cards.classList.toggle('hidden', v!=='cards');
-      sub.classList.toggle('hidden', v!=='subscribe');
-    }));
+    const EVENT_TAG_LABELS = {
+      en: { assessment: "Assessment", workshop: "Workshop", trip: "Trip", project: "Project" },
+      es: { assessment: "Evaluación", workshop: "Taller", trip: "Excursión", project: "Proyecto" }
+    };
 
-    // Month / Day controls
-    const calFrame = document.querySelector('#cal-embed iframe');
-    const dayPicker = document.getElementById('dayPicker');
-    const btnMonth = document.getElementById('btnMonth');
-    const btnDay = document.getElementById('btnDay');
-    function fmt(d){
-      const y = d.getFullYear(); const m = String(d.getMonth()+1).padStart(2,'0'); const dd = String(d.getDate()).padStart(2,'0');
-      return `${y}${m}${dd}`;
-    }
-    (function initPicker(){
-      const t = new Date();
-      dayPicker.value = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
-    })();
-    function setMonthView(){
-      try{
-        const url = new URL(calFrame.src);
-        url.searchParams.set('mode','MONTH');
-        url.searchParams.delete('dates');
-        calFrame.src = url.toString();
-      }catch(e){}
-      btnMonth.classList.add('bg-white/10');
-      btnDay.classList.remove('bg-white/10');
-    }
-    function setDayView(dateStrISO){
-      const d = dateStrISO ? new Date(dateStrISO) : new Date();
-      const ymd = fmt(d);
-      try{
-        const url = new URL(calFrame.src);
-        url.searchParams.set('mode','WEEK');
-        url.searchParams.set('dates', `${ymd}/${ymd}`);
-        calFrame.src = url.toString();
-      }catch(e){}
-      btnDay.classList.add('bg-white/10');
-      btnMonth.classList.remove('bg-white/10');
-    }
-    btnMonth?.addEventListener('click', setMonthView);
-    btnDay?.addEventListener('click', ()=> setDayView(dayPicker.value));
-    dayPicker?.addEventListener('change', ()=> setDayView(dayPicker.value));
-    setMonthView();
+    const CAL_EVENTS = {
+      en: [
+        { title: "Quiz - Reconstruction", when: "Fri, Nov 1 - in class", tag: "assessment" },
+        { title: "DBQ Workshop", when: "Tue, Nov 4 - after school", tag: "workshop" },
+        { title: "Field Trip - N-Y Historical", when: "Fri, Nov 8 - permission due", tag: "trip" },
+        { title: "Project - Civic Voices", when: "Mon, Nov 18 - submit link", tag: "project" }
+      ],
+      es: [
+        { title: "Examen corto - Reconstrucción", when: "Vie., 1 de nov. - en clase", tag: "assessment" },
+        { title: "Taller de DBQ", when: "Mar., 4 de nov. - después de clases", tag: "workshop" },
+        { title: "Excursión - Museo de Historia de NY", when: "Vie., 8 de nov. - entrega de permiso", tag: "trip" },
+        { title: "Proyecto - Voces cívicas", when: "Lun., 18 de nov. - envía el enlace", tag: "project" }
+      ]
+    };
 
-    // Calendar cards demo data
-    const demoEvents = [
-      {title:'Quiz - Reconstruction', when:'Fri, Nov 1 - in class', tag:'assessment'},
-      {title:'DBQ Workshop', when:'Tue, Nov 4 - after school', tag:'workshop'},
-      {title:'Field Trip - N-Y Historical', when:'Fri, Nov 8 - permission due', tag:'trip'},
-      {title:'Project - Civic Voices', when:'Mon, Nov 18 - submit link', tag:'project'}
-    ];
-    function renderEvents(){
-      cards.innerHTML = demoEvents.map(ev => `
+    const TAG_LABELS = {
+      en: { essay: "Essay", presentation: "Presentation", worksheet: "Worksheet" },
+      es: { essay: "Ensayo", presentation: "Presentación", worksheet: "Hoja de trabajo" }
+    };
+
+    const ASSIGNMENTS = {
+      en: [
+        { title: "Revolution Essay", due: "Nov 10", tag: "essay", blurb: "2 pages about causes and turning points." },
+        { title: "Civil War Mini Deck", due: "Nov 20", tag: "presentation", blurb: "5 slides - one map, one source." },
+        { title: "Constitution Sheet", due: "Nov 30", tag: "worksheet", blurb: "Key clauses and checks." },
+        { title: "Industrialization Photo Study", due: "Dec 6", tag: "presentation", blurb: "Photo analysis and claim." },
+        { title: "Rights and Responsibilities", due: "Dec 13", tag: "essay", blurb: "Short response with evidence." }
+      ],
+      es: [
+        { title: "Ensayo sobre la Revolución", due: "10 de nov.", tag: "essay", blurb: "2 páginas sobre causas y puntos de giro." },
+        { title: "Mini presentación de la Guerra Civil", due: "20 de nov.", tag: "presentation", blurb: "5 diapositivas: un mapa y una fuente." },
+        { title: "Guía de la Constitución", due: "30 de nov.", tag: "worksheet", blurb: "Cláusulas clave y mecanismos de control." },
+        { title: "Estudio fotográfico de la industrialización", due: "6 de dic.", tag: "presentation", blurb: "Analiza la foto y formula un argumento." },
+        { title: "Derechos y responsabilidades", due: "13 de dic.", tag: "essay", blurb: "Respuesta breve con evidencia." }
+      ]
+    };
+
+    const TL_DATA = {
+      en: {
+        US01: [
+          { year: "1607", title: "Jamestown", blurb: "First permanent English spot pulls up and chases profit.", cause: "Joint-stock and imperial goals", effect: "Tobacco economy and indentured labor grow" },
+          { year: "1620", title: "Mayflower Compact", blurb: "Pilgrims write a quick squad agreement to keep order.", cause: "Need for order in a new colony", effect: "Self-government idea takes root" },
+          { year: "1754", title: "French and Indian War", blurb: "Britain vs France beef goes full send in North America.", cause: "Imperial rivalry in North America", effect: "Debt and new taxes set stage for conflict" }
+        ],
+        US02: [
+          { year: "1765", title: "Stamp Act Crisis", blurb: "Parliament taxes paper and the colonies say nah.", cause: "Parliament taxes without colonial say", effect: "Boycotts and unity grow" },
+          { year: "1776", title: "Declaration of Independence", blurb: "Colonies make it official: we out.", cause: "Escalating conflict and rights talk", effect: "Formal break and new nation project" },
+          { year: "1783", title: "Treaty of Paris", blurb: "Peace signed, US on the map for real.", cause: "War weariness and battlefield losses", effect: "US recognition and territory to Mississippi" }
+        ],
+        US03: [
+          { year: "1787", title: "Northwest Ordinance", blurb: "New states get a legit roadmap, slavery banned in the zone.", cause: "Need to organize the Old Northwest", effect: "Rules for statehood and banned slavery in the territory", img: "https://i.ytimg.com/vi/9M-shWgUQAU/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AHmAoACjgKKAgwIABABGD0gSShyMA8=&rs=AOn4CLB8nKN8rPqVMdiPH6-o0WQxebQsiQ" },
+          { year: "1803", title: "Louisiana Purchase", blurb: "Jefferson cops a massive land pack, double the country.", cause: "Access to New Orleans and Mississippi River", effect: "Doubles US land and pressures Native homelands", img: "https://historyclubmagazinedccc.wordpress.com/wp-content/uploads/2015/02/louisiana.jpg" },
+          { year: "1803", title: "Jefferson's Motives", blurb: "He wants farmer power and control of the river bag.", cause: "Farming vision and river trade security", effect: "Policy backs expansion and survey missions", img: "https://study.com/cimages/videopreview/videopreview-full/11sn1vhzkz.jpg" },
+          { year: "1804–06", title: "Lewis and Clark", blurb: "Explorers run recon, meet nations, map the way.", cause: "Need to map and claim the new land", effect: "Contact with Native nations and pathfinding", img: "https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_3840,h_1920,g_auto/dpr_auto/f_auto/q_auto:eco/v1/detail_lewis__clark_at_three_forks-2?_a=BAVAZGID0" },
+          { year: "1830", title: "Indian Removal Act", blurb: "Government forces Native nations off land for settler growth.", cause: "Land hunger and state pressure", effect: "Forced migrations and massive loss for Native peoples", img: "https://www.knowitall.org/sites/default/files/styles/assets_detail/public/2022-06/0_j7y9lR6E1SNHjX--.jpg.webp?itok=0_V8wr1v" },
+          { year: "1812–15", title: "War of 1812", blurb: "Messy war, but pride goes up and industry wakes up.", cause: "Trade fights and frontier conflict", effect: "Surge in nationalism and industry talk", img: "https://res.cloudinary.com/aenetworks/image/upload/c_fill,w_1200,h_630,g_auto/dpr_auto/f_auto/q_auto:eco/v1/the-british-burn-washington-d-c-200-years-agos-featured-photo" },
+          { year: "1823", title: "Monroe Doctrine", blurb: "US tells Europe hands off the neighborhood.", cause: "European powers eye the Americas", effect: "US warns Europe and claims a regional role", img: "https://angrystaffofficer.com/wp-content/uploads/2015/12/o-monroe-doctrine-facebook.jpg?w=2000&h=1000&crop=1" },
+          { year: "1825", title: "Erie Canal", blurb: "Water highway turns NYC into the plug.", cause: "Link Great Lakes to Atlantic markets", effect: "Cheaper shipping and new city growth", img: "https://s3.amazonaws.com/media.powerandmotoryacht.com/wp-content/uploads/2025/07/16142729/02-ErieCanal_LockE5-westbound_Waterford_ECNHC-1024x767.jpg" },
+          { year: "1848", title: "Early Women’s Rights", blurb: "Reformers connect abolition to women’s rights and push.", cause: "Abolition activism highlights inequality", effect: "Seneca Falls talk of rights and reform", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT2P8RWomMUzmZ3h2tydI523dxbl77jUePng&s" }
+        ]
+      },
+      es: {
+        US01: [
+          { year: "1607", title: "Jamestown", blurb: "El primer asentamiento inglés permanente busca ganancias.", cause: "Objetivos de las compañías por acciones y del imperio", effect: "Crece la economía del tabaco y el trabajo por contrato" },
+          { year: "1620", title: "Pacto del Mayflower", blurb: "Los peregrinos redactan un acuerdo rápido para mantener el orden.", cause: "Necesidad de orden en una colonia nueva", effect: "La idea de autogobierno echa raíces" },
+          { year: "1754", title: "Guerra Franco-Indígena", blurb: "Gran Bretaña y Francia chocan con fuerza en Norteamérica.", cause: "Rivalidad imperial en Norteamérica", effect: "La deuda y nuevos impuestos preparan el conflicto" }
+        ],
+        US02: [
+          { year: "1765", title: "Crisis de la Ley del Timbre", blurb: "El Parlamento grava el papel y las colonias dicen que no.", cause: "Impuestos sin voz colonial en el Parlamento", effect: "Crecen los boicots y la unidad" },
+          { year: "1776", title: "Declaración de Independencia", blurb: "Las colonias lo hacen oficial: nos separamos.", cause: "Conflicto en aumento y debate sobre derechos", effect: "Ruptura formal y proyecto de nueva nación" },
+          { year: "1783", title: "Tratado de París", blurb: "Se firma la paz y EE. UU. queda en el mapa.", cause: "Cansancio de la guerra y derrotas en batalla", effect: "Reconocimiento de EE. UU. y territorio hasta el Mississippi" }
+        ],
+        US03: [
+          { year: "1787", title: "Ordenanza del Noroeste", blurb: "Los nuevos estados reciben un plan claro y se prohíbe la esclavitud en la zona.", cause: "Necesidad de organizar el Viejo Noroeste", effect: "Reglas para ser estado y veto a la esclavitud en el territorio", img: "https://i.ytimg.com/vi/9M-shWgUQAU/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AHmAoACjgKKAgwIABABGD0gSShyMA8=&rs=AOn4CLB8nKN8rPqVMdiPH6-o0WQxebQsiQ" },
+          { year: "1803", title: "Compra de Luisiana", blurb: "Jefferson adquiere un enorme territorio y duplica el país.", cause: "Acceso a Nueva Orleans y al río Misisipi", effect: "Duplica el territorio estadounidense y presiona las tierras indígenas", img: "https://historyclubmagazinedccc.wordpress.com/wp-content/uploads/2015/02/louisiana.jpg" },
+          { year: "1803", title: "Motivos de Jefferson", blurb: "Quiere fortalecer a los agricultores y dominar el río.", cause: "Visión agrícola y seguridad del comercio fluvial", effect: "La política impulsa la expansión y las misiones de reconocimiento", img: "https://study.com/cimages/videopreview/videopreview-full/11sn1vhzkz.jpg" },
+          { year: "1804–06", title: "Lewis y Clark", blurb: "Exploradores recorren, se reúnen con naciones y trazan el camino.", cause: "Necesidad de mapear y reclamar las nuevas tierras", effect: "Contacto con naciones indígenas y rutas trazadas", img: "https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_3840,h_1920,g_auto/dpr_auto/f_auto/q_auto:eco/v1/detail_lewis__clark_at_three_forks-2?_a=BAVAZGID0" },
+          { year: "1830", title: "Ley de Traslado Forzoso de Indígenas", blurb: "El gobierno expulsa a naciones indígenas para dar paso a colonos.", cause: "Hambre de tierras y presión de los estados", effect: "Migraciones forzadas y grandes pérdidas para los pueblos indígenas", img: "https://www.knowitall.org/sites/default/files/styles/assets_detail/public/2022-06/0_j7y9lR6E1SNHjX--.jpg.webp?itok=0_V8wr1v" },
+          { year: "1812–15", title: "Guerra de 1812", blurb: "Guerra complicada; sube el orgullo y despega la industria.", cause: "Conflictos comerciales y en la frontera", effect: "Surge el nacionalismo y el impulso industrial", img: "https://res.cloudinary.com/aenetworks/image/upload/c_fill,w_1200,h_630,g_auto/dpr_auto/f_auto/q_auto:eco/v1/the-british-burn-washington-d-c-200-years-agos-featured-photo" },
+          { year: "1823", title: "Doctrina Monroe", blurb: "EE. UU. dice a Europa: manos fuera del vecindario.", cause: "Potencias europeas miran a las Américas", effect: "EE. UU. advierte a Europa y reclama un rol regional", img: "https://angrystaffofficer.com/wp-content/uploads/2015/12/o-monroe-doctrine-facebook.jpg?w=2000&h=1000&crop=1" },
+          { year: "1825", title: "Canal Erie", blurb: "La vía acuática convierte a Nueva York en el centro comercial.", cause: "Unir los Grandes Lagos con los mercados del Atlántico", effect: "Envíos más baratos y crecimiento urbano", img: "https://s3.amazonaws.com/media.powerandmotoryacht.com/wp-content/uploads/2025/07/16142729/02-ErieCanal_LockE5-westbound_Waterford_ECNHC-1024x767.jpg" },
+          { year: "1848", title: "Primeros derechos de las mujeres", blurb: "Reformistas unen la abolición con los derechos de las mujeres.", cause: "El activismo abolicionista revela desigualdades", effect: "En Seneca Falls se discuten derechos y reformas", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT2P8RWomMUzmZ3h2tydI523dxbl77jUePng&s" }
+        ]
+      }
+    };
+
+    let currentLang = "en";
+
+    const mobileBtn = document.getElementById("mobileBtn");
+    const mm = document.getElementById("mobileMenu");
+    const langToggle = document.getElementById("langToggle");
+    const langToggleMobile = document.getElementById("langToggleMobile");
+    const calendarAlertLink = document.querySelector('[data-action="calendarAlert"]');
+    const bar = document.getElementById("progress");
+    const c = document.getElementById("dots");
+    const ctx = c.getContext("2d");
+    let W;
+    let H;
+    let dots = [];
+    const tabs = document.querySelectorAll(".tab");
+    const embed = document.getElementById("cal-embed");
+    const cards = document.getElementById("cal-cards");
+    const sub = document.getElementById("cal-sub");
+    const calFrame = document.querySelector("#cal-embed iframe");
+    const dayPicker = document.getElementById("dayPicker");
+    const btnMonth = document.getElementById("btnMonth");
+    const btnDay = document.getElementById("btnDay");
+    const assignList = document.getElementById("assignList");
+    const tagSel = document.getElementById("tag");
+    const tlRow = document.getElementById("tlRow");
+    const unitPick = document.getElementById("unitPick");
+
+    mobileBtn?.addEventListener("click", () => mm?.classList.toggle("hidden"));
+
+    function t(key) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+    }
+
+    function applyStaticTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        const text = t(key);
+        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+          el.placeholder = text;
+        } else if (el.tagName === "OPTION") {
+          el.textContent = text;
+        } else {
+          el.textContent = text;
+        }
+      });
+      if (langToggle) {
+        langToggle.textContent = currentLang === "en" ? langToggle.dataset.labelEn : langToggle.dataset.labelEs;
+        langToggle.setAttribute("aria-pressed", currentLang === "es");
+      }
+      if (langToggleMobile) {
+        langToggleMobile.textContent = currentLang === "en" ? langToggleMobile.dataset.labelEn : langToggleMobile.dataset.labelEs;
+        langToggleMobile.setAttribute("aria-pressed", currentLang === "es");
+      }
+      document.documentElement.lang = currentLang;
+      document.title = t("meta.title");
+    }
+
+    function renderEvents() {
+      if (!cards) return;
+      const events = CAL_EVENTS[currentLang] || [];
+      const tagLabels = EVENT_TAG_LABELS[currentLang] || EVENT_TAG_LABELS.en;
+      cards.innerHTML = events.map(ev => `
         <article class="glass rounded-2xl p-4 lift">
           <p class="text-xs text-white/70">${ev.when}</p>
           <p class="card-title mt-1">${ev.title}</p>
           <div class="mt-3 flex gap-2">
-            <span class="pill text-xs">${ev.tag}</span>
-            <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">Add reminder</button>
+            <span class="pill text-xs">${tagLabels[ev.tag] || ev.tag}</span>
+            <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">${t("calendar.addReminder")}</button>
           </div>
         </article>
-      `).join('');
+      `).join("");
     }
-    renderEvents();
 
-    // Assignments filter
-    const assignments = [
-      {title:'Revolution Essay', due:'Nov 10', tag:'essay', blurb:'2 pages about causes and turning points.'},
-      {title:'Civil War Mini Deck', due:'Nov 20', tag:'presentation', blurb:'5 slides - one map, one source.'},
-      {title:'Constitution Sheet', due:'Nov 30', tag:'worksheet', blurb:'Key clauses and checks.'},
-      {title:'Industrialization Photo Study', due:'Dec 6', tag:'presentation', blurb:'Photo analysis and claim.'},
-      {title:'Rights and Responsibilities', due:'Dec 13', tag:'essay', blurb:'Short response with evidence.'}
-    ];
-    const assignList = document.getElementById('assignList');
-    const tagSel = document.getElementById('tag');
-    function drawAssignments(){
-      const f = tagSel.value;
-      assignList.innerHTML = assignments
-        .filter(a => f==='all' || a.tag===f)
+    function drawAssignments() {
+      if (!assignList || !tagSel) return;
+      const filter = tagSel.value;
+      const data = ASSIGNMENTS[currentLang] || [];
+      const tagLabels = TAG_LABELS[currentLang] || TAG_LABELS.en;
+      assignList.innerHTML = data
+        .filter(a => filter === "all" || a.tag === filter)
         .map(a => `
           <article class="glass rounded-2xl p-5 lift">
             <div class="flex items-center justify-between">
               <p class="card-title">${a.title}</p>
-              <span class="text-xs pill">Due ${a.due}</span>
+              <span class="text-xs pill">${t("assignments.duePrefix")} ${a.due}</span>
             </div>
             <p class="mt-2 text-white/80 text-sm">${a.blurb}</p>
             <div class="mt-3 flex items-center gap-2">
-              <span class="pill text-xs">${a.tag}</span>
-              <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">Open</button>
+              <span class="pill text-xs">${tagLabels[a.tag] || a.tag}</span>
+              <button class="px-2 py-0.5 rounded bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-xs">${t("assignments.open")}</button>
             </div>
           </article>
-        `).join('');
+        `)
+        .join("");
     }
-    drawAssignments();
-    tagSel.addEventListener('change', drawAssignments);
 
-    
-// ===== Unit Timelines (Units 1–3) flippable cards =====
-const TL_DATA = {
-  US01: [
-    {year: '1607', title: 'Jamestown', blurb: 'First permanent English spot pulls up and chases profit.',
-     cause: 'Joint-stock and imperial goals', effect: 'Tobacco economy and indentured labor grow'},
-    {year: '1620', title: 'Mayflower Compact', blurb: 'Pilgrims write a quick squad agreement to keep order.',
-     cause: 'Need for order in a new colony', effect: 'Self-government idea takes root'},
-    {year: '1754', title: 'French and Indian War', blurb: 'Britain vs France beef goes full send in North America.',
-     cause: 'Imperial rivalry in North America', effect: 'Debt and new taxes set stage for conflict'}
-  ],
-  US02: [
-    {year: '1765', title: 'Stamp Act Crisis', blurb: 'Parliament taxes paper and the colonies say nah.',
-     cause: 'Parliament taxes without colonial say', effect: 'Boycotts and unity grow'},
-    {year: '1776', title: 'Declaration of Independence', blurb: 'Colonies make it official: we out.',
-     cause: 'Escalating conflict and rights talk', effect: 'Formal break and new nation project'},
-    {year: '1783', title: 'Treaty of Paris', blurb: 'Peace signed, US on the map for real.',
-     cause: 'War weariness and battlefield losses', effect: 'US recognition and territory to Mississippi'}
-  ],
-  US03: [
-    {year: '1787', title: 'Northwest Ordinance', blurb: 'New states get a legit roadmap, slavery banned in the zone.',
-     cause: 'Need to organize the Old Northwest', effect: 'Rules for statehood and banned slavery in the territory',
-     img: 'https://i.ytimg.com/vi/9M-shWgUQAU/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AHmAoACjgKKAgwIABABGD0gSShyMA8=&rs=AOn4CLB8nKN8rPqVMdiPH6-o0WQxebQsiQ'},
-    {year: '1803', title: 'Louisiana Purchase', blurb: 'Jefferson cops a massive land pack, double the country.',
-     cause: 'Access to New Orleans and Mississippi River', effect: 'Doubles US land and pressures Native homelands',
-     img: 'https://historyclubmagazinedccc.wordpress.com/wp-content/uploads/2015/02/louisiana.jpg'},
-    {year: '1803', title: "Jefferson's Motives", blurb: 'He wants farmer power and control of the river bag.',
-     cause: 'Farming vision and river trade security', effect: 'Policy backs expansion and survey missions',
-     img: 'https://study.com/cimages/videopreview/videopreview-full/11sn1vhzkz.jpg'},
-    {year: '1804–06', title: 'Lewis and Clark', blurb: 'Explorers run recon, meet nations, map the way.',
-     cause: 'Need to map and claim the new land', effect: 'Contact with Native nations and pathfinding',
-     img: 'https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_3840,h_1920,g_auto/dpr_auto/f_auto/q_auto:eco/v1/detail_lewis__clark_at_three_forks-2?_a=BAVAZGID0'},
-    {year: '1830', title: 'Indian Removal Act', blurb: 'Government forces Native nations off land for settler growth.',
-     cause: 'Land hunger and state pressure', effect: 'Forced migrations and massive loss for Native peoples',
-     img: 'https://www.knowitall.org/sites/default/files/styles/assets_detail/public/2022-06/0_j7y9lR6E1SNHjX--.jpg.webp?itok=0_V8wr1v'},
-    {year: '1812–15', title: 'War of 1812', blurb: 'Messy war, but pride goes up and industry wakes up.',
-     cause: 'Trade fights and frontier conflict', effect: 'Surge in nationalism and industry talk',
-     img: 'https://res.cloudinary.com/aenetworks/image/upload/c_fill,w_1200,h_630,g_auto/dpr_auto/f_auto/q_auto:eco/v1/the-british-burn-washington-d-c-200-years-agos-featured-photo'},
-    {year: '1823', title: 'Monroe Doctrine', blurb: 'US tells Europe hands off the neighborhood.',
-     cause: 'European powers eye the Americas', effect: 'US warns Europe and claims a regional role',
-     img: 'https://angrystaffofficer.com/wp-content/uploads/2015/12/o-monroe-doctrine-facebook.jpg?w=2000&h=1000&crop=1'},
-    {year: '1825', title: 'Erie Canal', blurb: 'Water highway turns NYC into the plug.',
-     cause: 'Link Great Lakes to Atlantic markets', effect: 'Cheaper shipping and new city growth',
-     img: 'https://s3.amazonaws.com/media.powerandmotoryacht.com/wp-content/uploads/2025/07/16142729/02-ErieCanal_LockE5-westbound_Waterford_ECNHC-1024x767.jpg'},
-    {year: '1848', title: 'Early Women’s Rights', blurb: 'Reformers connect abolition to women’s rights and push.',
-     cause: 'Abolition activism highlights inequality', effect: 'Seneca Falls talk of rights and reform',
-     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT2P8RWomMUzmZ3h2tydI523dxbl77jUePng&s'}
-  ]
-};
+    function colorByIndex(i) {
+      const palettes = [
+        "from-fuchsia-500/40 to-indigo-500/40",
+        "from-indigo-500/40 to-violet-500/40",
+        "from-violet-500/40 to-fuchsia-500/40",
+        "from-sky-400/30 to-emerald-400/30",
+        "from-white/10 to-white/5"
+      ];
+      return palettes[i % palettes.length];
+    }
 
-const tlRow = document.getElementById('tlRow');
-const unitPick = document.getElementById('unitPick');
+    function topBarGradient(i) {
+      const bands = [
+        "from-fuchsia-500 via-purple-500 to-indigo-500",
+        "from-sky-400 via-cyan-400 to-emerald-400",
+        "from-amber-400 via-orange-500 to-rose-500",
+        "from-indigo-400 via-blue-500 to-slate-400"
+      ];
+      return bands[i % bands.length];
+    }
 
-function colorByIndex(i){
-  const palettes = [
-    'from-fuchsia-500/40 to-indigo-500/40',
-    'from-indigo-500/40 to-violet-500/40',
-    'from-violet-500/40 to-fuchsia-500/40',
-    'from-sky-400/30 to-emerald-400/30',
-    'from-white/10 to-white/5'
-  ];
-  return palettes[i % palettes.length];
-}
-
-function topBarGradient(i){
-  const bands = [
-    'from-fuchsia-500 via-purple-500 to-indigo-500',
-    'from-sky-400 via-cyan-400 to-emerald-400',
-    'from-amber-400 via-orange-500 to-rose-500',
-    'from-indigo-400 via-blue-500 to-slate-400'
-  ];
-  return bands[i % bands.length];
-}
-
-function cardVisual(d, i){
-  if(d.img){
-    return `
+    function cardVisual(d, i) {
+      if (d.img) {
+        return `
       <div class="relative h-36 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.35)]">
-        <img src="${d.img}" alt="${d.title} illustration" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <img src="${d.img}" alt="${d.title} ${t("timeline.altSuffix")}" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent"></div>
       </div>
     `;
-  }
-  return `
+      }
+      return `
     <div class="relative h-36 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.35)]">
       <div class="absolute inset-0 bg-gradient-to-br ${colorByIndex(i)} opacity-90"></div>
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.28),transparent_60%)] opacity-60"></div>
     </div>
   `;
-}
+    }
 
-function renderTimeline(){
-  const unit = unitPick.value;
-  const data = TL_DATA[unit] || [];
-  tlRow.innerHTML = data.map((d,i) => `
-    <article class="flip-card-scene snap" tabindex="0" aria-label="${d.title} card. Press enter to flip." role="group">
+    function renderTimeline() {
+      if (!tlRow || !unitPick) return;
+      const unit = unitPick.value;
+      const data = (TL_DATA[currentLang] && TL_DATA[currentLang][unit]) || [];
+      tlRow.innerHTML = data.map((d, i) => `
+    <article class="flip-card-scene snap" tabindex="0" aria-label="${d.title} ${t("timeline.cardAriaSuffix")}" role="group">
       <div class="flip-card-inner rounded-2xl">
         <div class="flip-card-front">
           <div class="h-1.5 bg-gradient-to-r ${topBarGradient(i)}"></div>
@@ -691,7 +834,7 @@ function renderTimeline(){
             </div>
             <p class="text-sm text-white/85 leading-relaxed flex-grow">${d.blurb}</p>
             <button class="flip-button mt-auto w-full bg-white/10 hover:bg-white/15 text-sm text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200">
-              Flip for cause &amp; effect
+              ${t("timeline.flipFront")}
             </button>
           </div>
         </div>
@@ -701,51 +844,184 @@ function renderTimeline(){
             <p class="card-title">${d.title}</p>
             <div class="space-y-4 text-sm text-white/90">
               <div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
-                <span class="font-semibold text-blue-300 uppercase tracking-[0.3em] text-xs">Cause</span>
+                <span class="font-semibold text-blue-300 uppercase tracking-[0.3em] text-xs">${t("timeline.cause")}</span>
                 <p class="mt-2 leading-relaxed">${d.cause}</p>
               </div>
               <div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
-                <span class="font-semibold text-amber-300 uppercase tracking-[0.3em] text-xs">Effect</span>
+                <span class="font-semibold text-amber-300 uppercase tracking-[0.3em] text-xs">${t("timeline.effect")}</span>
                 <p class="mt-2 leading-relaxed">${d.effect}</p>
               </div>
             </div>
             <button class="flip-button mt-auto w-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 hover:from-fuchsia-400 hover:to-indigo-400 text-sm font-semibold py-2.5 px-4 rounded-lg shadow-lg shadow-fuchsia-500/30 transition-colors duration-200">
-              Flip back
+              ${t("timeline.flipBack")}
             </button>
           </div>
         </div>
       </div>
     </article>
-  `).join('');
+  `).join("");
 
-  // wire up flip interactions
-  tlRow.querySelectorAll('.flip-card-scene').forEach(scene => {
-    const inner = scene.querySelector('.flip-card-inner');
-    scene.querySelectorAll('.flip-button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        inner.classList.toggle('is-flipped');
+      tlRow.querySelectorAll('.flip-card-scene').forEach(scene => {
+        const inner = scene.querySelector('.flip-card-inner');
+        scene.querySelectorAll('.flip-button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            inner.classList.toggle('is-flipped');
+          });
+        });
+        scene.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            inner.classList.toggle('is-flipped');
+          }
+        });
       });
-    });
-    scene.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        inner.classList.toggle('is-flipped');
-      }
-    });
-  });
-}
+    }
 
-unitPick.addEventListener('change', renderTimeline);
-renderTimeline();
-// Konami fun
-    let seq = []; const keycode = [38,38,40,40,37,39,37,39,66,65];
-    window.addEventListener('keydown', e=>{
-      seq.push(e.keyCode); if(seq.toString().indexOf(keycode)==0){
-        document.body.classList.toggle('synth');
-        seq=[];
+    function refreshUI() {
+      applyStaticTranslations();
+      renderEvents();
+      drawAssignments();
+      renderTimeline();
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === "en" ? "es" : "en";
+      refreshUI();
+    }
+
+    langToggle?.addEventListener("click", toggleLanguage);
+    langToggleMobile?.addEventListener("click", () => {
+      toggleLanguage();
+      mm?.classList.add("hidden");
+    });
+
+    calendarAlertLink?.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert(t("calendar.alert"));
+    });
+
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const p = h.scrollHeight - h.clientHeight === 0 ? 0 : h.scrollTop / (h.scrollHeight - h.clientHeight);
+      bar.style.transform = `scaleX(${p})`;
+    });
+
+    function resize() {
+      W = c.width = window.innerWidth;
+      H = c.height = window.innerHeight;
+      dots = Array.from({ length: Math.min(80, Math.floor(W / 20)) }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        r: 1.2 + Math.random() * 1.8
+      }));
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(255,255,255,.7)';
+      dots.forEach(d => {
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0 || d.x > W) d.vx *= -1;
+        if (d.y < 0 || d.y > H) d.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.strokeStyle = 'rgba(190,160,255,.15)';
+      for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x;
+          const dy = dots[i].y - dots[j].y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 120) {
+            ctx.globalAlpha = 1 - (dist / 120);
+            ctx.beginPath();
+            ctx.moveTo(dots[i].x, dots[i].y);
+            ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
       }
-      if(seq.length>10) seq.shift();
+      requestAnimationFrame(animate);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    animate();
+
+    tabs.forEach(b => b.addEventListener('click', () => {
+      tabs.forEach(tEl => tEl.classList.remove('bg-white/10'));
+      b.classList.add('bg-white/10');
+      const v = b.dataset.view;
+      embed?.classList.toggle('hidden', v !== 'embed');
+      cards?.classList.toggle('hidden', v !== 'cards');
+      sub?.classList.toggle('hidden', v !== 'subscribe');
+    }));
+
+    function fmt(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${y}${m}${dd}`;
+    }
+
+    (function initPicker() {
+      if (!dayPicker) return;
+      const tDate = new Date();
+      dayPicker.value = `${tDate.getFullYear()}-${String(tDate.getMonth() + 1).padStart(2, '0')}-${String(tDate.getDate()).padStart(2, '0')}`;
+    })();
+
+    function setMonthView() {
+      if (!calFrame) return;
+      try {
+        const url = new URL(calFrame.src);
+        url.searchParams.set('mode', 'MONTH');
+        url.searchParams.delete('dates');
+        calFrame.src = url.toString();
+      } catch (e) {}
+      btnMonth?.classList.add('bg-white/10');
+      btnDay?.classList.remove('bg-white/10');
+    }
+
+    function setDayView(dateStrISO) {
+      if (!calFrame) return;
+      const d = dateStrISO ? new Date(dateStrISO) : new Date();
+      const ymd = fmt(d);
+      try {
+        const url = new URL(calFrame.src);
+        url.searchParams.set('mode', 'WEEK');
+        url.searchParams.set('dates', `${ymd}/${ymd}`);
+        calFrame.src = url.toString();
+      } catch (e) {}
+      btnDay?.classList.add('bg-white/10');
+      btnMonth?.classList.remove('bg-white/10');
+    }
+
+    btnMonth?.addEventListener('click', setMonthView);
+    btnDay?.addEventListener('click', () => setDayView(dayPicker?.value));
+    dayPicker?.addEventListener('change', () => setDayView(dayPicker.value));
+    setMonthView();
+
+    tagSel?.addEventListener('change', drawAssignments);
+    unitPick?.addEventListener('change', renderTimeline);
+
+    refreshUI();
+
+    let seq = [];
+    const keycode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    window.addEventListener('keydown', e => {
+      seq.push(e.keyCode);
+      if (seq.toString().indexOf(keycode) === 0) {
+        document.body.classList.toggle('synth');
+        seq = [];
+      }
+      if (seq.length > 10) seq.shift();
     });
   </script>
+
 </body>
 </html>
