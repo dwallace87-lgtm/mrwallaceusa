@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- D3 for pie chart -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- Inter + Orbitron (match your other file) -->
+    <!-- Inter + Orbitron -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -37,7 +37,6 @@
         .video-card {
             background: rgba(3,7,18,0.6);
         }
-        /* pulled from your infographic vibe */
         .score-box {
             background: radial-gradient(120% 120% at 10% 0%, rgba(138,43,226,0.25), rgba(9,10,15,0.9));
             border: 1px solid rgba(138,43,226,0.35);
@@ -55,7 +54,6 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(138,43,226,0.15);
         }
-        /* floating dots animation (bg) */
         .dot {
             position: fixed;
             background-color: rgba(138,43,226,0.35);
@@ -76,7 +74,6 @@
             50%{transform:scale(1.2);opacity:.6}
             100%{transform:scale(.8);opacity:.3}
         }
-        /* New animation for pie slices */
         .pulsing-arc {
             animation: pulse-slice 1.5s infinite ease-in-out;
         }
@@ -85,23 +82,13 @@
             50% { opacity: 0.7; filter: drop-shadow(0 0 8px rgba(255,255,255,0.7)); }
             100% { opacity: 1; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
         }
-        /* New animation for legend squares */
         .pulsing-square {
             animation: pulse-square 1.5s infinite ease-in-out;
         }
         @keyframes pulse-square {
-            0% { 
-                transform: scale(1);
-                box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
-            }
-            50% { 
-                transform: scale(1.1);
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); 
-            }
-            100% { 
-                transform: scale(1);
-                box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
-            }
+            0% { transform: scale(1); box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); }
+            50% { transform: scale(1.1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); }
         }
         .flicker {
             animation: screenFlicker 4s linear infinite;
@@ -112,7 +99,6 @@
             20%,24%,55%{opacity:.35;}
             22%{opacity:.65;}
         }
-        /* score corner label */
         .score-pill {
             background: rgba(3,7,18,0.6);
             border: 1px solid rgba(216,180,254,0.3);
@@ -135,18 +121,21 @@
         }
     </style>
 </head>
-<body class="text-gray-200 min-h-screen flex items-center justify-center p-4 md:p-8">
+<body class="text-gray-200 min-h-screen p-0 m-0">
     <!-- background pulse dots -->
     <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    <main class="w-full max-w-5xl mx-auto space-y-10 md:space-y-14 relative">
+
+    <!-- full-width wrapper -->
+    <main class="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-10 py-6 md:py-10 space-y-10 md:space-y-14 relative min-h-screen">
         <div id="tooltip"></div>
+
         <!-- TOP BAR: intro left / score+pie right -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch min-h-[300px]">
             <!-- Intro left -->
             <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 md:p-7 flex flex-col justify-center">
                 <p class="text-xs text-gray-400 sub-head mb-3">Part 2, SEQ success</p>
-                <h1 class="text-3xl font-extrabold header-gradient mb-3">
+                <h1 class="text-3xl lg:text-4xl font-extrabold header-gradient mb-3">
                     US History Regents: Part 2
                 </h1>
                 <p class="text-sm md:text-base text-gray-200 mb-2">
@@ -156,6 +145,7 @@
                     Read the panels below for what to write. Then use the videos at the bottom to see the paragraph flow.
                 </p>
             </div>
+
             <!-- Score breakdown right -->
             <div class="score-box p-6 md:p-7 flex flex-col gap-4 relative overflow-hidden">
                 <div class="flex items-start justify-between gap-3">
@@ -172,7 +162,7 @@
                         <p id="exam-weight" data-target="20.4" class="text-2xl font-bold text-purple-100 flicker">20.4%</p>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
+                <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-center h-full">
                     <!-- Pie -->
                     <svg id="pie-chart" class="w-full md:w-1/2 max-w-xs h-auto"></svg>
                     <!-- Legend -->
@@ -180,12 +170,13 @@
                 </div>
             </div>
         </section>
+
         <!-- 2 Columns for SEQ cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
             <!-- Column 1 -->
             <div class="flex flex-col gap-8">
                 <!-- SEQ 1 -->
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20 transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-black/30">
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20 transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-black/30 h-full">
                     <h2 class="text-2xl md:text-3xl font-bold mb-6 header-gradient panel-title">
                         SEQ 1: Document Relationships
                     </h2>
@@ -237,6 +228,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <!-- R.A.C.E. for SEQ 1 -->
                 <div class="bg-gray-900 border border-dashed border-gray-700 rounded-2xl p-6 md:p-8 shadow-lg shadow-black/20">
                     <h3 class="text-xl font-bold mb-4 text-blue-400 sub-head">Strategy for Paragraph 2: R.A.C.E.</h3>
@@ -256,10 +248,11 @@
                     </ul>
                 </div>
             </div>
+
             <!-- Column 2 -->
             <div class="flex flex-col gap-8">
                 <!-- SEQ 2 -->
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20 transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-black/30">
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20 transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-black/30 h-full">
                     <h2 class="text-2xl md:text-3xl font-bold mb-6 header-gradient panel-title">
                         SEQ 2: Document Reliability
                     </h2>
@@ -311,6 +304,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <!-- R.A.C.E. for SEQ 2 -->
                 <div class="bg-gray-900 border border-dashed border-gray-700 rounded-2xl p-6 md:p-8 shadow-lg shadow-black/20">
                     <h3 class="text-xl font-bold mb-4 text-indigo-400 sub-head">Strategy for Paragraph 2: R.A.C.E.</h3>
@@ -331,7 +325,8 @@
                 </div>
             </div>
         </div>
-        <!-- Videos at bottom -->
+
+        <!-- Videos at bottom (full width) -->
         <section class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/20">
             <h2 class="text-2xl md:text-3xl font-bold mb-4 header-gradient panel-title">
                 Review Videos
@@ -344,7 +339,6 @@
                 <div class="video-card border border-gray-800 rounded-xl p-4 flex flex-col gap-3">
                     <h3 class="text-lg font-semibold text-blue-300 sub-head">SEQ Set 1: Document Relationships</h3>
                     <div class="aspect-video bg-black/40 rounded-lg overflow-hidden border border-gray-700">
-                        <!-- replace with real link -->
                         <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_SEQ1" title="SEQ 1 Review" allowfullscreen></iframe>
                     </div>
                     <p class="text-xs text-gray-400">
@@ -355,7 +349,6 @@
                 <div class="video-card border border-gray-800 rounded-xl p-4 flex flex-col gap-3">
                     <h3 class="text-lg font-semibold text-indigo-300 sub-head">SEQ Set 2: Reliability and Bias</h3>
                     <div class="aspect-video bg-black/40 rounded-lg overflow-hidden border border-gray-700">
-                        <!-- replace with real link -->
                         <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID_SEQ2" title="SEQ 2 Review" allowfullscreen></iframe>
                     </div>
                     <p class="text-xs text-gray-400">
@@ -365,9 +358,9 @@
             </div>
         </section>
     </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // same data as your uploaded html
             const scoreData = [
                 { label: "Part I: Multiple-Choice Questions", value: 28, id: "part-i" },
                 { label: "Part II: Short-Essay Questions (Set 1)", value: 5, id: "part-ii-set-1" },
@@ -377,12 +370,14 @@
             ];
             const total = d3.sum(scoreData, d => d.value);
             scoreData.forEach(d => d.percentage = (d.value / total) * 100);
+
             const svgW = 240, svgH = 240, r = Math.min(svgW, svgH) / 2 - 10;
             const svg = d3.select("#pie-chart")
                 .attr("width", svgW)
                 .attr("height", svgH)
                 .append("g")
                 .attr("transform", `translate(${svgW / 2},${svgH / 2})`);
+
             const colors = {
                 "Part I: Multiple-Choice Questions": "#d8b4fe",
                 "Part II: Short-Essay Questions (Set 1)": "#ff4d4d",
@@ -390,10 +385,11 @@
                 "Part IIIA: Short-Response Questions": "#ffa500",
                 "Part IIIB: Extended Civic Literacy Essay": "#38bdf8"
             };
+
             const pie = d3.pie().value(d => d.value).sort(null);
             const arc = d3.arc().innerRadius(r * 0.45).outerRadius(r);
             const pieData = pie(scoreData);
-            // glow filter like original
+
             const defs = svg.append("defs");
             const filter = defs.append("filter")
                 .attr("id", "glow-filter")
@@ -407,7 +403,9 @@
             const feMerge = filter.append("feMerge");
             feMerge.append("feMergeNode").attr("in", "coloredBlur");
             feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
             const tooltip = d3.select("#tooltip");
+
             svg.selectAll(".arc")
                 .data(pieData)
                 .enter()
@@ -434,7 +432,7 @@
                 .on("mouseout", function () {
                     tooltip.style("opacity", 0);
                 });
-            // animated outer arc glow
+
             const outerArc = d3.arc().innerRadius(r + 4).outerRadius(r + 4);
             svg.append("path")
                 .attr("d", outerArc({ startAngle: 0, endAngle: 2 * Math.PI }))
@@ -443,7 +441,7 @@
                 .attr("stroke-width", "3px")
                 .style("filter", "url(#glow-filter)")
                 .style("animation", "pulse-glow 2s ease-in-out infinite");
-            // legend
+
             const legend = d3.select("#legend");
             scoreData.forEach((d, i) => {
                 const item = legend.append("div").attr("class", "flex items-center gap-3 legend-item");
@@ -462,12 +460,13 @@
                     .text("0 pts");
                 animateCountUp(valSpan.node(), d.value, { suffix: " pts", duration: 900, delay: 200 + i * 80 });
             });
-            // Part II weight = (5 + 5) / 49 ≈ 20.4%
+
             const weightEl = document.getElementById("exam-weight");
             if (weightEl) {
                 const target = parseFloat(weightEl.dataset.target || "20.4");
                 animateCountUp(weightEl, target, { suffix: "%", duration: 1400, decimals: 1 });
             }
+
             function animateCountUp(element, target, opts = {}) {
                 const { duration = 1000, delay = 0, suffix = "", decimals = 0 } = opts;
                 const start = performance.now() + delay;
