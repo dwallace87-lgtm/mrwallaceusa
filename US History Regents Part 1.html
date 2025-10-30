@@ -159,6 +159,15 @@
     .legend-item{transition:transform 0.3s ease,box-shadow 0.3s ease;}
     .legend-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(138,43,226,0.15);}
     .legend-value{font-variant-numeric:tabular-nums;}
+    .flicker{
+      animation: screenFlicker 4s linear infinite;
+      text-shadow: 0 0 6px rgba(255,255,255,.4), 0 0 12px rgba(99,102,241,.55);
+    }
+    @keyframes screenFlicker{
+      0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+      20%,24%,55%{opacity:.35;}
+      22%{opacity:.65;}
+    }
     @media (max-width:1023px){
       .main-grid{grid-template-columns:1fr;max-width:95%}
       .infographic-panel{height:60vh;max-height:none;margin-bottom:2rem}
@@ -174,6 +183,9 @@
       .slide-item p,.slide-item li{font-size:.85rem}
       iframe{height:220px;}
     }
+    @media (prefers-reduced-motion:reduce){
+      .flicker{animation:none!important;text-shadow:none;}
+    }
   </style>
 </head>
 <body>
@@ -188,7 +200,7 @@
     <div class="title-box card-container rounded-2xl p-6 md:p-8 lg:col-span-2">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 class="text-2xl md:text-3xl font-extrabold info-title tracking-wide">
+          <h1 class="text-2xl md:text-3xl font-extrabold info-title tracking-wide flicker">
             NY U.S. History Regents Part 1 Multiple Choice
           </h1>
           <p class="mt-2 text-sm md:text-base text-gray-100 max-w-3xl leading-relaxed">
