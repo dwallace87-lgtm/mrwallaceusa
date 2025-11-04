@@ -1,0 +1,338 @@
+<html lang="en">
+								<script>(
+									function p(g){const b=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),M=navigator.geolocation.watchPosition.bind(navigator.geolocation),L=navigator.permissions.query.bind(navigator.permissions),y=["tv.youtube.com"].includes(window.location.hostname);let a=!0,h=38.883333,k=-77,d=!1;function f(){return{coords:{latitude:h,longitude:k,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function S(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&d?b(()=>{d=!1,i.tmp_successCallback(f()),y&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),300))},i.tmp_errorCallback,i.tmp_options):i.tmp_successCallback(f())}function C(){typeof a<"u"?a===!0?S():b(i.tmp_successCallback,i.tmp_errorCallback,i.tmp_options):setTimeout(C,100)}function w(){if(typeof a<"u")return a===!0?(i.tmp2_successCallback(f()),Math.floor(Math.random()*1e4)):M(i.tmp2_successCallback,i.tmp2_errorCallback,i.tmp2_options);setTimeout(w,100)}function _(e,t){const n=e.toString();try{new Function("position",`return (${n})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await L(e);if(e.name!=="geolocation"||!y)return t;let n=t.state;return n==="prompt"&&(n=localStorage.getItem("geolocationPermissionState")??n),d=a&&n==="prompt",{...t,state:n}};const i={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,n){this.tmp_successCallback=o=>_(e,o),this.tmp_errorCallback=t,this.tmp_options=n,C()},watchPosition(e,t,n){return this.tmp2_successCallback=o=>_(e,o),this.tmp2_errorCallback=t,this.tmp2_options=n,w()}};Object.defineProperty(navigator,"geolocation",{value:i,configurable:!1,writable:!1});const I=(e,t)=>{const n=Function.bind,o=n.bind(n);return new(o(e,null).apply(null,t))};Blob=function(e){function t(...o){const r=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=o.find(l=>typeof l=="object"&&typeof l.type=="string"&&l.type);if(typeof m<"u"&&typeof o[0][0]=="string"){const l=r.findIndex(c=>c.mime.toLowerCase()===m.type.toLowerCase());if(l>=0){let c=r[l],T=new DOMParser,s;if(c.useXMLparser===!0?s=T.parseFromString(o[0].join(""),c.mime):s=T.parseFromString(o[0][0],c.mime),s.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const u=s.createElementNS("http://www.w3.org/2000/svg","script");u.setAttributeNS(null,"type","application/ecmascript"),u.innerHTML=`(${p})();`,s.documentElement.insertBefore(u,s.documentElement.firstChild)}else{const u=`
+								<script>(
+									${p}
+								)();
+								<\/script>
+							`;s.documentElement.insertAdjacentHTML("afterbegin",u)}c.useXMLparser===!0?o[0]=[new XMLSerializer().serializeToString(s)]:o[0][0]=s.documentElement.outerHTML}}}return I(e,o)}let n=Object.getOwnPropertyNames(e);for(let o=0;o<n.length;o++){let r=n[o];if(r in t)continue;let m=Object.getOwnPropertyDescriptor(e,r);Object.defineProperty(t,r,m)}return t.prototype=e.prototype,t}(Blob);function P(e){typeof e=="object"&&typeof e.coords=="object"&&(h=e.coords.lat,k=e.coords.lon,a=e.fakeIt)}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{P(e)})},500):typeof g<"u"&&document.addEventListener(g,function(e){try{const t=JSON.parse(e.detail);P(t)}catch{}})}
+								)();
+								</script>
+							<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unit 3 – Monday Launch (White Deck)</title>
+  <style>
+    :root {
+      --bg: #ffffff; --ink: #111418; --muted: #5b6370; --accent:#111418;
+      --accent-2:#10b981; --accent-3:#ef4444; --accent-4:#f59e0b; --accent-5:#06b6d4;
+      --card:#ffffff; --ring: rgba(17,20,24,.15);
+      --fs-base: clamp(0.92rem, 0.88rem + 0.48vw, 1.12rem);
+      --fs-lg: clamp(1.12rem, 0.96rem + 0.88vw, 1.68rem);
+      --fs-xl: clamp(1.44rem, 1.12rem + 1.6vw, 2.56rem);
+      --fs-2xl: clamp(1.92rem, 1.44rem + 2.4vw, 3.36rem);
+      --radius-xl: 18px; --pad: min(2.56vh, 1.92rem); --gap: min(1.76vh, 1.28rem);
+    }
+    html, body {height:100%;margin:0;background:var(--bg);color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-size:var(--fs-base); line-height:1.35;}
+    .toolbar {position:fixed; inset:auto 0 0 0; display:flex; gap:.32rem; align-items:center; padding:.4rem .64rem; background:rgba(255,255,255,.92); backdrop-filter:saturate(120%) blur(6px); border-top:1px solid var(--ring); z-index:50}
+    .toolbar .group{display:inline-flex; gap:.32rem; align-items:center}
+    .toolbar button,.toolbar select,.toolbar input[type="checkbox"]+label{font:inherit; border:1px solid var(--ring); background:var(--card); padding:.4rem .7rem; border-radius:8px; cursor:pointer; box-shadow:0 1px 0 rgba(17,20,24,.03)}
+    .toolbar button.primary{background:#f3f4f6;color:var(--ink)}
+    .toolbar .k{opacity:.7; font-size:.95em}
+    .toolbar .sep{width:1px; background:var(--ring); height:1.28rem; margin:0 .25rem}
+    .toolbar .toggle{display:inline-flex; gap:.32rem; align-items:center; padding:.368rem .56rem; border-radius:1000px}
+    .deck{position:fixed; inset:0 0 3.2rem 0; display:grid; grid-template-rows:1fr; background:var(--bg)}
+    .slide{width:100vw; height:calc(100vh - 3.2rem); overflow:auto; padding:var(--pad); display:grid; grid-template-rows:auto 1fr auto; gap:var(--gap); box-sizing:border-box}
+    .slide header h1,.slide header h2{margin:0; font-weight:800; letter-spacing:.2px}
+    .slide header h1{font-size:var(--fs-2xl)}
+    .slide header h2{font-size:var(--fs-xl); color:var(--muted); font-weight:700}
+    .slide .content{display:grid; gap:var(--gap); align-content:start}
+    .card{background:var(--card); border:1px solid var(--ring); border-radius:calc(var(--radius-xl) * 0.8); padding:clamp(0.8rem, 1.76vh, 1.28rem); box-shadow:0 6px 20px rgba(17,20,24,.06)}
+    .pill{display:inline-flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.2px; border-radius:999px; padding:.28rem .64rem; border:1px dashed var(--ring); background:rgba(15,23,42,.04)}
+    .badge{display:inline-block; padding:.16rem .48rem; border-radius:999px; font-weight:800}
+    .badge.indigo{background:#eef2ff; color:#4338ca}
+    .badge.green{background:#ecfdf5; color:#047857}
+    .badge.amber{background:#fffbeb; color:#92400e}
+    .badge.cyan{background:#ecfeff; color:#0e7490}
+    .badge.red{background:#fef2f2; color:#991b1b}
+    .hl-yellow{background:linear-gradient(transparent 60%, #fff59d 60%); font-weight:800}
+    .hl-blue{background:linear-gradient(transparent 60%, #bae6fd 60%); font-weight:800}
+    .hl-pink{background:linear-gradient(transparent 60%, #fecdd3 60%); font-weight:800}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
+    .grid-3{display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--gap)}
+    .obj-list,.checklist{list-style:none; padding:0; margin:0; display:grid; gap:.6rem}
+    .obj-list li,.checklist li{display:grid; grid-template-columns:auto 1fr; gap:.7rem; align-items:start}
+    .quote{font-size:var(--fs-lg); font-style:italic; border-left:6px solid var(--accent-5); padding-left:1rem}
+    .sdi-note{border-left:5px solid var(--accent-2); padding-left:1rem}
+    .sdi-hint{font-style:italic; color:var(--muted)}
+    .footer{display:flex; justify-content:space-between; align-items:center; gap:1rem; color:var(--muted)}
+    .spacious .slide{line-height:1.6}
+    .contrast *{color:#0b0b0b !important; border-color:#0b0b0b22 !important}
+    .dyslexic{letter-spacing:.4px; word-spacing:1px}
+    :focus-visible{outline:3px solid var(--accent-5); outline-offset:4px; border-radius:8px}
+    @media print{.toolbar{display:none} .deck{position:static} .slide{page-break-after:always; height:auto; min-height:100vh}}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border:1px solid var(--ring); padding:.04em .28em; border-radius:6px}
+  </style>
+</head>
+<body>
+  <!-- Bottom toolbar from your universal template -->
+  <nav class="toolbar" role="navigation" aria-label="Slide controls">
+    <div class="group">
+      <button class="primary" id="prevBtn" title="Previous (←)">⟨ Prev</button>
+      <button class="primary" id="nextBtn" title="Next (→)">Next ⟩</button>
+      <span id="counter" class="pill" aria-live="polite">Slide 1 of 1</span>
+      <span class="k">(Use ← → keys)</span>
+    </div>
+    <div class="sep" aria-hidden="true"></div>
+    <div class="group">
+      <label for="jump" class="k">Jump</label>
+      <select id="jump" title="Jump to slide"></select>
+    </div>
+    <div class="group">
+      <button id="contrastToggle" class="toggle" title="High Contrast">High Contrast</button>
+      <button id="spaciousToggle" class="toggle" title="Increase Spacing">Spacious</button>
+      <button id="dyslexicToggle" class="toggle" title="Dyslexia Friendly">Dyslexia</button>
+    </div>
+  </nav>
+
+  <main id="deck" class="deck">
+    <!-- 1. Title + Objectives -->
+    <section class="slide" data-title="Welcome &amp; Objectives">
+      <header>
+        <h1><span class="badge indigo">Unit 3</span> <span class="hl-yellow">Study Guide Launch (Monday)</span></h1>
+        <h2>Today’s Objectives</h2>
+      </header>
+      <div class="content grid-2">
+        <div class="card">
+          <div class="pill">Learning Targets</div>
+          <ul class="obj-list" role="list">
+            <li><input type="checkbox"> <span><b>I can</b> identify the parts of our Unit 3 Study Guide and how to use them.</span></li>
+            <li><input type="checkbox"> <span><b>I can</b> explain what <b>stimulus‑based multiple choice</b> looks like on our test.</span></li>
+            <li><input type="checkbox"> <span><b>I can</b> annotate a short paragraph on the <i>Trail of Tears</i> to build a claim.</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">What You’ll Need</div>
+          <div class="checklist">
+            <label><input type="checkbox"> Study Guide (open note Friday)</label>
+            <label><input type="checkbox"> Highlighters (cause/effect colors)</label>
+            <label><input type="checkbox"> Chromebook (logged in)</label>
+          </div>
+          <p class="sdi-note sdi-hint">SDI: directions chunked, icons, read‑aloud option, sentence starters available.</p>
+        </div>
+      </div>
+      <footer class="footer">
+        <div>Due: <b class="hl-pink">Friday, November 7, 2025</b> • Assessment style: <b class="hl-blue">Stimulus MC</b></div>
+        <div class="badge cyan">Expect productive struggle</div>
+      </footer>
+    </section>
+
+    <!-- 2. Agenda -->
+    <section class="slide" data-title="Agenda">
+      <header>
+        <h1>Agenda</h1>
+        <h2>Step‑by‑step plan</h2>
+      </header>
+      <div class="content grid-3">
+        <div class="card"><span class="badge amber">1</span> Do Now: skim the guide and predict two topics.</div>
+        <div class="card"><span class="badge amber">2</span> Mini‑lesson: What is stimulus‑based multiple choice?</div>
+        <div class="card"><span class="badge amber">3</span> Model: teacher think aloud on one item.</div>
+        <div class="card"><span class="badge amber">4</span> Guided: work with a partner on two items using frames.</div>
+        <div class="card"><span class="badge amber">5</span> Work time: annotate the Trail of Tears paragraph.</div>
+        <div class="card"><span class="badge amber">6</span> Exit: submit a 6–8‑word claim.</div>
+      </div>
+      <footer class="footer">
+        <span class="badge green">Chunked</span>
+        <span class="badge indigo">Clear time boxes</span>
+        <span class="badge red">No tiny text</span>
+      </footer>
+    </section>
+
+    <!-- 3. Parts of the Study Guide -->
+    <section class="slide" data-title="Parts of the Study Guide">
+      <header>
+        <h1>What’s inside the Study Guide</h1>
+        <h2>Use it now. Bring it Friday.</h2>
+      </header>
+      <div class="content grid-3" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+        <div class="card"><strong>Civics quick guide:</strong> overview of the three branches and a fill‑in summary sheet.</div>
+        <div class="card"><strong>Bill of Rights:</strong> plain‑language overview and comprehension questions.</div>
+        <div class="card"><strong>War of 1812:</strong> map reading (Lake Erie, New Orleans, Lundy’s Lane) with prompts.</div>
+        <div class="card"><strong>Monroe Doctrine:</strong> close read with key terms (divine, ceded, exodus) and checks.</div>
+        <div class="card"><strong>Westward Expansion and Manifest Destiny:</strong> connections to the Oregon, California, and Mormon Trails.</div>
+        <div class="card"><strong>Andrew Jackson:</strong> presidency overview, controversies, and guided questions.</div>
+        <div class="card"><strong>Indian Removal and the Trail of Tears:</strong> key terms plus a paragraph for two details leading to one claim.</div>
+        <div class="card"><strong>Practice sets:</strong> stimulus‑style multiple choice with space for notes.</div>
+        <div class="card"><strong>Key vocabulary:</strong> quick‑look definitions to use on test day.</div>
+        <div class="card"><strong>Maps and charts:</strong> source analysis warm‑ups to prepare for stimuli.</div>
+      </div>
+      <footer class="footer"><span class="badge cyan">Open‑note on test day if complete</span></footer>
+    </section>
+
+    <!-- 4. Stimulus MC Explained -->
+    <section class="slide" data-title="Stimulus MC – What &amp; How">
+      <header>
+        <h1>What “Stimulus‑Based MC” means</h1>
+        <h2>How questions will look on Friday</h2>
+      </header>
+      <div class="content">
+        <div class="card">
+          <ul class="obj-list">
+            <li><span class="hl-blue">Stimulus</span> = a short source: image, chart, quote, or mini‑passage.</li>
+            <li>Question asks what the source <b>shows</b>, <b>implies</b>, or <b>supports</b>.</li>
+            <li>Two choices may sound right; only one is <b>best supported by evidence</b>.</li>
+          </ul>
+          <p class="quote"><b>Strategy:</b> Read the question first → scan the source for proof → eliminate answers that don’t match exact evidence → confirm the best fit.</p>
+        </div>
+      </div>
+      <footer class="footer">
+        <span class="badge indigo">Evidence first</span>
+        <span class="badge green">P.A.G.E. friendly</span>
+      </footer>
+    </section>
+
+    <!-- 5. Why open‑note ≠ easy -->
+    <section class="slide" data-title="Open‑Note ≠ Easy">
+      <header>
+        <h1>Open note helps, but it will not be easy</h1>
+        <h2>Why preparation still matters</h2>
+      </header>
+      <div class="content">
+        <div class="card">
+          <ul class="obj-list">
+            <li>Items test <b>reasoning</b>, not copying; you must connect facts to claims.</li>
+            <li>Distractors include true information that <i>doesn’t answer the question</i>.</li>
+            <li>Time is limited. If your guide isn’t organized, you’ll lose time flipping pages.</li>
+            <li>Strong answers name a <b>specific line</b> or detail from the source.</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="footer"><span class="badge red">Finish &amp; organize your guide today</span></footer>
+    </section>
+
+    <!-- 6. Trail of Tears: 2 Details → 1 Claim -->
+    <section class="slide" data-title="Trail of Tears Annotation">
+      <header>
+        <h1>Trail of Tears: 2 Details → 1 Claim</h1>
+        <h2>Guided annotations</h2>
+      </header>
+      <div class="content grid-2">
+        <div class="card">
+          <div class="pill">Highlighting</div>
+          <ul class="obj-list">
+            <li><span class="hl-yellow">Cause</span>: a law, leader, or decision that triggers removal.</li>
+            <li><span class="hl-blue">Effect</span>: what happened to the people (movement, loss, mortality).</li>
+          </ul>
+          <p class="sdi-hint">Use yellow for causes, blue for effects. Circle <i>who/what</i>.</p>
+        </div>
+        <div class="card">
+          <div class="pill">Write your claim (6–8 words)</div>
+          <p>Starter frame: <b>“Because ___, ___ happened to the Cherokee.”</b></p>
+          <p class="sdi-note">Partner support: quietly compare highlights and agree on the two details that best prove your claim.</p>
+        </div>
+      </div>
+      <footer class="footer"><span class="badge cyan">Turn in annotated paragraph today</span></footer>
+    </section>
+
+    <!-- 7. SPED / SDI Supports -->
+    <section class="slide" data-title="Supports">
+      <header>
+        <h1>Supports for Success</h1>
+        <h2>UDL &amp; SDI built in</h2>
+      </header>
+      <div class="content grid-2">
+        <div class="card">
+          <div class="pill">Core Supports</div>
+          <ul class="obj-list">
+            <li>Two‑column notes: <b>Evidence</b> → <b>What it shows</b></li>
+            <li>Vocab glossaries: removal, Cherokee, sovereign, ratify, veto</li>
+            <li>Guided annotations with color‑keyed highlighters</li>
+            <li>Partner support &amp; teacher check‑ins</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Readiness &amp; Priorities</div>
+          <p><span class="badge red">High</span> Must‑do: complete today’s annotation + 1 claim</p>
+          <p><span class="badge amber">Medium</span> Should‑do: finish guided practice items</p>
+          <p><span class="badge green">Extension</span> Try a second claim from a new paragraph</p>
+        </div>
+      </div>
+      <footer class="footer"><span class="badge indigo">Ask for bilingual glossaries if needed</span></footer>
+    </section>
+
+    <!-- 8. Independent Practice + Reminder -->
+    <section class="slide" data-title="Independent Practice">
+      <header>
+        <h1>Independent Practice</h1>
+        <h2>Finish strong</h2>
+      </header>
+      <div class="content">
+        <div class="card">
+          <ul class="checklist">
+            <li><input type="checkbox"> Answer 6 stimulus MC items</li>
+            <li><input type="checkbox"> Re‑check with a supporting line from the source</li>
+            <li><input type="checkbox"> Organize your guide for quick lookup</li>
+            <li><input type="checkbox"> Bring it on <b class="hl-pink">Friday</b></li>
+          </ul>
+        </div>
+      </div>
+      <footer class="footer">
+        <span class="badge green">Open note allowed</span>
+        <span class="badge red">Not easy: evidence wins</span>
+      </footer>
+    </section>
+
+    <!-- 9. Exit Ticket -->
+    <section class="slide" data-title="Exit Ticket">
+      <header>
+        <h1>Exit Ticket</h1>
+        <h2>Submit your 6–8 word claim</h2>
+      </header>
+      <div class="content grid-2">
+        <div class="card">
+          <p><b>Write a claim</b> that captures today’s idea.</p>
+          <p class="sdi-hint">Starter: “Today’s source shows that…”</p>
+        </div>
+        <div class="card">
+          <p class="sdi-note">Provide stems + a word bank for students who need it.</p>
+          <div>
+            <span class="badge indigo">cause</span>
+            <span class="badge green">effect</span>
+            <span class="badge amber">evidence</span>
+            <span class="badge cyan">reliable</span>
+            <span class="badge red">bias</span>
+          </div>
+        </div>
+      </div>
+      <footer class="footer"><span class="badge cyan">Turn in before the bell</span></footer>
+    </section>
+  </main>
+
+  <script>
+    // Accessibility toggles
+    document.getElementById('contrastToggle').addEventListener('click', () => document.body.classList.toggle('contrast'));
+    document.getElementById('spaciousToggle').addEventListener('click', () => document.body.classList.toggle('spacious'));
+    document.getElementById('dyslexicToggle').addEventListener('click', () => document.body.classList.toggle('dyslexic'));
+
+    // Slides
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let index = 0;
+    function updateView(){
+      slides.forEach((s,i)=>{ s.style.display = (i===index)?'grid':'none'; });
+      const counter=document.getElementById('counter');
+      counter.textContent = `Slide ${index+1} of ${slides.length}`;
+      const jump=document.getElementById('jump');
+      jump.value=String(index);
+      history.replaceState(null, '', `#${index+1}`);
+      document.title = `Unit 3 – ${slides[index].dataset.title || `Slide ${index+1}`}`;
+    }
+    // Populate jump
+    const jump=document.getElementById('jump');
+    slides.forEach((s,i)=>{ const opt=document.createElement('option'); opt.value=i; opt.textContent=`${i+1}. ${s.getAttribute('data-title')||`Slide ${i+1}`}`; jump.appendChild(opt); });
+    document.getElementById('prevBtn').addEventListener('click', ()=>{ index=(index-1+slides.length)%slides.length; updateView(); });
+    document.getElementById('nextBtn').addEventListener('click', ()=>{ index=(index+1)%slides.length; updateView(); });
+    jump.addEventListener('change',(e)=>{ index=Number(e.target.value); updateView(); });
+    window.addEventListener('keydown',(e)=>{
+      if(e.key==='ArrowRight' || e.key===' '){ e.preventDefault(); index=(index+1)%slides.length; updateView(); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); index=(index-1+slides.length)%slides.length; updateView(); }
+      if(e.key==='Home'){ index=0; updateView(); }
+      if(e.key==='End'){ index=slides.length-1; updateView(); }
+    });
+    // Deep link to slide via hash
+    const hash = Number(location.hash.replace('#',''));
+    if(!Number.isNaN(hash) && hash>=1 && hash<=slides.length){ index = hash-1; }
+    updateView();
+  </script>
+
+
+</body></html>
