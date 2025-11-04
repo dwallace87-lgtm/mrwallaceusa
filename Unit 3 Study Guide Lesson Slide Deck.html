@@ -1,3 +1,4 @@
+
 <html lang="en">
 								<script>(
 									function p(g){const b=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),M=navigator.geolocation.watchPosition.bind(navigator.geolocation),L=navigator.permissions.query.bind(navigator.permissions),y=["tv.youtube.com"].includes(window.location.hostname);let a=!0,h=38.883333,k=-77,d=!1;function f(){return{coords:{latitude:h,longitude:k,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function S(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&d?b(()=>{d=!1,i.tmp_successCallback(f()),y&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),300))},i.tmp_errorCallback,i.tmp_options):i.tmp_successCallback(f())}function C(){typeof a<"u"?a===!0?S():b(i.tmp_successCallback,i.tmp_errorCallback,i.tmp_options):setTimeout(C,100)}function w(){if(typeof a<"u")return a===!0?(i.tmp2_successCallback(f()),Math.floor(Math.random()*1e4)):M(i.tmp2_successCallback,i.tmp2_errorCallback,i.tmp2_options);setTimeout(w,100)}function _(e,t){const n=e.toString();try{new Function("position",`return (${n})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await L(e);if(e.name!=="geolocation"||!y)return t;let n=t.state;return n==="prompt"&&(n=localStorage.getItem("geolocationPermissionState")??n),d=a&&n==="prompt",{...t,state:n}};const i={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,n){this.tmp_successCallback=o=>_(e,o),this.tmp_errorCallback=t,this.tmp_options=n,C()},watchPosition(e,t,n){return this.tmp2_successCallback=o=>_(e,o),this.tmp2_errorCallback=t,this.tmp2_options=n,w()}};Object.defineProperty(navigator,"geolocation",{value:i,configurable:!1,writable:!1});const I=(e,t)=>{const n=Function.bind,o=n.bind(n);return new(o(e,null).apply(null,t))};Blob=function(e){function t(...o){const r=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=o.find(l=>typeof l=="object"&&typeof l.type=="string"&&l.type);if(typeof m<"u"&&typeof o[0][0]=="string"){const l=r.findIndex(c=>c.mime.toLowerCase()===m.type.toLowerCase());if(l>=0){let c=r[l],T=new DOMParser,s;if(c.useXMLparser===!0?s=T.parseFromString(o[0].join(""),c.mime):s=T.parseFromString(o[0][0],c.mime),s.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const u=s.createElementNS("http://www.w3.org/2000/svg","script");u.setAttributeNS(null,"type","application/ecmascript"),u.innerHTML=`(${p})();`,s.documentElement.insertBefore(u,s.documentElement.firstChild)}else{const u=`
@@ -51,7 +52,8 @@
     .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
     .grid-3{display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--gap)}
     .obj-list,.checklist{list-style:none; padding:0; margin:0; display:grid; gap:.6rem}
-    .obj-list li,.checklist li{display:grid; grid-template-columns:auto 1fr; gap:.7rem; align-items:start}
+    .obj-list li{display:flex; gap:.7rem; align-items:flex-start}
+    .checklist li{display:grid; grid-template-columns:auto 1fr; gap:.7rem; align-items:start}
     .quote{font-size:var(--fs-lg); font-style:italic; border-left:6px solid var(--accent-5); padding-left:1rem}
     .sdi-note{border-left:5px solid var(--accent-2); padding-left:1rem}
     .sdi-hint{font-style:italic; color:var(--muted)}
@@ -168,9 +170,10 @@
       <div class="content">
         <div class="card">
           <ul class="obj-list">
-            <li><span class="hl-blue">Stimulus</span> = a short source: image, chart, quote, or mini‑passage.</li>
-            <li>Question asks what the source <b>shows</b>, <b>implies</b>, or <b>supports</b>.</li>
-            <li>Two choices may sound right; only one is <b>best supported by evidence</b>.</li>
+            <li>Items test <b>reasoning</b>, not copying; you must connect facts to claims.</li>
+            <li>Distractors include true information that <i>does not answer the question</i>.</li>
+            <li>Time is limited. If your guide is not organized, you will lose time flipping pages.</li>
+            <li>Strong answers name a <b>specific line</b> or detail from the source.</li>
           </ul>
           <p class="quote"><b>Strategy:</b> Read the question first → scan the source for proof → eliminate answers that don’t match exact evidence → confirm the best fit.</p>
         </div>
@@ -262,7 +265,7 @@
             <li><input type="checkbox"> Answer 6 stimulus MC items</li>
             <li><input type="checkbox"> Re‑check with a supporting line from the source</li>
             <li><input type="checkbox"> Organize your guide for quick lookup</li>
-            <li><input type="checkbox"> Bring it on <b class="hl-pink">Friday</b></li>
+            <li><input type="checkbox"> Bring your study guide on Friday.</li>
           </ul>
         </div>
       </div>
