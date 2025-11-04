@@ -77,6 +77,93 @@
       animation: pulseGlow 6s ease-in-out infinite;
       transform-origin: center;
     }
+    .construction-card {
+      position: relative;
+      padding: 2.75rem 2.5rem;
+      border-radius: 1.75rem;
+      background: linear-gradient(135deg, rgba(255, 126, 185, .95), rgba(120, 104, 255, .9), rgba(90, 230, 255, .95));
+      background-size: 200% 200%;
+      box-shadow: 0 25px 80px rgba(75, 50, 150, .45), inset 0 0 20px rgba(255,255,255,.35);
+      animation: gradientShift 6s ease-in-out infinite, floaty 4.5s ease-in-out infinite;
+      overflow: hidden;
+      max-width: min(90vw, 460px);
+      color: #0b0b12;
+      border: 1px solid rgba(255,255,255,.6);
+    }
+    .construction-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .construction-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-shadow: 0 4px 18px rgba(11, 11, 18, .35);
+      margin-bottom: 0.75rem;
+    }
+    .construction-message {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: rgba(10,10,22,.85);
+      margin-bottom: 1.5rem;
+    }
+    .construction-close {
+      background: rgba(11, 11, 18, .85);
+      color: #f7f7ff;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.65rem 1.75rem;
+      box-shadow: 0 12px 30px rgba(11, 11, 18, .45);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .construction-close:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 18px 40px rgba(11, 11, 18, .5);
+    }
+    .construction-orb {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      filter: blur(0px);
+      opacity: .65;
+      mix-blend-mode: screen;
+      z-index: 1;
+    }
+    .construction-orb--one {
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.8), rgba(255,126,185,.1));
+      top: -60px;
+      left: -40px;
+      animation: orbDriftOne 7s ease-in-out infinite;
+    }
+    .construction-orb--two {
+      background: radial-gradient(circle at 60% 60%, rgba(255,255,255,.8), rgba(90,230,255,.1));
+      bottom: -70px;
+      right: -50px;
+      animation: orbDriftTwo 8s ease-in-out infinite;
+    }
+    #constructionModal { transition: opacity .3s ease; }
+    #constructionModal.hidden { opacity: 0; }
+    #constructionModal.flex { opacity: 1; }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.01); }
+    }
+    @keyframes orbDriftOne {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: .6; }
+      50% { transform: translate(15px, 20px) scale(1.15); opacity: .85; }
+    }
+    @keyframes orbDriftTwo {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: .6; }
+      50% { transform: translate(-20px, -15px) scale(1.12); opacity: .8; }
+    }
     @keyframes pulseGlow{
       0%, 100%{
         transform: translateY(0) scale(1);
@@ -417,13 +504,26 @@
           <p class="card-title" data-i18n="regents.set2.title">Part II Short Essay Questions</p>
           <p class="text-sm text-white/80 mt-1" data-i18n="regents.set2.desc">Showing the relationship and reliability between documents within two paragraphs each.</p>
         </a>
-        <a class="glass rounded-2xl p-5 lift" href="#">
-          <p class="card-title" data-i18n="regents.set3.title">Set 3 - Enduring Issues</p>
-          <p class="text-sm text-white/80 mt-1" data-i18n="regents.set3.desc">Find the issue. Use evidence. Write clean and strong.</p>
-        </a>
+        <button type="button" class="glass rounded-2xl p-5 lift text-left w-full relative overflow-hidden" id="regentsSet3Btn">
+          <p class="card-title" data-i18n="regents.set3.title">Set 3 – Part III: Short-Answer Questions and Civic Literacy Essay</p>
+          <p class="text-sm text-white/80 mt-1" data-i18n="regents.set3.desc">Analyze each document. Answer directly. Build toward the essay.</p>
+        </button>
       </div>
     </div>
   </section>
+
+  <div id="constructionModal" class="hidden fixed inset-0 z-50 items-center justify-center">
+    <div id="constructionBackdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="construction-card">
+      <span class="construction-orb construction-orb--one"></span>
+      <span class="construction-orb construction-orb--two"></span>
+      <div class="construction-content">
+        <p class="construction-title">🚧 Under Construction 🚧</p>
+        <p class="construction-message">Sorry, this set is still in the works. Check back soon for colorful updates!</p>
+        <button type="button" id="constructionClose" class="construction-close">Got it!</button>
+      </div>
+    </div>
+  </div>
 
   <footer class="py-10 text-center text-white/60 text-sm" data-i18n="footer">Mr. Wallace. Built for students first. All rights reserved.</footer>
 
@@ -506,8 +606,8 @@
         "regents.set1.desc": "Click here to see what it's all about and take a practice test!",
         "regents.set2.title": "Part II Short Essay Questions",
         "regents.set2.desc": "Showing the relationship and reliability between documents within two paragraphs each.",
-        "regents.set3.title": "Set 3 - Enduring Issues",
-        "regents.set3.desc": "Find the issue. Use evidence. Write clean and strong.",
+        "regents.set3.title": "Set 3 – Part III: Short-Answer Questions and Civic Literacy Essay",
+        "regents.set3.desc": "Analyze each document. Answer directly. Build toward the essay.",
         "footer": "Mr. Wallace. Built for students first. All rights reserved."
       },
       es: {
@@ -587,8 +687,8 @@
         "regents.set1.desc": "Haz clic aquí para ver de qué se trata y hacer una práctica.",
         "regents.set2.title": "Conjunto 2 - Confiabilidad",
         "regents.set2.desc": "Audiencia, propósito, sesgo. Toma la decisión y defiéndela.",
-        "regents.set3.title": "Conjunto 3 - Problemas permanentes",
-        "regents.set3.desc": "Identifica el problema. Usa evidencia. Escribe claro y con fuerza.",
+        "regents.set3.title": "Conjunto 3 – Parte III: Preguntas cortas y ensayo de alfabetización cívica",
+        "regents.set3.desc": "Analiza cada documento. Responde directo. Construye hacia el ensayo.",
         "footer": "Sr. Wallace. Construido pensando primero en los estudiantes. Todos los derechos reservados."
       }
     };
@@ -1008,6 +1108,39 @@
 
     tagSel?.addEventListener('change', drawAssignments);
     unitPick?.addEventListener('change', renderTimeline);
+
+    const set3Btn = document.getElementById('regentsSet3Btn');
+    const constructionModal = document.getElementById('constructionModal');
+    const constructionBackdrop = document.getElementById('constructionBackdrop');
+    const constructionClose = document.getElementById('constructionClose');
+
+    function openConstructionModal() {
+      if (!constructionModal) return;
+      constructionModal.classList.remove('hidden');
+      constructionModal.classList.add('flex');
+      constructionClose?.focus();
+    }
+
+    function closeConstructionModal() {
+      if (!constructionModal) return;
+      constructionModal.classList.add('hidden');
+      constructionModal.classList.remove('flex');
+      set3Btn?.focus();
+    }
+
+    set3Btn?.addEventListener('click', e => {
+      e.preventDefault();
+      openConstructionModal();
+    });
+
+    constructionClose?.addEventListener('click', closeConstructionModal);
+    constructionBackdrop?.addEventListener('click', closeConstructionModal);
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && constructionModal && !constructionModal.classList.contains('hidden')) {
+        closeConstructionModal();
+      }
+    });
 
     refreshUI();
 
