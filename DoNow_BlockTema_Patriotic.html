@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do Now — This Is Our Block (Patriotic)</title>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f172a;
+    --blue:#143C8D;
+    --deepblue:#0f3a9e;
+    --red:#C21807;
+    --gold:#F2C744;
+    --paper:#ffffff;
+    --soft:#f6f8fc;
+    --highlight:#ffe76a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:transparent;color:var(--ink)}
+  body{font-family: Inter, system-ui, -apple-system, Arial, sans-serif; line-height:1.4}
+  .wrap{min-height:100vh;display:grid;place-items:center;padding:4vh 4vw}
+  .poster{
+    width:min(1200px,95vw);
+    aspect-ratio: 16/9;
+    background: var(--paper);
+    border:8px solid var(--blue);
+    border-radius:22px;
+    padding: clamp(18px, 3.2vw, 40px);
+    position:relative; overflow:hidden;
+  }
+  /* Floating patriotic stars background */
+  .sky{position:absolute; inset:0; z-index:0; pointer-events:none}
+  .star-f{
+    --x: 50%;
+    --size: 10px;
+    --h: 0;
+    position:absolute;
+    left:var(--x); bottom:-20px;
+    width:var(--size); height:var(--size);
+    transform: translateX(-50%);
+    clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    background: hsl(var(--h) 80% 60%);
+    filter: drop-shadow(0 0 8px hsl(var(--h) 90% 70% / .55));
+    animation: rise var(--dur,18s) linear var(--delay,0s) infinite, twinkle 1.8s ease-in-out infinite;
+    opacity:.85;
+  }
+  .star-f.red{--h:0}
+  .star-f.white{background:#fff; filter: drop-shadow(0 0 8px rgba(255,255,255,.6))}
+  .star-f.blue{--h:220}
+  @keyframes rise{
+    0%{transform: translateX(-50%) translateY(0) rotate(0deg)}
+    100%{transform: translateX(-50%) translateY(-120vh) rotate(90deg)}
+  }
+  @keyframes twinkle{0%,100%{opacity:.8}50%{opacity:1}}
+
+  /* Content */
+  .content{position:relative; z-index:1}
+  .heading{
+    text-align:center;
+    font-family:"Alfa Slab One", serif;
+    color:var(--red);
+    font-size: clamp(28px,6vw,64px);
+    letter-spacing:.06em;
+    margin:0 0 clamp(8px,1.4vw,12px) 0;
+    text-transform:uppercase;
+  }
+  .topic{
+    text-align:center;
+    font-weight:900;
+    font-size: clamp(18px,3.2vw,36px);
+    margin:0 0 clamp(14px,2.4vw,22px) 0;
+  }
+  .p{font-size: clamp(16px,2.2vw,24px); margin:.6rem 0}
+  .hl{background:var(--highlight); border-radius:.35rem; padding:.08em .25em; box-shadow:0 .05em 0 rgba(0,0,0,.1) inset}
+  /* Question box */
+  .qbox{
+    margin-top: clamp(16px,2.6vw,24px);
+    border-radius:14px;
+    overflow:hidden;
+    border: 6px solid #0b2f7a;
+    box-shadow: 0 2px 0 rgba(0,0,0,.15);
+  }
+  .qtab{
+    background:#121826;
+    color:#fff;
+    font-family:"Alfa Slab One",serif;
+    font-size: clamp(16px,2.8vw,28px);
+    padding:.35rem .8rem;
+    display:inline-block;
+    border-top-left-radius:10px;
+    border-bottom-right-radius:8px;
+    margin-left: clamp(6px,1.2vw,12px);
+    transform: translateY(-10px);
+    box-shadow: 0 2px 0 rgba(0,0,0,.25);
+    letter-spacing:.04em;
+  }
+  .qcontent{
+    background:linear-gradient(0deg, #1d46bf, #1a3fae);
+    color:#fff;
+    padding: clamp(14px,2.6vw,28px) clamp(16px,3.2vw,36px);
+  }
+  .qline{
+    font-weight:900;
+    letter-spacing:.02em;
+    font-size: clamp(16px,2.6vw,28px);
+    margin:.2rem 0;
+  }
+  .qline .accent{color:var(--gold)}
+  /* Corner GIF badges (optional) */
+  .corner{
+    position:absolute; width: clamp(38px,5vw,56px); height: clamp(38px,5vw,56px);
+    border-radius:50%; overflow:hidden; border:3px solid var(--red); background:#fff;
+    box-shadow:0 2px 0 rgba(0,0,0,.2);
+  }
+  .corner img{width:100%;height:100%;object-fit:cover}
+  .corner.tl{top:-14px;left:-14px}
+  .corner.tr{top:-14px;right:-14px}
+  .corner.bl{bottom:-14px;left:-14px}
+  .corner.br{bottom:-14px;right:-14px}
+
+  @media print{
+    .star-f{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="poster" aria-labelledby="h1">
+      <div class="sky" aria-hidden="true">
+        <!-- a spread of floating stars -->
+        <span class="star-f red"   style="--x:6%;  --dur:20s; --delay:-2s; --size:10px"></span>
+        <span class="star-f white" style="--x:12%; --dur:18s; --delay:-6s; --size:8px"></span>
+        <span class="star-f blue"  style="--x:18%; --dur:22s; --delay:-9s; --size:9px"></span>
+        <span class="star-f red"   style="--x:26%; --dur:19s; --delay:-12s; --size:11px"></span>
+        <span class="star-f white" style="--x:34%; --dur:21s; --delay:-3s; --size:9px"></span>
+        <span class="star-f blue"  style="--x:42%; --dur:23s; --delay:-7s; --size:10px"></span>
+        <span class="star-f red"   style="--x:52%; --dur:20s; --delay:-10s; --size:12px"></span>
+        <span class="star-f white" style="--x:60%; --dur:18s; --delay:-4s; --size:8px"></span>
+        <span class="star-f blue"  style="--x:68%; --dur:22s; --delay:-8s; --size:9px"></span>
+        <span class="star-f red"   style="--x:76%; --dur:19s; --delay:-1s; --size:11px"></span>
+        <span class="star-f white" style="--x:84%; --dur:21s; --delay:-5s; --size:8px"></span>
+        <span class="star-f blue"  style="--x:92%; --dur:23s; --delay:-11s; --size:10px"></span>
+      </div>
+
+      <!-- Corners (comment out if not wanted) -->
+      <div class="corner tl"><img alt="" src="https://i.pinimg.com/originals/5d/67/37/5d67370ee8ff1a25b37f0dfc3706f344.gif"></div>
+      <div class="corner tr"><img alt="" src="https://i.pinimg.com/originals/5d/67/37/5d67370ee8ff1a25b37f0dfc3706f344.gif"></div>
+      <div class="corner bl"><img alt="" src="https://i.pinimg.com/originals/5d/67/37/5d67370ee8ff1a25b37f0dfc3706f344.gif"></div>
+      <div class="corner br"><img alt="" src="https://i.pinimg.com/originals/5d/67/37/5d67370ee8ff1a25b37f0dfc3706f344.gif"></div>
+
+      <div class="content">
+        <h1 id="h1" class="heading">DO NOW</h1>
+        <h2 class="topic">Topic: This Is Our Block.</h2>
+
+        <p class="p">
+          Imagine you and your neighbors on your block <span class="hl">finally</span> got rid of the old landlord who was
+          controlling everything. You are all running your own spots now, <span class="hl">your own way</span>.
+        </p>
+        <p class="p">
+          Then that same powerful landlord, from <span class="hl">way across town</span>, starts trying to come back.
+          He is not bothering your house (<span class="hl">yet</span>), but he is trying to barge in and take over your neighbors' spots,
+          <span class="hl">right next to you</span>.
+        </p>
+
+        <div class="qbox">
+          <div class="qtab">QUESTION:</div>
+          <div class="qcontent">
+            <div class="qline">WHAT IS THE <span class="accent">PUBLIC STATEMENT</span> YOU MAKE?</div>
+            <div class="qline">WHAT IS THE <span class="accent">NEW RULE</span> YOU LAY DOWN, LOUD AND CLEAR, TO KEEP HIS HANDS OFF <span class="accent">YOUR ENTIRE BLOCK</span>?</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
