@@ -50,8 +50,68 @@
   }
 
 </style>
+<style>
+  #tab-change-counter {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 12pt;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .tab-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 2000;
+    font-size: 16pt;
+    line-height: 1.5;
+  }
+
+  .tab-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .tab-overlay strong {
+    font-size: 20pt;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .tab-overlay .countdown {
+    margin-top: 12px;
+    font-size: 18pt;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
+
+  <div id="tab-change-counter">Tab Changes: <span id="tab-change-count">0</span></div>
+  <div id="tab-overlay" class="tab-overlay" role="alert" aria-live="assertive">
+    <div>
+      <strong>Warning</strong>
+      <p>You left the exam tab. This activity is monitored and repeated attempts can result in a failing grade.</p>
+      <p>Please wait <span id="tab-overlay-countdown" class="countdown">5</span> seconds before resuming.</p>
+    </div>
+  </div>
 
   <!-- COVER PAGE -->
   <div class="cover-page">
@@ -364,5 +424,100 @@ Full transcript: docsteach.org/document/indian-removal-act/</div>
     </div>
   </div>
 
+  <script>
+    (function () {
+      const counterDisplay = document.getElementById('tab-change-count');
+      const overlay = document.getElementById('tab-overlay');
+      const countdownDisplay = document.getElementById('tab-overlay-countdown');
+      let tabChangeCount = 0;
+      let countdownInterval = null;
+
+      function requestNotificationPermission() {
+        if (!('Notification' in window)) {
+          return;
+        }
+
+        if (Notification.permission === 'default') {
+          Notification.requestPermission().catch(() => {
+            /* ignored */
+          });
+        }
+      }
+
+      function sendWarningNotification() {
+        const message = 'You left the exam tab. Returning focus will be delayed for 5 seconds.';
+        if ('Notification' in window && Notification.permission === 'granted') {
+          try {
+            new Notification('Exam Monitoring Alert', { body: message });
+            return;
+          } catch (error) {
+            /* Fallback to alert when notifications fail */
+          }
+        }
+
+        window.alert(message);
+      }
+
+      function updateCounter() {
+        counterDisplay.textContent = String(tabChangeCount);
+      }
+
+      function showOverlay() {
+        let remaining = 5;
+        countdownDisplay.textContent = String(remaining);
+        overlay.classList.add('visible');
+
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+        }
+
+        countdownInterval = setInterval(() => {
+          remaining -= 1;
+          if (remaining <= 0) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+            overlay.classList.remove('visible');
+          }
+          countdownDisplay.textContent = String(Math.max(remaining, 0));
+        }, 1000);
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          tabChangeCount += 1;
+          updateCounter();
+          sendWarningNotification();
+        } else if (tabChangeCount > 0) {
+          showOverlay();
+        }
+      });
+
+      document.addEventListener('copy', (event) => {
+        event.preventDefault();
+        window.alert('Copying is disabled during this exam.');
+      });
+
+      document.addEventListener('cut', (event) => {
+        event.preventDefault();
+        window.alert('Cutting content is disabled during this exam.');
+      });
+
+      document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if ((event.ctrlKey || event.metaKey) && ['c', 'x', 'v', 'p', 's'].includes(event.key.toLowerCase())) {
+          event.preventDefault();
+          window.alert('Keyboard shortcuts for copying or printing are disabled during this exam.');
+        }
+      }, true);
+
+      window.addEventListener('load', () => {
+        requestNotificationPermission();
+        updateCounter();
+      });
+    })();
+  </script>
 </body>
 </html>
