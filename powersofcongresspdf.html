@@ -278,6 +278,55 @@
       object-fit: cover;
     }
 
+    .video-card iframe {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+    }
+
+    .graphic-note {
+      margin-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(243, 77, 77, 0.55);
+      background: rgba(20, 6, 8, 0.7);
+    }
+
+    .graphic-note .number-badge {
+      min-width: 90px;
+      height: 90px;
+      border-radius: 1rem;
+      border: 2px solid rgba(243, 77, 77, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: rgba(243, 77, 77, 0.1);
+    }
+
+    .graphic-note .note-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .graphic-note-title {
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-soft);
+    }
+
+    .graphic-note-caption {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
     .hero-layout {
       display: flex;
       gap: 2rem;
@@ -476,19 +525,29 @@
       <div class="slide-inner">
         <div class="big-number">03</div>
         <h2>What Are The “Epstein Files”?</h2>
-        <p>
-          The <span class="highlight"><b><i>Epstein files</i></b></span> are federal records connected to
-          <span class="highlight"><b><i>Jeffrey Epstein</i></b></span>, a financier convicted of sex crimes who later died in jail.
-        </p>
-        <ul>
-          <li><b><i>Investigation records</i></b> from the <span class="highlight"><b><i>FBI</i></b></span> and <span class="highlight"><b><i>DOJ</i></b></span>.</li>
-          <li><b><i>Flight logs</i></b>, emails, and communications.</li>
-          <li>Internal government memos about how his case was handled.</li>
-          <li>Materials related to <span class="highlight"><b><i>Ghislaine Maxwell</i></b></span> and other possible co conspirators.</li>
-        </ul>
-        <p>
-          The files may reveal how far Epstein’s network went and what the government did or did not do.
-        </p>
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              The <span class="highlight"><b><i>Epstein files</i></b></span> are federal records connected to
+              <span class="highlight"><b><i>Jeffrey Epstein</i></b></span>, a financier convicted of sex crimes who later died in jail.
+            </p>
+            <ul>
+              <li><b><i>Investigation records</i></b> from the <span class="highlight"><b><i>FBI</i></b></span> and <span class="highlight"><b><i>DOJ</i></b></span>.</li>
+              <li><b><i>Flight logs</i></b>, emails, and communications.</li>
+              <li>Internal government memos about how his case was handled.</li>
+              <li>Materials related to <span class="highlight"><b><i>Ghislaine Maxwell</i></b></span> and other possible co conspirators.</li>
+            </ul>
+            <p>
+              The files may reveal how far Epstein’s network went and what the government did or did not do.
+            </p>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img src="https://lh3.googleusercontent.com/d/1hdUGrp5cnMy906afjKPfZYStSrnqBgbJ" alt="Digital cover titled 'What Are The Epstein Files?'" />
+              <div class="image-caption">Visual summary of the mystery behind the files</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -582,6 +641,17 @@
               <img src="https://assets.bbhub.io/image/v1/resize?width=auto&type=webp&url=https://assets.bbhub.io/bna/sites/20/2025/06/11-7-25-House-Balance-of-Power.png" alt="House balance of power graphic" />
               <div class="image-caption">Narrow margins make every vote matter</div>
             </div>
+            <div class="image-card video-card">
+              <iframe
+                src="https://www.youtube.com/embed/X-5bKLgY3As?rel=0"
+                title="Rep. Melanie Stansbury speaks about the Epstein Files"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+              <div class="image-caption">
+                Democrats’ stance: Rep. Melanie Stansbury (NM) calls out GOP leadership on the Epstein files
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -592,17 +662,31 @@
       <div class="slide-inner">
         <div class="big-number">07</div>
         <h2>Cast Of Characters - House Leadership</h2>
-        <p>
-          <span class="highlight"><b><i>Speaker Mike Johnson</i></b></span> and House leadership control which bills get a vote.
-        </p>
-        <ul>
-          <li>At first, leadership is not eager to bring the Epstein bill to the floor.</li>
-          <li>Some members accuse leadership of protecting powerful names or avoiding controversy.</li>
-          <li>This leads to a rare power move: the <span class="highlight"><b><i>discharge petition</i></b></span>.</li>
-        </ul>
-        <p>
-          Agenda control is quiet power. If leadership does nothing, a bill can quietly die.
-        </p>
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              <span class="highlight"><b><i>Speaker Mike Johnson</i></b></span> and House leadership control which bills get a
+              vote.
+            </p>
+            <ul>
+              <li>At first, leadership is not eager to bring the Epstein bill to the floor.</li>
+              <li>Some members accuse leadership of protecting powerful names or avoiding controversy.</li>
+              <li>This leads to a rare power move: the <span class="highlight"><b><i>discharge petition</i></b></span>.</li>
+            </ul>
+            <p>
+              Agenda control is quiet power. If leadership does nothing, a bill can quietly die.
+            </p>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://images.axios.com/6Z96h1kTpzXnoMjHWzjiNkxeMDg=/0x0:5155x2900/1920x1080/2025/10/06/1759784655682.jpeg"
+                alt="Speaker Mike Johnson speaking at a press conference"
+              />
+              <div class="image-caption">House leadership decides if the bill ever gets a vote.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -611,17 +695,31 @@
       <div class="slide-inner">
         <div class="big-number">08</div>
         <h2>Cast Of Characters - Senate</h2>
-        <p>
-          The <span class="highlight"><b><i>Senate</i></b></span> is the slower, more cautious chamber that also has to approve the bill.
-        </p>
-        <ul>
-          <li>Has its own version of the Epstein Files Transparency Act.</li>
-          <li>Uses the <span class="highlight"><b><i>filibuster</i></b></span>, which often requires 60 votes to move forward.</li>
-          <li>Can amend or delay the bill, even after the House passes it.</li>
-        </ul>
-        <p>
-          The Senate can cool down the drama or kill the bill quietly through procedure.
-        </p>
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              The <span class="highlight"><b><i>Senate</i></b></span> is the slower, more cautious chamber that also has to
+              approve the bill.
+            </p>
+            <ul>
+              <li>Has its own version of the Epstein Files Transparency Act.</li>
+              <li>Uses the <span class="highlight"><b><i>filibuster</i></b></span>, which often requires 60 votes to move forward.</li>
+              <li>Can amend or delay the bill, even after the House passes it.</li>
+            </ul>
+            <p>
+              The Senate can cool down the drama or kill the bill quietly through procedure.
+            </p>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://public.flourish.studio/visualisation/20132785/thumbnail"
+                alt="Graphic showing balance of power in the U.S. Senate"
+              />
+              <div class="image-caption">Senate math matters: the filibuster demands a bigger coalition.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -630,17 +728,30 @@
       <div class="slide-inner">
         <div class="big-number">09</div>
         <h2>Cast Of Characters - The President</h2>
-        <p>
-          The <span class="highlight"><b><i>President</i></b></span> is the final gatekeeper in the normal process.
-        </p>
-        <ul>
-          <li>Can <span class="highlight"><b><i>sign</i></b></span> the bill into law.</li>
-          <li>Can <span class="highlight"><b><i>veto</i></b></span> the bill and send it back to Congress.</li>
-        </ul>
-        <p>
-          In this case, President <span class="highlight"><b><i>Donald Trump</i></b></span> and his team have signaled
-          that they do not want a full public document dump. That makes a veto very likely if the bill reaches his desk.
-        </p>
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              The <span class="highlight"><b><i>President</i></b></span> is the final gatekeeper in the normal process.
+            </p>
+            <ul>
+              <li>Can <span class="highlight"><b><i>sign</i></b></span> the bill into law.</li>
+              <li>Can <span class="highlight"><b><i>veto</i></b></span> the bill and send it back to Congress.</li>
+            </ul>
+            <p>
+              In this case, President <span class="highlight"><b><i>Donald Trump</i></b></span> and his team have signaled
+              that they do not want a full public document dump. That makes a veto very likely if the bill reaches his desk.
+            </p>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/January_2025_Official_Presidential_Portrait_of_Donald_J._Trump.jpg/960px-January_2025_Official_Presidential_Portrait_of_Donald_J._Trump.jpg"
+                alt="Official 2025 presidential portrait of Donald J. Trump"
+              />
+              <div class="image-caption">The president can end the bill with a single veto.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -732,15 +843,28 @@
       <div class="slide-inner">
         <div class="big-number">14</div>
         <h2>Timeline - Early 2025</h2>
-        <h3>“We gave you something. Is that not enough?”</h3>
-        <ul>
-          <li>DOJ releases a “first phase” of declassified Epstein documents.</li>
-          <li>Most are heavily redacted or already known from earlier leaks.</li>
-          <li>Survivors and activists call it a half truth, not real transparency.</li>
-        </ul>
-        <p>
-          This partial release sets the stage for Congress to step in more aggressively.
-        </p>
+        <div class="content-with-image">
+          <div class="content-text">
+            <h3>“We gave you something. Is that not enough?”</h3>
+            <ul>
+              <li>DOJ releases a “first phase” of declassified Epstein documents.</li>
+              <li>Most are heavily redacted or already known from earlier leaks.</li>
+              <li>Survivors and activists call it a half truth, not real transparency.</li>
+            </ul>
+            <p>
+              This partial release sets the stage for Congress to step in more aggressively.
+            </p>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://i.abcnewsfe.com/a/ba108b5d-d779-479f-9e4a-7eb1427faba3/epstein-files-rt-jef-250320_1742479160724_hpMain.jpg"
+                alt="Reporters holding recently released Epstein files at a news conference"
+              />
+              <div class="image-caption">Partial document dumps left victims demanding more transparency.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -769,15 +893,28 @@
       <div class="slide-inner">
         <div class="big-number">16</div>
         <h2>Timeline - The Bill Is Introduced</h2>
-        <p>
-          <span class="highlight"><b><i>Rep. Ro Khanna</i></b></span> introduces the
-          <span class="highlight"><b><i>Epstein Files Transparency Act (H.R. 4405)</i></b></span>.
-        </p>
-        <ul>
-          <li>Shifts the fight from “please release more” to “you must release more.”</li>
-          <li>Backed by members who frame it as a battle for truth and justice for survivors.</li>
-          <li>Immediately becomes politically sensitive inside Congress.</li>
-        </ul>
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              <span class="highlight"><b><i>Rep. Ro Khanna</i></b></span> introduces the
+              <span class="highlight"><b><i>Epstein Files Transparency Act (H.R. 4405)</i></b></span>.
+            </p>
+            <ul>
+              <li>Shifts the fight from “please release more” to “you must release more.”</li>
+              <li>Backed by members who frame it as a battle for truth and justice for survivors.</li>
+              <li>Immediately becomes politically sensitive inside Congress.</li>
+            </ul>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://assets1.cbsnewsstatic.com/hub/i/r/2025/09/03/eb130249-22e9-4552-9b93-bb33820fec13/thumbnail/1280x720/f372e63fb4cca70f498856ae380bb4c4/cbsn-fusion-lawmakers-hold-news-conference-push-for-full-release-of-jeffrey-epstein-files-thumbnail.jpg"
+                alt="Rep. Ro Khanna speaking at a news conference about the Epstein Files Transparency Act"
+              />
+              <div class="image-caption">Khanna’s press event turns a quiet demand into a formal bill.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -786,16 +923,30 @@
       <div class="slide-inner">
         <div class="big-number">17</div>
         <h2>Timeline - Leadership Stalls</h2>
-        <p>
-          House leadership, including the <span class="highlight"><b><i>Speaker</i></b></span>, does not rush to schedule a vote.
-        </p>
-        <ul>
-          <li>Some say the bill is unnecessary after partial releases.</li>
-          <li>Others quietly worry about what might be exposed.</li>
-          <li>Supporters accuse leadership of protecting powerful interests or playing politics.</li>
-        </ul>
-        <div class="callout">
-          This is where procedure becomes drama. A controversial bill can be buried without a single vote.
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              House leadership, including the <span class="highlight"><b><i>Speaker</i></b></span>, does not rush to schedule a
+              vote.
+            </p>
+            <ul>
+              <li>Some say the bill is unnecessary after partial releases.</li>
+              <li>Others quietly worry about what might be exposed.</li>
+              <li>Supporters accuse leadership of protecting powerful interests or playing politics.</li>
+            </ul>
+            <div class="callout">
+              This is where procedure becomes drama. A controversial bill can be buried without a single vote.
+            </div>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://www.rollingstone.com/wp-content/uploads/2025/07/Mike-Johnson-epstein.jpg?w=1581&h=1054&crop=1"
+                alt="Speaker Mike Johnson standing in front of flags"
+              />
+              <div class="image-caption">Rolling delays fuel suspicion that leadership is stalling.</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -833,6 +984,13 @@
           <li>Amendments can be proposed to change parts of the bill.</li>
           <li>The bill needs a <span class="highlight"><b><i>simple majority</i></b></span> of votes to pass.</li>
         </ul>
+        <div class="graphic-note" role="figure">
+          <div class="number-badge">218</div>
+          <div class="note-text">
+            <div class="graphic-note-title">House Magic Number</div>
+            <div class="graphic-note-caption">218 “yea” votes = the simple majority needed for H.R. 4405 to pass.</div>
+          </div>
+        </div>
         <p>
           If it passes, the drama moves to the next level: the <span class="highlight"><b><i>Senate</i></b></span>.
         </p>
@@ -852,6 +1010,13 @@
           <li>Senators can use the <span class="highlight"><b><i>filibuster</i></b></span> to block a final vote.</li>
           <li>To break a filibuster usually takes <span class="highlight"><b><i>60 votes</i></b></span> to end debate.</li>
         </ul>
+        <div class="graphic-note" role="figure">
+          <div class="number-badge">60</div>
+          <div class="note-text">
+            <div class="graphic-note-title">Cloture Threshold</div>
+            <div class="graphic-note-caption">Without 60 votes to end debate, the Senate can run the clock and stall the bill.</div>
+          </div>
+        </div>
         <p>
           Even if a simple majority likes the bill, it can die if 60 votes are not there to move it.
         </p>
@@ -882,16 +1047,29 @@
       <div class="slide-inner">
         <div class="big-number">22</div>
         <h2>Step 3 - President: Sign Or Veto</h2>
-        <p>
-          A passed bill goes to the <span class="highlight"><b><i>President</i></b></span>.
-        </p>
-        <ul>
-          <li><b><i>Sign</i></b> the bill - it becomes law.</li>
-          <li><b><i>Veto</i></b> the bill - it is rejected and sent back to Congress.</li>
-        </ul>
-        <p>
-          In this case, the President has a strong reason to veto a bill that orders a full public release of sensitive files.
-        </p>
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              A passed bill goes to the <span class="highlight"><b><i>President</i></b></span>.
+            </p>
+            <ul>
+              <li><b><i>Sign</i></b> the bill - it becomes law.</li>
+              <li><b><i>Veto</i></b> the bill - it is rejected and sent back to Congress.</li>
+            </ul>
+            <p>
+              In this case, the President has a strong reason to veto a bill that orders a full public release of sensitive files.
+            </p>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img
+                src="https://live-production.wcms.abc-cdn.net.au/9b0e12d3969d0a18f67ec127f78dd68c.jpg?src"
+                alt="President Donald Trump seated at a desk with advisers nearby"
+              />
+              <div class="image-caption">If he vetoes the bill, Congress must start over or find override votes.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
