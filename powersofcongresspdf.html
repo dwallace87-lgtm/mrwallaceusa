@@ -271,6 +271,11 @@
       gap: 1rem;
     }
 
+    .image-stack.image-right {
+      max-width: clamp(220px, 28vw, 420px);
+      margin-left: auto;
+    }
+
     .image-card {
       border-radius: 1rem;
       overflow: hidden;
@@ -283,6 +288,7 @@
       display: block;
       width: 100%;
       height: auto;
+      max-height: clamp(220px, 35vh, 360px);
       object-fit: cover;
     }
 
@@ -291,6 +297,66 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       border: 0;
+    }
+
+    .vinyl-slide .slide-inner {
+      background:
+        radial-gradient(circle at 25% 30%, rgba(243, 77, 77, 0.18), transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(12, 18, 34, 0.8), rgba(5, 7, 15, 0.95)),
+        repeating-radial-gradient(circle, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 6px, transparent 6px, transparent 12px),
+        linear-gradient(120deg, rgba(0, 0, 0, 0.9), rgba(2, 4, 10, 0.95));
+    }
+
+    .vinyl-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(1.5rem, 4vw, 3.5rem);
+      align-items: center;
+    }
+
+    .vinyl-copy {
+      position: relative;
+      padding-right: clamp(0.5rem, 2vw, 1.5rem);
+    }
+
+    .vinyl-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .vinyl-record {
+      position: absolute;
+      top: clamp(-1rem, -2vw, -2rem);
+      right: clamp(-0.5rem, -3vw, -2.5rem);
+      width: clamp(120px, 18vw, 220px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #120c10 55%, transparent 56%),
+        radial-gradient(circle, rgba(243, 77, 77, 0.85) 0 18%, transparent 19%),
+        repeating-radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12) 2px, transparent 2px, transparent 6px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .vinyl-record::after {
+      content: "";
+      position: absolute;
+      inset: 35%;
+      border-radius: 50%;
+      background: rgba(5, 7, 15, 0.8);
+    }
+
+    .vinyl-slide .video-card {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .vinyl-slide .video-card iframe {
+      aspect-ratio: 16 / 9;
+      min-height: clamp(220px, 40vh, 420px);
     }
 
     .graphic-note {
@@ -1036,34 +1102,38 @@
     <section class="slide" data-index="19">
       <div class="slide-inner">
         <div class="big-number">20</div>
-        <h2>Step 1 - House Debate And Vote</h2>
-        <p>
-          Once the bill is on the floor, the <span class="highlight"><b><i>House</i></b></span> debates and votes.
-        </p>
-        <ul>
-          <li>Members give speeches for and against transparency.</li>
-          <li>Amendments can be proposed to change parts of the bill.</li>
-          <li>The bill needs a <span class="highlight"><b><i>simple majority</i></b></span> of votes to pass.</li>
-        </ul>
-        <div class="image-stack">
-          <div class="image-card">
-            <img
-              src="https://lh3.googleusercontent.com/d/1YEVP1gM80tOCKDXTioZ3aa7zwb5HMh6t"
-              alt="House members standing and debating a bill on the chamber floor"
-            />
-            <div class="image-caption">Debate on the House floor determines whether transparency survives the first vote.</div>
+        <div class="content-with-image">
+          <div class="content-text">
+            <h2>Step 1 - House Debate And Vote</h2>
+            <p>
+              Once the bill is on the floor, the <span class="highlight"><b><i>House</i></b></span> debates and votes.
+            </p>
+            <ul>
+              <li>Members give speeches for and against transparency.</li>
+              <li>Amendments can be proposed to change parts of the bill.</li>
+              <li>The bill needs a <span class="highlight"><b><i>simple majority</i></b></span> of votes to pass.</li>
+            </ul>
+            <div class="graphic-note" role="figure">
+              <div class="number-badge">218</div>
+              <div class="note-text">
+                <div class="graphic-note-title">House Magic Number</div>
+                <div class="graphic-note-caption">218 “yea” votes = the simple majority needed for H.R. 4405 to pass.</div>
+              </div>
+            </div>
+            <p>
+              If it passes, the drama moves to the next level: the <span class="highlight"><b><i>Senate</i></b></span>.
+            </p>
+          </div>
+          <div class="image-stack image-right">
+            <div class="image-card">
+              <img
+                src="https://lh3.googleusercontent.com/d/1YEVP1gM80tOCKDXTioZ3aa7zwb5HMh6t"
+                alt="House members standing and debating a bill on the chamber floor"
+              />
+              <div class="image-caption">Debate on the House floor determines whether transparency survives the first vote.</div>
+            </div>
           </div>
         </div>
-        <div class="graphic-note" role="figure">
-          <div class="number-badge">218</div>
-          <div class="note-text">
-            <div class="graphic-note-title">House Magic Number</div>
-            <div class="graphic-note-caption">218 “yea” votes = the simple majority needed for H.R. 4405 to pass.</div>
-          </div>
-        </div>
-        <p>
-          If it passes, the drama moves to the next level: the <span class="highlight"><b><i>Senate</i></b></span>.
-        </p>
       </div>
     </section>
 
@@ -1275,12 +1345,44 @@
       </div>
     </section>
 
+    <!-- Slide 32 -->
+    <section class="slide vinyl-slide" data-index="31">
+      <div class="slide-inner">
+        <div class="big-number">32</div>
+        <div class="vinyl-layout">
+          <div class="vinyl-copy">
+            <div class="vinyl-label">vinyl drop</div>
+            <h2>Set The Needle On Transparency</h2>
+            <p>
+              Cue up a vinyl-inspired recap that layers music visuals with the stakes of the Epstein Files Transparency Act.
+              The mix keeps the energy up while you review why every branch matters.
+            </p>
+            <ul>
+              <li>Hear how committee work, floor votes, and public pressure remix into one story.</li>
+              <li>Use the video to narrate key steps as students jot their own liner notes.</li>
+            </ul>
+            <p class="subtitle">Press play, let it fill the screen, and treat it like the closing track of the lesson.</p>
+            <div class="vinyl-record" aria-hidden="true"></div>
+          </div>
+          <div class="image-card video-card">
+            <iframe
+              src="https://www.veed.io/embed/6f603a83-e66b-42ce-b885-62e5cb1aa86f?panel=share"
+              title="Vinyl recap of the Epstein Files Transparency Act"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            <div class="image-caption">Vinyl-styled video recap: use it as a closing vibe check.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <div id="controls">
     <div class="controls-inner">
       <button class="btn secondary" id="prev-btn">Prev</button>
-      <div id="slide-counter">Slide 1 of 30 • Use arrow keys or buttons</div>
+      <div id="slide-counter">Slide 1 of 32 • Use arrow keys or buttons</div>
       <button class="btn" id="next-btn">Next</button>
     </div>
   </div>
