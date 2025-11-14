@@ -29,6 +29,7 @@
       color: var(--text-main);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow: hidden;
+      font-size: clamp(16px, 1.05vw, 20px);
     }
 
     body {
@@ -47,10 +48,10 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 1.5rem 3rem 4.5rem 3rem;
+      padding: clamp(1.5rem, 3vw, 3rem) clamp(2.5rem, 4vw, 4.5rem) clamp(4rem, 5vw, 5.5rem);
       display: none;
       justify-content: center;
-      align-items: center;
+      align-items: stretch;
       background:
         radial-gradient(circle at top left, rgba(255, 0, 0, 0.08), transparent 55%),
         radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.04), transparent 60%),
@@ -76,17 +77,17 @@
 
     .slide-inner {
       position: relative;
-      max-width: 1100px;
-      width: 100%;
-      border-radius: 1.5rem;
-      border: 2px solid rgba(243, 77, 77, 0.7);
+      width: min(96vw, 1500px);
+      min-height: calc(100vh - 6rem);
+      border-radius: 2rem;
+      border: 2px solid rgba(243, 77, 77, 0.8);
       background:
         linear-gradient(135deg, rgba(243, 77, 77, 0.1), transparent 50%),
-        linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(2, 4, 10, 0.95));
+        linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(2, 4, 10, 0.95));
       box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.05),
-        0 22px 55px rgba(0, 0, 0, 0.75);
-      padding: 2.5rem 3rem 2.5rem;
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 30px 65px rgba(0, 0, 0, 0.85);
+      padding: clamp(2rem, 3vw, 3.5rem);
       overflow: hidden;
     }
 
@@ -128,20 +129,20 @@
     }
 
     h1 {
-      font-size: 2.7rem;
+      font-size: clamp(2.7rem, 4vw, 4.2rem);
     }
 
     h2 {
-      font-size: 2.2rem;
+      font-size: clamp(2.2rem, 3.1vw, 3.5rem);
     }
 
     h3 {
-      font-size: 1.8rem;
+      font-size: clamp(1.8rem, 2.5vw, 2.7rem);
     }
 
     p {
-      font-size: 1.3rem;
-      line-height: 1.6;
+      font-size: clamp(1.2rem, 1.5vw, 1.6rem);
+      line-height: 1.7;
       margin: 0.3rem 0 0.4rem 0;
     }
 
@@ -152,8 +153,8 @@
     }
 
     li {
-      font-size: 1.25rem;
-      line-height: 1.55;
+      font-size: clamp(1.15rem, 1.45vw, 1.5rem);
+      line-height: 1.6;
       margin: 0.2rem 0;
       display: flex;
       align-items: flex-start;
@@ -178,6 +179,13 @@
       border-radius: 0.35rem;
       padding: 0.02rem 0.45rem;
       border: 1px solid rgba(246, 115, 108, 0.7);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.2em;
+    }
+
+    b, strong, i, em {
+      color: var(--accent-soft);
     }
 
     .tag-row {
@@ -209,8 +217,8 @@
 
     .two-column {
       display: grid;
-      grid-template-columns: 1.3fr 1.1fr;
-      gap: 2rem;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: clamp(1.2rem, 3vw, 2.5rem);
       align-items: flex-start;
     }
 
@@ -248,7 +256,7 @@
 
     .content-with-image {
       display: flex;
-      gap: 1.7rem;
+      gap: clamp(1.2rem, 2.5vw, 2.5rem);
       align-items: flex-start;
     }
 
@@ -329,7 +337,7 @@
 
     .hero-layout {
       display: flex;
-      gap: 2rem;
+      gap: clamp(1.5rem, 3vw, 3rem);
       align-items: center;
     }
 
@@ -443,12 +451,12 @@
 
     @media (max-width: 900px) {
       .slide-inner {
-        padding: 2rem 1.7rem 2rem;
+        width: calc(100vw - 1.5rem);
+        min-height: calc(100vh - 4rem);
       }
-      h1 { font-size: 2.1rem; }
-      h2 { font-size: 1.8rem; }
-      h3 { font-size: 1.6rem; }
-      p, li { font-size: 1.1rem; }
+      .slide {
+        padding: 1.2rem;
+      }
       .two-column {
         grid-template-columns: 1fr;
       }
@@ -458,9 +466,7 @@
       .hero-layout {
         flex-direction: column;
       }
-      .hero-photo-card {
-        width: 100%;
-      }
+      .hero-photo-card,
       .image-stack {
         width: 100%;
       }
