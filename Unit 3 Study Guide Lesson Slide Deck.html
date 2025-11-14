@@ -32,8 +32,12 @@
     .toolbar .k{opacity:.7; font-size:.95em}
     .toolbar .sep{width:1px; background:var(--ring); height:1.28rem; margin:0 .25rem}
     .toolbar .toggle{display:inline-flex; gap:.32rem; align-items:center; padding:.368rem .56rem; border-radius:1000px}
-    .deck{position:fixed; inset:0 0 3.2rem 0; display:grid; grid-template-rows:1fr; background:var(--bg)}
-    .slide{width:100vw; height:calc(100vh - 3.2rem); overflow:auto; padding:var(--pad); display:grid; grid-template-rows:auto 1fr auto; gap:var(--gap); box-sizing:border-box}
+    .deck{position:fixed; inset:0 0 3.2rem 0; background:var(--bg); overflow:hidden}
+    .slide{position:absolute; inset:0; width:100%; height:calc(100vh - 3.2rem); overflow-y:auto; padding:var(--pad); display:grid; grid-template-rows:auto 1fr auto; gap:var(--gap); box-sizing:border-box; opacity:0; pointer-events:none; transform:translate3d(0,2.5rem,0) scale(.97) rotateX(4deg); filter:blur(6px); transition:opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1), filter .65s cubic-bezier(.4,0,.2,1)}
+    .slide[data-motion="forward"]{--slide-shift:48px; --slide-tilt:-3deg}
+    .slide[data-motion="backward"]{--slide-shift:-48px; --slide-tilt:3deg}
+    .slide[data-motion]:not(.is-active){transform:translate3d(var(--slide-shift,0), 2.5rem, 0) scale(.97) rotateX(var(--slide-tilt,4deg));}
+    .slide.is-active{opacity:1; pointer-events:auto; transform:translate3d(0,0,0) scale(1) rotateX(0); filter:blur(0); z-index:2}
     .slide header h1,.slide header h2{margin:0; font-weight:800; letter-spacing:.2px}
     .slide header h1{font-size:var(--fs-2xl)}
     .slide header h2{font-size:var(--fs-xl); color:var(--muted); font-weight:700}
@@ -62,7 +66,7 @@
     .contrast *{color:#0b0b0b !important; border-color:#0b0b0b22 !important}
     .dyslexic{letter-spacing:.4px; word-spacing:1px}
     :focus-visible{outline:3px solid var(--accent-5); outline-offset:4px; border-radius:8px}
-    @media print{.toolbar{display:none} .deck{position:static} .slide{page-break-after:always; height:auto; min-height:100vh}}
+    @media print{.toolbar{display:none} .deck{position:static; overflow:visible} .slide{position:static; opacity:1; pointer-events:auto; transform:none; filter:none; page-break-after:always; height:auto; min-height:100vh}}
     .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border:1px solid var(--ring); padding:.04em .28em; border-radius:6px}
   </style>
 </head>
@@ -119,7 +123,29 @@
       </footer>
     </section>
 
-    <!-- 2. Agenda -->
+    <!-- 2. Who was Jeffrey Epstein? -->
+    <section class="slide" data-title="Who was Jeffrey Epstein?">
+      <header>
+        <h1>So who was Jeffrey Epstein?</h1>
+        <h2>Why is understanding his story important?</h2>
+      </header>
+      <div class="content">
+        <div class="card" style="padding:0; overflow:hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/GRMpZTFwcZ8"
+            title="Jeffrey Epstein explainer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="width:100%; aspect-ratio:16/9; border:0; display:block;">
+          </iframe>
+        </div>
+        <p class="sdi-hint">Source: <a href="https://www.youtube.com/watch?v=GRMpZTFwcZ8" target="_blank" rel="noopener">YouTube – GRMpZTFwcZ8</a></p>
+      </div>
+      <footer class="footer"><span class="badge amber">Preview the key figures and stakes</span></footer>
+    </section>
+
+    <!-- 3. Agenda -->
+    <section class="slide" data-title="Agenda">
     <section class="slide" data-title="Agenda">
       <header>
         <h1>Agenda</h1>
@@ -275,7 +301,7 @@
       </footer>
     </section>
 
-    <!-- 9. Exit Ticket -->
+    <!-- 10. Exit Ticket -->
     <section class="slide" data-title="Exit Ticket">
       <header>
         <h1>Exit Ticket</h1>
@@ -299,6 +325,27 @@
       </div>
       <footer class="footer"><span class="badge cyan">Turn in before the bell</span></footer>
     </section>
+
+    <!-- 11. Lesson Recap Video -->
+    <section class="slide" data-title="Full Lesson Recap">
+      <header>
+        <h1>Want to review everything?</h1>
+        <h2>Watch the full video presentation</h2>
+      </header>
+      <div class="content">
+        <div class="card" style="padding:0; overflow:hidden;">
+          <iframe
+            src="https://drive.google.com/file/d/1WUM61Fa77LUGUxHmLkrLt3PU8_erK1fi/preview"
+            title="Full lesson recap"
+            allow="autoplay"
+            allowfullscreen
+            style="width:100%; aspect-ratio:16/9; border:0; display:block;">
+          </iframe>
+        </div>
+        <p class="sdi-hint">If you want a video presentation that goes over the entire lesson again with a discussion on the topics covered, please click here: <a href="https://drive.google.com/file/d/1WUM61Fa77LUGUxHmLkrLt3PU8_erK1fi/view?usp=sharing" target="_blank" rel="noopener">https://drive.google.com/file/d/1WUM61Fa77LUGUxHmLkrLt3PU8_erK1fi/view?usp=sharing</a></p>
+      </div>
+      <footer class="footer"><span class="badge green">Optional reteach</span></footer>
+    </section>
   </main>
 
   <script>
@@ -310,8 +357,17 @@
     // Slides
     const slides = Array.from(document.querySelectorAll('.slide'));
     let index = 0;
+    let directionHint = 'forward';
     function updateView(){
-      slides.forEach((s,i)=>{ s.style.display = (i===index)?'grid':'none'; });
+      slides.forEach((s,i)=>{
+        const isActive = (i===index);
+        s.classList.toggle('is-active', isActive);
+        if(isActive){
+          s.dataset.motion = directionHint;
+        }else{
+          delete s.dataset.motion;
+        }
+      });
       const counter=document.getElementById('counter');
       counter.textContent = `Slide ${index+1} of ${slides.length}`;
       const jump=document.getElementById('jump');
@@ -322,14 +378,25 @@
     // Populate jump
     const jump=document.getElementById('jump');
     slides.forEach((s,i)=>{ const opt=document.createElement('option'); opt.value=i; opt.textContent=`${i+1}. ${s.getAttribute('data-title')||`Slide ${i+1}`}`; jump.appendChild(opt); });
-    document.getElementById('prevBtn').addEventListener('click', ()=>{ index=(index-1+slides.length)%slides.length; updateView(); });
-    document.getElementById('nextBtn').addEventListener('click', ()=>{ index=(index+1)%slides.length; updateView(); });
-    jump.addEventListener('change',(e)=>{ index=Number(e.target.value); updateView(); });
+    function goToSlide(newIndex, explicitDirection){
+      const normalized = (newIndex + slides.length) % slides.length;
+      if(normalized === index && slides[index].classList.contains('is-active')) return;
+      directionHint = explicitDirection || (normalized >= index ? 'forward' : 'backward');
+      index = normalized;
+      updateView();
+    }
+    document.getElementById('prevBtn').addEventListener('click', ()=>{ goToSlide(index-1, 'backward'); });
+    document.getElementById('nextBtn').addEventListener('click', ()=>{ goToSlide(index+1, 'forward'); });
+    jump.addEventListener('change',(e)=>{
+      const targetIndex = Number(e.target.value);
+      const dir = targetIndex > index ? 'forward' : 'backward';
+      goToSlide(targetIndex, dir);
+    });
     window.addEventListener('keydown',(e)=>{
-      if(e.key==='ArrowRight' || e.key===' '){ e.preventDefault(); index=(index+1)%slides.length; updateView(); }
-      if(e.key==='ArrowLeft'){ e.preventDefault(); index=(index-1+slides.length)%slides.length; updateView(); }
-      if(e.key==='Home'){ index=0; updateView(); }
-      if(e.key==='End'){ index=slides.length-1; updateView(); }
+      if(e.key==='ArrowRight' || e.key===' '){ e.preventDefault(); goToSlide(index+1, 'forward'); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); goToSlide(index-1, 'backward'); }
+      if(e.key==='Home'){ goToSlide(0, 'backward'); }
+      if(e.key==='End'){ goToSlide(slides.length-1, 'forward'); }
     });
     // Deep link to slide via hash
     const hash = Number(location.hash.replace('#',''));
