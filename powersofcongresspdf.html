@@ -246,6 +246,46 @@
       font-size: 1.05rem;
     }
 
+    .content-with-image {
+      display: flex;
+      gap: 1.7rem;
+      align-items: flex-start;
+    }
+
+    .content-text {
+      flex: 1.15;
+    }
+
+    .image-stack {
+      flex: 0.85;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .image-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 7, 15, 0.75);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+    }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .image-caption {
+      padding: 0.55rem 0.85rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
     /* Controls */
     #controls {
       position: fixed;
@@ -324,6 +364,12 @@
       .two-column {
         grid-template-columns: 1fr;
       }
+      .content-with-image {
+        flex-direction: column;
+      }
+      .image-stack {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -398,14 +444,28 @@
       <div class="slide-inner">
         <div class="big-number">04</div>
         <h2>Why Do These Files Matter?</h2>
-        <ul>
-          <li><span class="highlight"><b><i>Victims</i></b></span> want to know who helped or protected Epstein.</li>
-          <li>The public needs to trust that the <span class="highlight"><b><i>justice system</i></b></span> is not protecting the powerful.</li>
-          <li>Releasing the files could expose <span class="highlight"><b><i>high profile names</i></b></span> and destroy reputations.</li>
-          <li>This makes the case politically dangerous but also a powerful civics lesson.</li>
-        </ul>
-        <div class="callout">
-          When information is this sensitive, every step of the <b><i>congressional process</i></b> becomes a battle.
+        <div class="content-with-image">
+          <div class="content-text">
+            <ul>
+              <li><span class="highlight"><b><i>Victims</i></b></span> want to know who helped or protected Epstein.</li>
+              <li>The public needs to trust that the <span class="highlight"><b><i>justice system</i></b></span> is not protecting the powerful.</li>
+              <li>Releasing the files could expose <span class="highlight"><b><i>high profile names</i></b></span> and destroy reputations.</li>
+              <li>This makes the case politically dangerous but also a powerful civics lesson.</li>
+            </ul>
+            <div class="callout">
+              When information is this sensitive, every step of the <b><i>congressional process</i></b> becomes a battle.
+            </div>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img src="https://lh3.googleusercontent.com/d/1FwKCp_LMm-xCXJ3agG5LURGzzMmi_0F2" alt="Epstein case protest and awareness" />
+              <div class="image-caption">Pressure from victims and the public</div>
+            </div>
+            <div class="image-card">
+              <img src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2025-09/250903-epstein-victims-capitol-mn-1205-ce8350.jpg" alt="Epstein victims at the Capitol" />
+              <div class="image-caption">Victims demanding action at the Capitol</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -415,24 +475,34 @@
       <div class="slide-inner">
         <div class="big-number">05</div>
         <h2>Cast Of Characters - Department Of Justice</h2>
-        <div class="two-column">
-          <div>
-            <p>
-              The <span class="highlight"><b><i>Department of Justice (DOJ)</i></b></span> runs the federal
-              investigation and decides what to release.
-            </p>
-            <ul>
-              <li>Headed by the <span class="highlight"><b><i>Attorney General</i></b></span>.</li>
-              <li>Controls the official <b><i>Epstein files</i></b> and how much is made public.</li>
-              <li>Released a “first phase” of files that were heavily redacted and mostly old news.</li>
-            </ul>
+        <div class="content-with-image">
+          <div class="content-text">
+            <div class="two-column">
+              <div>
+                <p>
+                  The <span class="highlight"><b><i>Department of Justice (DOJ)</i></b></span> runs the federal
+                  investigation and decides what to release.
+                </p>
+                <ul>
+                  <li>Headed by the <span class="highlight"><b><i>Attorney General</i></b></span>.</li>
+                  <li>Controls the official <b><i>Epstein files</i></b> and how much is made public.</li>
+                  <li>Released a “first phase” of files that were heavily redacted and mostly old news.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <div class="card-title">DOJ’s Position</div>
+                <p>
+                  DOJ says it must protect victim identities and ongoing investigations, but critics say it is
+                  <span class="highlight"><b><i>stonewalling</i></b></span> and hiding the real story.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="card">
-            <div class="card-title">DOJ’s Position</div>
-            <p>
-              DOJ says it must protect victim identities and ongoing investigations, but critics say it is
-              <span class="highlight"><b><i>stonewalling</i></b></span> and hiding the real story.
-            </p>
+          <div class="image-stack">
+            <div class="image-card">
+              <img src="https://www.aljazeera.com/wp-content/uploads/2025/07/AP25189597213842-1753887763.jpg?resize=770%2C513&quality=80" alt="Attorney General addressing reporters" />
+              <div class="image-caption">DOJ leadership faces questions</div>
+            </div>
           </div>
         </div>
       </div>
@@ -443,17 +513,27 @@
       <div class="slide-inner">
         <div class="big-number">06</div>
         <h2>Cast Of Characters - House Of Representatives</h2>
-        <p>
-          The <span class="highlight"><b><i>House of Representatives</i></b></span> is the chamber where the
-          <span class="highlight"><b><i>Epstein Files Transparency Act</i></b></span> starts.
-        </p>
-        <ul>
-          <li><span class="highlight"><b><i>Rep. Ro Khanna</i></b></span> introduces the bill H.R. 4405.</li>
-          <li>Many <b><i>Democrats</i></b> and some <b><i>Republicans</i></b> support full transparency.</li>
-          <li>The bill says DOJ must publish all <span class="highlight"><b><i>unclassified</i></b></span> Epstein records online.</li>
-        </ul>
-        <div class="callout">
-          This is where the drama starts: a bill that pokes at powerful people and a sensitive case.
+        <div class="content-with-image">
+          <div class="content-text">
+            <p>
+              The <span class="highlight"><b><i>House of Representatives</i></b></span> is the chamber where the
+              <span class="highlight"><b><i>Epstein Files Transparency Act</i></b></span> starts.
+            </p>
+            <ul>
+              <li><span class="highlight"><b><i>Rep. Ro Khanna</i></b></span> introduces the bill H.R. 4405.</li>
+              <li>Many <b><i>Democrats</i></b> and some <b><i>Republicans</i></b> support full transparency.</li>
+              <li>The bill says DOJ must publish all <span class="highlight"><b><i>unclassified</i></b></span> Epstein records online.</li>
+            </ul>
+            <div class="callout">
+              This is where the drama starts: a bill that pokes at powerful people and a sensitive case.
+            </div>
+          </div>
+          <div class="image-stack">
+            <div class="image-card">
+              <img src="https://assets.bbhub.io/image/v1/resize?width=auto&type=webp&url=https://assets.bbhub.io/bna/sites/20/2025/06/11-7-25-House-Balance-of-Power.png" alt="House balance of power graphic" />
+              <div class="image-caption">Narrow margins make every vote matter</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
