@@ -61,18 +61,6 @@
     .quote{font-size:var(--fs-lg); font-style:italic; border-left:6px solid var(--accent-5); padding-left:1rem}
     .sdi-note{border-left:5px solid var(--accent-2); padding-left:1rem}
     .sdi-hint{font-style:italic; color:var(--muted)}
-    .cloze-card{display:flex; flex-direction:column; gap:1rem}
-    .cloze-card-header{display:flex; align-items:center; justify-content:space-between; gap:1rem}
-    .cloze-card button{border-radius:999px; border:1px solid var(--ring); background:rgba(15,23,42,.05); padding:.4rem .9rem; font-weight:700; cursor:pointer}
-    .cloze-card button:hover{background:rgba(15,23,42,.08)}
-    .cloze-list{list-style:none; margin:0; padding:0; display:grid; gap:1rem}
-    .cloze-list li{display:grid; gap:.3rem}
-    .cloze-list .prompt{margin:0; font-weight:700; letter-spacing:.01em}
-    .blank{display:inline-flex; min-width:6ch; border-bottom:2px dashed var(--ring); padding:0 .4rem .05rem; margin:0 .15rem; font-weight:700; color:var(--accent); line-height:1.4; white-space:nowrap}
-    .blank:empty::before{content:'________'; letter-spacing:.18em; color:var(--muted); font-weight:600}
-    .blank:focus-visible{outline:3px solid var(--accent-5); outline-offset:2px; border-radius:6px}
-    .blank[contenteditable="true"]{cursor:text}
-    .cloze-card[data-revealed="true"] .blank::after{content:' (' attr(data-answer) ')'; font-size:.85em; color:var(--accent-3); font-weight:700; letter-spacing:0}
     .footer{display:flex; justify-content:space-between; align-items:center; gap:1rem; color:var(--muted)}
     .spacious .slide{line-height:1.6}
     .contrast *{color:#0b0b0b !important; border-color:#0b0b0b22 !important}
@@ -313,55 +301,6 @@
       </footer>
     </section>
 
-    <!-- Cloze Organizer for Station 3 -->
-    <section class="slide" data-title="Station 3 Organizer">
-      <header>
-        <h1>Filling Your Organizer – Station 3</h1>
-        <h2>Cloze prompts keep the guiding questions but hide the answers.</h2>
-      </header>
-      <div class="content grid-2">
-        <div class="card cloze-card" data-station="3">
-          <div class="cloze-card-header">
-            <span class="badge indigo">Station 3 – Henry Highland Garnet</span>
-            <button type="button" class="reveal-answers" aria-pressed="false">Reveal sample words</button>
-          </div>
-          <p class="sdi-hint">Use the same questions from the organizer, but finish each stem on your own.</p>
-          <ol class="cloze-list">
-            <li>
-              <p class="prompt">Column 1 – What is happening?</p>
-              <p>Garnet is giving a speech asking enslaved people to fight for <span class="blank" contenteditable="true" role="textbox" aria-label="Column 1 blank" data-answer="freedom"></span>.</p>
-            </li>
-            <li>
-              <p class="prompt">Column 2 – Whose perspective?</p>
-              <p>A <span class="blank" contenteditable="true" role="textbox" aria-label="Column 2 blank" data-answer="Black"></span> abolitionist who sees Nat as a hero.</p>
-            </li>
-            <li>
-              <p class="prompt">Column 3 – Emotions or motivations?</p>
-              <p>Hope, <span class="blank" contenteditable="true" role="textbox" aria-label="Column 3 first blank" data-answer="courage"></span>, anger at <span class="blank" contenteditable="true" role="textbox" aria-label="Column 3 second blank" data-answer="slavery"></span>, a desire for <span class="blank" contenteditable="true" role="textbox" aria-label="Column 3 third blank" data-answer="freedom"></span>.</p>
-            </li>
-            <li>
-              <p class="prompt">Column 4 – Complexity?</p>
-              <p>This source shows that some people honored Nat Turner as <span class="blank" contenteditable="true" role="textbox" aria-label="Column 4 first blank" data-answer="brave"></span>, not just <span class="blank" contenteditable="true" role="textbox" aria-label="Column 4 second blank" data-answer="violent"></span>.</p>
-            </li>
-          </ol>
-        </div>
-        <div class="card">
-          <h3>How to use these cloze notes</h3>
-          <ul class="obj-list" role="list">
-            <li><span class="badge indigo">1</span>Read the question stem aloud so you remember what each column is asking.</li>
-            <li><span class="badge green">2</span>Annotate the source, then type or write the missing words yourself.</li>
-            <li><span class="badge amber">3</span>If you get stuck, tap <b>Reveal sample words</b> for hints, then hide them to try again.</li>
-          </ul>
-          <p class="sdi-note">Word bank for this station: freedom, courage, slavery, brave, violent.</p>
-          <p class="sdi-hint">These blanks keep the prompt visible while making you generate the evidence.</p>
-        </div>
-      </div>
-      <footer class="footer">
-        <span class="badge indigo">Keep the questions</span>
-        <span class="badge green">Fill in your own notes</span>
-      </footer>
-    </section>
-
     <!-- 10. Exit Ticket -->
     <section class="slide" data-title="Exit Ticket">
       <header>
@@ -458,19 +397,6 @@
       if(e.key==='ArrowLeft'){ e.preventDefault(); goToSlide(index-1, 'backward'); }
       if(e.key==='Home'){ goToSlide(0, 'backward'); }
       if(e.key==='End'){ goToSlide(slides.length-1, 'forward'); }
-    });
-    // Cloze reveal buttons
-    document.querySelectorAll('.reveal-answers').forEach((button)=>{
-      button.addEventListener('click', ()=>{
-        const card = button.closest('.cloze-card');
-        const showing = card && card.dataset.revealed === 'true';
-        const nextState = showing ? 'false' : 'true';
-        if(card){
-          card.dataset.revealed = nextState;
-        }
-        button.textContent = showing ? 'Reveal sample words' : 'Hide sample words';
-        button.setAttribute('aria-pressed', (!showing).toString());
-      });
     });
     // Deep link to slide via hash
     const hash = Number(location.hash.replace('#',''));
