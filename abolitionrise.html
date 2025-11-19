@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Revolutionary Rise of Abolitionists - Intro Slides</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: #e5e7eb;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem 5vw;
+    }
+
+    .slides-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      display: none;
+      max-width: 980px;
+      width: 100%;
+      padding: 1.5rem 1.75rem;
+      border-radius: 1.5rem;
+      background: rgba(15, 23, 42, 0.96);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 0.75rem 0;
+    }
+
+    .tag {
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(129, 140, 248, 0.15);
+      color: #a5b4fc;
+      display: inline-block;
+      margin-bottom: 0.85rem;
+    }
+
+    .title-main {
+      font-size: 2.3rem;
+      line-height: 1.1;
+      color: #f9fafb;
+    }
+
+    .subtitle {
+      color: #a5b4fc;
+      font-size: 1.05rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .objective-box {
+      border-radius: 1rem;
+      padding: 0.9rem 1rem;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-bottom: 1rem;
+    }
+
+    .objective-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #bbf7d0;
+      margin-bottom: 0.25rem;
+    }
+
+    .objective-text {
+      font-size: 1.03rem;
+      color: #dcfce7;
+    }
+
+    .highlight {
+      color: #22c55e;
+      font-weight: 700;
+    }
+
+    .steps {
+      margin: 0.7rem 0 0 0;
+      padding-left: 1.2rem;
+      font-size: 0.98rem;
+    }
+
+    .steps li {
+      margin-bottom: 0.35rem;
+    }
+
+    .callout {
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 0.9rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .code-pill {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .big-word {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      color: #f9fafb;
+    }
+
+    .word-subtitle {
+      font-size: 0.95rem;
+      color: #c4b5fd;
+      margin-bottom: 0.75rem;
+    }
+
+    .definition {
+      font-size: 1.02rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .teen-translation {
+      font-size: 1rem;
+      margin-bottom: 0.55rem;
+      color: #e5e7eb;
+    }
+
+    .when-you-see {
+      font-size: 0.95rem;
+      color: #9ca3af;
+    }
+
+    .emoji {
+      font-size: 1.1rem;
+      margin-right: 0.25rem;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.3rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.55rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, opacity 120ms ease;
+    }
+
+    button#prevBtn {
+      background: rgba(15, 23, 42, 0.8);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    button#nextBtn {
+      background: #22c55e;
+      color: #052e16;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
+    }
+
+    button:disabled {
+      opacity: 0.3;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    button:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.7);
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .dot {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.5);
+      opacity: 0.35;
+    }
+
+    .dot.active {
+      opacity: 1;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+    }
+
+    .tiny {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        padding: 1.2rem 1.1rem;
+      }
+      .title-main {
+        font-size: 1.7rem;
+      }
+      .columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .big-word {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="slides-wrapper">
+
+      <!-- SLIDE 1: Title -->
+      <section class="slide active">
+        <span class="tag">US History · Slavery and Abolition</span>
+        <h1 class="title-main">The Revolutionary Rise of Abolitionists</h1>
+        <p class="subtitle">
+          CommonLit intro for how people in the new United States started fighting to end slavery.
+        </p>
+
+        <div class="objective-box">
+          <div class="objective-label">Today’s objective</div>
+          <div class="objective-text">
+            I can <span class="highlight">explain how abolitionists challenged slavery</span> after the American Revolution
+            and <span class="highlight">use evidence from the text</span> in a written response.
+          </div>
+        </div>
+
+        <ul class="steps">
+          <li>Log in to <span class="highlight">Google Classroom</span> and open the CommonLit: “The Revolutionary Rise of Abolitionists.”</li>
+          <li>Read and annotate the article as you go.</li>
+          <li>Use today’s vocab so the reading actually makes sense.</li>
+          <li><span class="highlight">Finish the writing prompt at the end</span> and back it up with quotes from the text.</li>
+        </ul>
+
+        <div class="callout">
+          <span class="emoji">📌</span>
+          That writing prompt at the end is your <span class="highlight">graded writing</span> today, so slow down and do it right.
+        </div>
+      </section>
+
+      <!-- SLIDE 2: What we are doing -->
+      <section class="slide">
+        <span class="tag">Game plan</span>
+        <h2>What you are doing today</h2>
+        <ul class="steps">
+          <li><span class="highlight">Step 1:</span> Open Google Classroom and click today’s CommonLit assignment.</li>
+          <li><span class="highlight">Step 2:</span> Skim the title, intro, and the picture so your brain knows what is coming.</li>
+          <li><span class="highlight">Step 3:</span> Read the article and answer the questions in CommonLit.</li>
+          <li><span class="highlight">Step 4:</span> At the bottom, answer the writing prompt using <span class="highlight">text evidence</span>.</li>
+        </ul>
+        <div class="callout">
+          <span class="emoji">💡</span>
+          Think of this as: “How did people in the 1700s and 1800s start saying <span class="highlight">slavery is not it</span>,
+          even while the country was still building itself.”
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick background -->
+      <section class="slide">
+        <span class="tag">Background check</span>
+        <h2>Revolution vs. Slavery</h2>
+        <div class="columns">
+          <div>
+            <p class="definition">
+              The American Revolution was all about <span class="highlight">freedom from Britain</span> and 
+              “life, liberty, and the pursuit of happiness.”
+            </p>
+            <ul class="steps">
+              <li>At the same time, the United States was built on <span class="highlight">chattel slavery</span>.</li>
+              <li>People started asking: “How can we scream about freedom while owning human beings?”</li>
+              <li>This tension is what gives rise to <span class="highlight">abolitionists</span> 
+                  people who want slavery completely gone.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="callout">
+              <span class="emoji">🧠</span>
+              As you read, keep asking:
+              <br />
+              <strong>How do wars, protests, and new ideas change how people feel about slavery?</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Vocab intro -->
+      <section class="slide">
+        <span class="tag">Level up your vocab</span>
+        <h2>Why these words matter</h2>
+        <p class="definition">
+          This article uses academic history words that can make the reading feel heavy.
+          Once you crack the words, the story of abolitionists feels way more clear.
+        </p>
+        <ul class="steps">
+          <li>You will see words like <span class="highlight">chattel slavery</span>, 
+              <span class="highlight">emancipation</span>, and <span class="highlight">abolitionist movement</span>.</li>
+          <li>We will break each one into:
+            <ul class="steps">
+              <li><strong>Textbook meaning</strong></li>
+              <li><strong>In our words</strong> Brooklyn student style</li>
+              <li><strong>What to think when you see it in the article</strong></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="callout">
+          <span class="emoji">✅</span>
+          When you hit the writing prompt, use some of these words in your answer to sound like a historian.
+        </div>
+      </section>
+
+      <!-- VOCAB SLIDES -->
+
+      <!-- CHATTEL SLAVERY -->
+      <section class="slide">
+        <span class="tag">Key word</span>
+        <div class="big-word">Chattel slavery</div>
+        <div class="word-subtitle">This is the system the United States was using.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A type of slavery where an enslaved person is owned forever
+          and their children are automatically enslaved too.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> People are treated like property, for life, like they are objects
+          that can be bought, sold, and passed down.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>chattel slavery</strong>, think “people treated like things, not humans, generation after generation.”
+        </p>
+      </section>
+
+      <!-- UNALIENABLE RIGHTS -->
+      <section class="slide">
+        <span class="tag">Key phrase</span>
+        <div class="big-word">Unalienable rights</div>
+        <div class="word-subtitle">Straight out of the Declaration of Independence.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> Rights that cannot be taken away or denied.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> The basic rights every human is supposed to have
+          no government or person is supposed to touch them.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>unalienable rights</strong>, think “the freedom the country bragged about while still holding slaves.”
+        </p>
+      </section>
+
+      <!-- QUAKER -->
+      <section class="slide">
+        <span class="tag">Key word</span>
+        <div class="big-word">Quaker</div>
+        <div class="word-subtitle">One of the first religious groups to organize against slavery.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A member of the Religious Society of Friends, a Christian group
+          focused on peace and equality.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> A Christian group that tried to live nonviolent, fair, and equal,
+          and some of them said, “Slavery is wrong” early on.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>Quaker</strong>, think “early religious allies who started antislavery clubs.”
+        </p>
+      </section>
+
+      <!-- EMANCIPATION -->
+      <section class="slide">
+        <span class="tag">Key word</span>
+        <div class="big-word">Emancipation</div>
+        <div class="word-subtitle">What many enslaved people were hoping and fighting for.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> The fact or process of being set free from legal, social,
+          or political restrictions.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> Official freedom. The law says, “You are not legally enslaved anymore.”
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>emancipation</strong>, think “paperwork plus power that ends someone’s legal slavery.”
+        </p>
+      </section>
+
+      <!-- SENTIMENT -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Sentiment</div>
+        <div class="word-subtitle">How people are feeling or thinking about an issue.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A view or attitude toward a situation or event an opinion.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> The overall vibe or opinion people have about something.
+          Like “public sentiment” toward slavery.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>sentiment</strong>, think “what people are feeling and saying out loud about slavery.”
+        </p>
+      </section>
+
+      <!-- REPUGNANCE -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Repugnance</div>
+        <div class="word-subtitle">A strong emotional reaction against something.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> Intense disgust.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> When something makes you feel sick, wrong, and disgusted inside.
+          Like “this is extremely messed up.”
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>repugnance</strong>, think “people are not just disagreeing with slavery,
+          they are disgusted by it.”
+        </p>
+      </section>
+
+      <!-- ENTRENCH -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Entrench</div>
+        <div class="word-subtitle">How systems get locked in.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> To become firmly established and difficult or unlikely to change.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> When something is so built into the system that it is hard to remove,
+          like a bad habit on a national level.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>entrenched slavery</strong>, think “slavery is locked in the economy and politics, not just a small side problem.”
+        </p>
+      </section>
+
+      <!-- TRANSPLANT -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Transplant</div>
+        <div class="word-subtitle">Moving people across land and ocean.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> To move or transfer something to another place or situation.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> To pick something up from one place and drop it somewhere else,
+          like moving people from America to Africa.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>transplant</strong>, think “moving freed Black people out of the United States to another country.”
+        </p>
+      </section>
+
+      <!-- LIBERIA -->
+      <section class="slide">
+        <span class="tag">Key place</span>
+        <div class="big-word">Liberia</div>
+        <div class="word-subtitle">A new country created on the West African coast.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A country on the West African coast that became a home for some freed American slaves.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> A country started in West Africa where some Americans wanted to send
+          formerly enslaved people from the United States.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>Liberia</strong>, think “a place that shows one plan was to move Black Americans out,
+          not fix racism here.”
+        </p>
+      </section>
+
+      <!-- HAVEN -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Haven</div>
+        <div class="word-subtitle">Safe space in a dangerous world.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A place of safety.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> A safe spot where people can breathe, rest, and not be hunted or hurt.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>haven</strong>, think “a safe place for former slaves who are trying to start over.”
+        </p>
+      </section>
+
+      <!-- ABOLITIONIST MOVEMENT -->
+      <section class="slide">
+        <span class="tag">Big idea</span>
+        <div class="big-word">Abolitionist movement</div>
+        <div class="word-subtitle">The organized push to end slavery.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A movement to end slavery.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> All the people, groups, protests, speeches, and actions that were focused on
+          making slavery illegal forever.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>abolitionist movement</strong>, think “the team that is working nonstop to shut slavery down in the United States.”
+        </p>
+      </section>
+
+      <!-- BLIGHT -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Blight</div>
+        <div class="word-subtitle">A rotten spot that damages everything around it.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> A disease or flaw that harms or ruins something.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> A big ugly problem that spoils everything, like a stain on the country.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see slavery called a <strong>blight</strong>, think “slavery is not just wrong,
+          it is corrupting the whole United States.”
+        </p>
+      </section>
+
+      <!-- INFLAMMATORY -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Inflammatory</div>
+        <div class="word-subtitle">Words that light people up.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> Stirring up anger, disorder, or rebellion.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> Language that gets people heated. It can start arguments,
+          protests, or even violence.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>inflammatory literature</strong>, think “flyers or writings that make people very angry about slavery or against abolitionists.”
+        </p>
+      </section>
+
+      <!-- DOGGED -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Dogged</div>
+        <div class="word-subtitle">That “I am not quitting” energy.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> Stubbornly determined.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> When someone keeps going no matter how tired, scared,
+          or blocked they are.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see <strong>dogged determination</strong>, think “abolitionists kept pushing against slavery even when the country fought them.”
+        </p>
+      </section>
+
+      <!-- PERSIST -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Persist</div>
+        <div class="word-subtitle">To keep going longer than people expect.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> To continue to occur or exist beyond the usual, expected,
+          or normal time.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> To not give up, even when it feels like it takes forever.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see that the struggle to end slavery <strong>persisted</strong>, think “this fight lasted decades, not just one protest.”
+        </p>
+      </section>
+
+      <!-- PSYCHE -->
+      <section class="slide">
+        <span class="tag">Reading word</span>
+        <div class="big-word">Psyche</div>
+        <div class="word-subtitle">What a whole society feels deep down.</div>
+
+        <p class="definition">
+          <span class="highlight">Textbook:</span> The human soul, mind, or spirit.
+        </p>
+        <p class="teen-translation">
+          <span class="highlight">In our words:</span> The deep mindset of a person or a whole country. The beliefs and feelings under the surface.
+        </p>
+        <p class="when-you-see">
+          <span class="emoji">👀</span>
+          When you see that slavery affected America’s <strong>psyche</strong>, think “slavery messed with how the whole country saw itself and other people.”
+        </p>
+      </section>
+
+      <!-- FINAL SLIDE: WRITING PROMPT REMINDER -->
+      <section class="slide">
+        <span class="tag">Do not skip this</span>
+        <h2>CommonLit Writing Prompt = Your Grade</h2>
+        <p class="definition">
+          At the bottom of the CommonLit assignment there is a <span class="highlight">writing prompt</span>.
+          That response is your <span class="highlight">graded writing for today</span>.
+        </p>
+        <ul class="steps">
+          <li>Answer the question completely.</li>
+          <li>Use <span class="highlight">at least two pieces of evidence</span> from “The Revolutionary Rise of Abolitionists.”</li>
+          <li>Explain how your evidence proves your point, do not just drop a quote.</li>
+          <li>Check for clear sentences before you hit submit.</li>
+        </ul>
+        <div class="callout">
+          <span class="emoji">📝</span>
+          Use the vocab from today and show you actually understood how abolitionists rose up against slavery.
+        </div>
+        <p class="tiny">
+          Tip: If you get stuck, reread the part of the article that mentions the word you are trying to use.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="progress-dots" id="dots"></div>
+        <span class="tiny">
+          Use ← and → keys or the buttons to move.
+        </span>
+      </div>
+      <div class="nav-buttons">
+        <button id="prevBtn">
+          ◀ Prev
+        </button>
+        <button id="nextBtn">
+          Next ▶
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll(".slide");
+    const dotsContainer = document.getElementById("dots");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let currentSlide = 0;
+
+    // Create dots based on number of slides
+    slides.forEach(() => {
+      const dot = document.createElement("div");
+      dot.className = "dot";
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll(".dot");
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle("active", index === currentSlide);
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentSlide);
+      });
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      } else if (event.key === "ArrowLeft") {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      }
+    });
+
+    // Initial render
+    updateSlide();
+  </script>
+</body>
+</html>
