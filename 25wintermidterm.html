@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Regents Page Replica</title>
+  <style>
+    :root{ --ink:#111; }
+    html,body{
+      margin:0;
+      padding:0;
+      background:#fff;
+      color:var(--ink);
+      font-family:"Times New Roman", Times, serif;
+    }
+
+    /* Page */
+    .page{
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: 0.7in 0.75in 0.6in;
+      box-sizing: border-box;
+    }
+
+    /* Top headings */
+    .top{
+      text-align:center;
+      margin-top: 0.05in;
+      margin-bottom: 0.18in;
+    }
+    .top .part{
+      font-weight:700;
+      font-size: 28px;
+      line-height:1.05;
+      margin: 0;
+    }
+    .top .answer{
+      font-weight:700;
+      font-size: 22px;
+      line-height:1.1;
+      margin: 6px 0 0;
+    }
+
+    /* Directions */
+    .directions{
+      font-size: 18px;
+      line-height: 1.35;
+      margin: 0.05in 0 0.12in;
+    }
+    .directions .label{ font-style: italic; }
+
+    /* "Base your answers..." styling */
+    .base{
+      text-align:center;
+      font-size: 18px;
+      line-height: 1.35;
+      margin: 0.02in 0 0.18in;
+    }
+
+    /* Madison screenshot: larger base line */
+    .base-lg{
+      font-size: 22px;
+      line-height: 1.25;
+      margin: 0.08in 0 0.18in;
+    }
+
+    /* Passage wrap */
+    .passage-wrap{
+      display:flex;
+      justify-content:center;
+      margin: 0 0 0.08in;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Passage box */
+    .passage{
+      width: 100%;
+      border: 2px solid var(--ink);
+      padding: 10px 14px;
+      position: relative;
+      box-sizing: border-box;
+      background:#fff;
+    }
+    .passage:before{
+      content:"";
+      position:absolute;
+      inset: 4px;
+      border: 1px solid var(--ink);
+      pointer-events:none;
+    }
+    .passage p{
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      line-height: 1.18;
+      text-align: justify;
+    }
+    .passage p:last-child{ margin-bottom: 0; }
+
+    /* Madison screenshot: narrow centered box + slightly larger text */
+    .passage.narrow,
+    .source.narrow{
+      width: 74%;
+    }
+    .passage.narrow{
+      padding: 14px 18px;
+    }
+    .passage.narrow p{
+      font-size: 20px;
+      line-height: 1.22;
+      text-align: left;
+    }
+
+    /* Document Headers */
+    .doc-label{
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      align-self: flex-start;
+    }
+
+    /* Image container */
+    .image-box{
+      width: 100%;
+      border: 2px solid var(--ink);
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .image-box img{
+      max-width: 100%;
+      max-height: 400px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    /* Caption inside image boxes */
+    .caption{
+      font-size: 16px;
+      font-style: italic;
+      margin-top: 5px;
+      text-align: left;
+    }
+
+    /* Photo description */
+    .photo-desc{
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-align: left;
+      width: 100%;
+    }
+
+    /* Side-by-side photo row */
+    .photo-row{
+      width: 100%;
+      display: flex;
+      gap: 15px;
+      align-items: stretch;
+      justify-content: space-between;
+    }
+    .photo-row .image-box{ flex: 1; }
+    .photo-row .image-box img{ max-height: 280px; }
+
+    .source{
+      width: 100%;
+      margin: 0 auto 0.18in;
+      font-size: 16px;
+      line-height: 1.2;
+      text-align: right;
+    }
+
+    /* Questions area */
+    .qgrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 26px;
+      margin-top: 0.05in;
+      font-size: 18px;
+      line-height: 1.22;
+      position: relative;
+    }
+
+    .qcol.left{
+      padding-right: 18px;
+      border-right: 3px dotted var(--ink);
+    }
+    .qcol.right{ padding-left: 18px; }
+
+    .q{
+      display:flex;
+      gap: 10px;
+    }
+    .qnum{
+      width: 24px;
+      flex: 0 0 24px;
+      text-align:left;
+    }
+    .qbody{ flex:1; }
+    .qbody .qtext{ margin: 0 0 8px; }
+
+    /* Options List */
+    .opts{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .opts li{
+      margin: 0 0 3px;
+      display: flex;
+      align-items: baseline;
+    }
+    .optnum{
+      display: block;
+      width: 34px;
+      flex-shrink: 0;
+    }
+
+    .section-gap{ height: 0.28in; }
+
+    .bottom-rule{
+      margin-top: 0.22in;
+      border-top: 2px solid var(--ink);
+      width: 100%;
+    }
+
+    @media print{
+      body{ background:#fff; }
+      .page{ box-shadow:none; margin:0; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- ====== TOP (Q1–Q2) ====== -->
+    <div class="top">
+      <p class="part">Part I</p>
+      <p class="answer">Answer all questions in this part.</p>
+    </div>
+
+    <div class="directions">
+      <span class="label">Directions</span> (1&ndash;28): For each statement or question, record on your separate answer sheet the <em>number</em> of the word or expression that, of those given, best completes the statement or answers the question.
+    </div>
+
+    <div class="base">
+      Base your answers to questions 1 and 2 on the passage below and on your knowledge of social studies.
+    </div>
+
+    <div class="passage-wrap">
+      <div class="passage" aria-label="Passage">
+        <p>
+          . . . Small islands not capable of protecting themselves, are the proper objects
+          for kingdoms to take under their care; but there is something very absurd, in
+          supposing a continent to be perpetually governed by an island. In no instance
+          hath nature made the satellite larger than its primary planet, and as England
+          and America, with respect to each other, reverses the common order of
+          nature, it is evident they belong to different systems: England to Europe,
+          America to itself. . . .
+        </p>
+      </div>
+    </div>
+
+    <div class="source">
+      Source: Thomas Paine, <em>Common Sense</em>, 1776
+    </div>
+
+    <div class="qgrid">
+      <div class="qcol left">
+        <div class="q">
+          <div class="qnum">1</div>
+          <div class="qbody">
+            <p class="qtext">According to this passage from <em>Common Sense</em>, the author is</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>trying to convince Americans to remain English colonists</li>
+              <li><span class="optnum">(2)</span>suggesting that the colonies join a European confederation against England</li>
+              <li><span class="optnum">(3)</span>proposing that the colonies revise the Articles of Confederation</li>
+              <li><span class="optnum">(4)</span>urging Americans to become independent from their mother country</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qcol right">
+        <div class="q">
+          <div class="qnum">2</div>
+          <div class="qbody">
+            <p class="qtext">What is the primary argument used in this passage by Thomas Paine to make his point?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>There is no economic relationship between the American colonies and England.</li>
+              <li><span class="optnum">(2)</span>England cannot effectively govern the colonies because America is so much larger.</li>
+              <li><span class="optnum">(3)</span>The American colonies are already allied with France and do not need England.</li>
+              <li><span class="optnum">(4)</span>England has denied the colonists any form of self-government.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SPACER THEN Q3–Q4 (Madison) ====== -->
+    <div class="section-gap"></div>
+
+    <div class="base base-lg">
+      Base your answers to questions 3 and 4 on the passage below and on your knowledge of social studies.
+    </div>
+
+    <div class="passage-wrap">
+      <div class="passage narrow" aria-label="Passage">
+        <p>
+          . . . This policy of supplying, by opposite and rival interests, the defect<br>
+          of better motives, might be traced through the whole system of human<br>
+          affairs, private as well as public. We see it particularly displayed in all the<br>
+          subordinate [lesser] distributions of power, where the constant aim is to<br>
+          divide and arrange the several offices in such a manner as that each may be<br>
+          a check on the other&mdash;that the private interest of every individual may be a<br>
+          sentinel [guard] over the public rights. These inventions of prudence cannot<br>
+          be less requisite [essential] in the distribution of the supreme powers of the<br>
+          State. . . .
+        </p>
+      </div>
+    </div>
+
+    <div class="source narrow">
+      Source: James Madison, <em>Federalist No. 51</em>, 1788
+    </div>
+
+    <div class="qgrid">
+      <div class="qcol left">
+        <div class="q">
+          <div class="qnum">3</div>
+          <div class="qbody">
+            <p class="qtext">What was the primary reason James Madison wrote this and other <em>Federalist Papers</em>?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>to support ratification of the Constitution</li>
+              <li><span class="optnum">(2)</span>to support creation of a national bank</li>
+              <li><span class="optnum">(3)</span>to encourage increasing ties to Europe</li>
+              <li><span class="optnum">(4)</span>to encourage the development of political parties</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qcol right">
+        <div class="q">
+          <div class="qnum">4</div>
+          <div class="qbody">
+            <p class="qtext">Which constitutional principle does Madison most directly describe in this passage?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>reserving the power of judicial review</li>
+              <li><span class="optnum">(2)</span>separation of powers between the branches of government</li>
+              <li><span class="optnum">(3)</span>support for the rule of law</li>
+              <li><span class="optnum">(4)</span>creation of a powerful military</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SPACER THEN Q7–Q8 (Lincoln) ====== -->
+    <div class="section-gap"></div>
+
+    <div class="base">
+      Base your answers to questions 7 and 8 on the passage below and on your knowledge of social studies.
+    </div>
+
+    <div class="passage-wrap">
+      <div class="passage" aria-label="Passage">
+        <p>
+          . . . Apprehension seems to exist among the people of the Southern States that by the accession [rise to power] of a Republican Administration their property and their peace and personal security are to be endangered. There has never been any reasonable cause for such apprehension. Indeed, the most ample evidence to the contrary has all the while existed and been open to their inspection. It is found in nearly all the published speeches of him who now addresses you. I do but quote from one of those speeches when I declare that&mdash;<br><br>
+          I have no purpose, directly or indirectly, to interfere with the institution of slavery in the States where it exists. I believe I have no lawful right to do so, and I have no inclination to do so. . . .
+        </p>
+      </div>
+    </div>
+
+    <div class="source">
+      Source: First Inaugural Address of Abraham Lincoln, March 4, 1861
+    </div>
+
+    <div class="qgrid">
+      <div class="qcol left">
+        <div class="q">
+          <div class="qnum">7</div>
+          <div class="qbody">
+            <p class="qtext">What is one reason President Abraham Lincoln included these statements in this address?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>to reduce the fears of slave-holding states</li>
+              <li><span class="optnum">(2)</span>to reestablish the foreign slave trade</li>
+              <li><span class="optnum">(3)</span>to increase support of northern abolitionists</li>
+              <li><span class="optnum">(4)</span>to encourage the expansion of slavery into the West</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qcol right">
+        <div class="q">
+          <div class="qnum">8</div>
+          <div class="qbody">
+            <p class="qtext">Which later action by President Lincoln demonstrated a change from his 1861 position?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>signing the Pacific Railway Act</li>
+              <li><span class="optnum">(2)</span>appointing William Seward Secretary of State</li>
+              <li><span class="optnum">(3)</span>issuing the Emancipation Proclamation</li>
+              <li><span class="optnum">(4)</span>suspending habeas corpus</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SPACER THEN Q9–Q10 (Uncle Tom's Cabin) ====== -->
+    <div class="section-gap"></div>
+
+    <div class="base">
+      Base your answers to questions 9 and 10 on the image and excerpt below and on your knowledge of social studies.
+    </div>
+
+    <div class="passage-wrap">
+      <div class="doc-label">Document 1</div>
+      <div class="image-box">
+        <img src="https://m.media-amazon.com/images/I/71TMh01ewnL._AC_SL1000_.jpg" alt="Poster for Uncle Tom's Cabin">
+        <div class="caption">
+          This poster was an advertisement for Harriet Beecher Stowe’s <em>Uncle Tom’s Cabin</em>.
+        </div>
+      </div>
+      <div class="source">Source: The Authentic History Center</div>
+
+      <div class="doc-label">Document 2</div>
+      <div class="passage" aria-label="Passage">
+        <p>
+          . . . Stowe is often credited with influencing the country to think differently about slavery. But what do we know about how Stowe influenced Lincoln?
+        </p>
+        <p>
+          A decade earlier, <em>Uncle Tom’s Cabin</em> (1852) had been a publishing and propaganda phenomenon. Using stories to illustrate the human impact of slavery, Stowe’s blistering pen lit the world on fire. The statistics remain record-breaking: 10,000 copies sold in the first week; a million and a half British copies in a year. The book was so successful it was immediately dramatized for the stage, where it became a theatrical icon. Massachusetts Senator Charles Sumner, leader of the radical Republicans, said, “Had there been no <em>Uncle Tom’s Cabin</em>, there would have been no Lincoln in the White House.” . . .
+        </p>
+        <p>
+          But pro-slavery critics charged that Stowe had made it all up and that slavery was a humane system. So Stowe wrote a nonfiction retort, <em>The Key to Uncle Tom’s Cabin</em> (1853), compiling the real-life evidence that had informed her fictional stories. . . .
+        </p>
+      </div>
+      <div class="source">Source: Katherine Kane, “Lincoln and The Key to Uncle Tom’s Cabin,”<br><em>Connecticut Explored</em>, Winter 2012/2013</div>
+    </div>
+
+    <div class="qgrid">
+      <div class="qcol left">
+        <div class="q">
+          <div class="qnum">9</div>
+          <div class="qbody">
+            <p class="qtext">Which claim is supported by both Documents 1 and 2?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span><em>Uncle Tom’s Cabin</em> painted an inaccurate picture of slavery</li>
+              <li><span class="optnum">(2)</span><em>Uncle Tom’s Cabin</em> scared pro-slavery critics</li>
+              <li><span class="optnum">(3)</span>Harriet Beecher Stowe influenced President Lincoln</li>
+              <li><span class="optnum">(4)</span>Harriet Beecher Stowe was an influential abolitionist</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="qcol right">
+        <div class="q">
+          <div class="qnum">10</div>
+          <div class="qbody">
+            <p class="qtext">According to Document 2, what was a major effect of the publication of Harriet Beecher Stowe’s novel <em>Uncle Tom’s Cabin</em>?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>More Americans learned how to read in order to read the book</li>
+              <li><span class="optnum">(2)</span>Abraham Lincoln was elected president of the United States</li>
+              <li><span class="optnum">(3)</span>The Abolitionist movement began across the United States</li>
+              <li><span class="optnum">(4)</span>Harriet Beecher Stowe became a figure in the women’s suffrage movement</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SPACER THEN Q11–Q12 (Louisiana Purchase) ====== -->
+    <div class="section-gap"></div>
+
+    <div class="base">
+      Base your answers to questions 11 and 12 on the passage below and on your knowledge of social studies.
+    </div>
+
+    <div class="passage-wrap">
+      <div class="passage" aria-label="Passage">
+        <p>
+          … To acquire an empire of perhaps half the extent of the one we possessed, from the most powerful and warlike nation on earth, without bloodshed, without the oppression of a single individual, without in the least embarrassing the ordinary operations of your finances, and all this through the peaceful forms of negotiation, and in despite too of the opposition [despite the opposition] of a considerable portion of the community, is an achievement of which the archives of the predecessors, at least, of those now in office, cannot furnish a parallel…
+        </p>
+      </div>
+    </div>
+
+    <div class="source">
+      Source: Senator John C. Breckenridge, November 3, 1803
+    </div>
+
+    <div class="qgrid">
+      <div class="qcol left">
+        <div class="q">
+          <div class="qnum">11</div>
+          <div class="qbody">
+            <p class="qtext">Which statement best describes the author’s purpose in making this speech?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>to express the reasons he supports the purchase of the Louisiana territory</li>
+              <li><span class="optnum">(2)</span>to express the reasons the United States should not agree to the purchase of the Louisiana territory</li>
+              <li><span class="optnum">(3)</span>to suggest that the United States should pursue a policy of manifest destiny</li>
+              <li><span class="optnum">(4)</span>to suggest that the Louisiana Territory has many natural resources that the United States could acquire</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="qcol right">
+        <div class="q">
+          <div class="qnum">12</div>
+          <div class="qbody">
+            <p class="qtext">Which statement best describes the author’s point of view?</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>The purchase of the Louisiana Territory is not significant enough for the United States to consider</li>
+              <li><span class="optnum">(2)</span>The purchase of the Louisiana Territory without war or major financial obligation would be a remarkable achievement</li>
+              <li><span class="optnum">(3)</span>The purchase of the Louisiana Territory through peaceful negotiation can not be achieved</li>
+              <li><span class="optnum">(4)</span>The purchase of the Louisiana Territory is not authorized by the US Constitution</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SPACER THEN Q13–Q14 (Photographs) ====== -->
+    <div class="section-gap"></div>
+
+    <div class="base">
+      Base your answers to questions 13 and 14 on the photographs below and on your knowledge of social studies.
+    </div>
+
+    <div class="passage-wrap">
+      <div class="photo-desc">
+        Lakota boys are pictured when they arrived at the Carlisle Indian Industrial School in Pennsylvania, left, and three years later, right.
+      </div>
+
+      <div class="photo-row" aria-label="Photographs">
+        <div class="image-box">
+          <img
+            src="data:image/jpeg;base64,PHOTO_1_BASE64_HERE"
+            alt="Photograph 1"
+          >
+        </div>
+
+        <div class="image-box">
+          <img
+            src="data:image/jpeg;base64,PHOTO_2_BASE64_HERE"
+            alt="Photograph 2"
+          >
+        </div>
+      </div>
+
+      <div class="source">
+        Source: New York Public Digital Gallery (adapted)
+      </div>
+    </div>
+
+    <div class="qgrid">
+      <div class="qcol left">
+        <div class="q">
+          <div class="qnum">13</div>
+          <div class="qbody">
+            <p class="qtext">This pair of photographs suggests that the major purpose of the Carlisle Indian School was to</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>train future leaders in tribal traditions</li>
+              <li><span class="optnum">(2)</span>prepare children for life on the reservation</li>
+              <li><span class="optnum">(3)</span>teach skills needed for working in factories</li>
+              <li><span class="optnum">(4)</span>promote cultural assimilation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="qcol right">
+        <div class="q">
+          <div class="qnum">14</div>
+          <div class="qbody">
+            <p class="qtext">A historian would find this document most useful for</p>
+            <ul class="opts">
+              <li><span class="optnum">(1)</span>Studying the impact of the Transcontinental Railroad on Native Americans of the Great Plains</li>
+              <li><span class="optnum">(2)</span>Studying the Trail of Tears</li>
+              <li><span class="optnum">(3)</span>Studying the impact of U.S. westward expansion on Native Americans</li>
+              <li><span class="optnum">(4)</span>Studying traditional Native American cultures</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-rule"></div>
+  </div>
+</body>
+</html>
